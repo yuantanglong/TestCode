@@ -13,6 +13,22 @@ android {
         buildConfigField('int', 'READ_TIME_OUT', project.READ_TIME_OUT);
         buildConfigField('int', 'CONNECT_TIME_OUT', project.CONNECT_TIME_OUT);
     }
+    signingConfigs {
+        release {
+            storeFile file('../app/testcode.jks')
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile file(KEYSTORE_FILE)
+            storePassword KEY_STOREPASSWORD
+        }
+        debug {
+            storeFile file('../app/testcode.jks')
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile file(KEYSTORE_FILE)
+            storePassword KEY_STOREPASSWORD
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -29,4 +45,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(path: ':common')
+    api rootProject.ext.dependencies.bga_banner
 }
