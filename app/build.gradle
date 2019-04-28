@@ -1,4 +1,10 @@
 apply plugin: 'com.android.application'
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmm')
+    return formattedDate
+}
+def verCode = 1
 
 android {
     compileSdkVersion 28
@@ -6,12 +12,18 @@ android {
         applicationId "com.hhj.hhj_android_merchant"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode verCode
+        versionName APP_VERSION
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField('int', 'READ_TIME_OUT', project.READ_TIME_OUT);
         buildConfigField('int', 'CONNECT_TIME_OUT', project.CONNECT_TIME_OUT);
+
+        resValue("string", 'app_version', APP_VERSION)
+        buildConfigField "boolean", "LEO_DEBUG", "true"
+        buildConfigField 'String', 'API_SERVER_URL', RELEASE_API_SERVER_URL
+        buildConfigField 'String', 'API_SERVER_URL_MALL', RELEASE_API_SERVER_URL_MALL
+        buildConfigField "String", "baseUrl", baseUrl
     }
     signingConfigs {
         release {
@@ -29,17 +41,62 @@ android {
             storePassword KEY_STOREPASSWORD
         }
     }
+
     buildTypes {
         release {
+            buildConfigField 'String', 'API_SERVER_URL', RELEASE_API_SERVER_URL
+            buildConfigField 'String', 'API_SERVER_URL_MALL', RELEASE_API_SERVER_URL_MALL
+            buildConfigField 'String', 'IM_SERVER_HOST', RELEASE_IM_SERVER_HOST
+            buildConfigField 'int', 'IM_SERVER_PORT', RELEASE_IM_SERVER_PORT
+            buildConfigField "boolean", "LEO_DEBUG", RELEASE_LEO_DEBUG
+
+
             signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //修改生成的apk名字
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def newName
+                    def timeNow
+                    def oldFile = output.outputFile
+                    def outDirectory = oldFile.parent
+
+                    if ("true".equals(IS_JENKINS)) {
+                        timeNow = JENKINS_TIME
+                        outDirectory = 'G:/Tomcat/webapps/jenkins/apk'
+                        newName = 'yj-android-v' +
+                                APP_VERSION + '-' +  timeNow + '-' + variant.buildType.name + '.apk'
+                        outputFileName = newName
+                    } else {
+                        timeNow = getDate()
+                        if (variant.buildType.name.equals('debug')) {
+                            newName = "yj-android-v${APP_VERSION}-debug.apk"
+                            outputFileName = newName
+                        } else {
+                            newName = 'yj-android-v' +
+                                    APP_VERSION + '-' +  timeNow + '-' + variant.buildType.name + '.apk'
+                            outputFileName = newName
+                        }
+                    }
+
+                   // output.outputFile = new File(outDirectory, newName)
+
+                }
+            }
         }
         debug {
             signingConfig signingConfigs.release
+            buildConfigField 'String', 'API_SERVER_URL', RELEASE_API_SERVER_URL
+            buildConfigField 'String', 'API_SERVER_URL_MALL', RELEASE_API_SERVER_URL_MALL
+            buildConfigField 'String', 'IM_SERVER_HOST', RELEASE_IM_SERVER_HOST
+            buildConfigField 'int', 'IM_SERVER_PORT', RELEASE_IM_SERVER_PORT
+            buildConfigField "boolean", "LEO_DEBUG", RELEASE_LEO_DEBUG
+
         }
     }
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -49,5 +106,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(path: ':common')
+    api rootProject.ext.dependencies.butterknife
+    annotationProcessor rootProject.ext.dependencies.butterknife_compiler
     api rootProject.ext.dependencies.bga_banner
+
 }

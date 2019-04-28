@@ -1,11 +1,36 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!--APP启动时没有白屏-->
+    <style name="Theme.AppStartLoadTranslucent" parent="AppTheme">
+        <!--状态栏和toolbar分开-->
+        <!--<item_fund_cancel_list name="android:windowIsTranslucent">true</item_fund_cancel_list>-->
+        <!-- 状态栏和toolbar连在一起-->
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+
+        <!--解决启动白屏问题，左侧快速启动，通常用于欢迎页-->
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <!--&lt;!&ndash;解决启动白屏问题，左侧快速启动，通常用于欢迎页&ndash;&gt;-->
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <!--解决启动白屏问题，左侧快速启动，通常用于欢迎页-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
     <!--轮播图样式-->
     <style name="BannerDefaultStyle">

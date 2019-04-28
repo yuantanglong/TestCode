@@ -34,9 +34,11 @@ android {
             if (isShoppingMallTest.toBoolean()){
                 //测试服务器
                 buildConfigField('String', 'HOST_SERVER', "\"" + HOST_SERVER_SHOPPING_MALL_test.toString() + "\"")
+                buildConfigField "String", "baseUrl", baseUrl
             }else{
                 //正式服务器
                 buildConfigField('String', 'HOST_SERVER', "\"" + HOST_SERVER_SHOPPING_MALL_online.toString() + "\"")
+                buildConfigField "String", "baseUrl", baseUrl
             }
 
         }
@@ -50,9 +52,11 @@ android {
             if (isShoppingMallTest.toBoolean()) {
                 //测试服务器
                 buildConfigField('String', 'HOST_SERVER', "\"" + HOST_SERVER_SHOPPING_MALL_test.toString() + "\"");
+                buildConfigField "String", "baseUrl", baseUrl
             } else {
                 //正式服务器
                 buildConfigField('String', 'HOST_SERVER', "\"" + HOST_SERVER_SHOPPING_MALL_online.toString() + "\"");
+                buildConfigField "String", "baseUrl", baseUrl
             }
 
         }

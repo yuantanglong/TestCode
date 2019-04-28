@@ -10,6 +10,7 @@ import com.baseapp.common.base.ui.BaseActivity;
 import com.blankj.utilcode.util.SPUtils;
 import com.hhj.hhj_android_merchant.R;
 import com.hhj.hhj_android_merchant.app.Config;
+import com.hhj.hhj_android_merchant.ui.login.activity.LoginActivity;
 
 public class SplashActivity extends BaseActivity {
 
@@ -55,13 +56,14 @@ public class SplashActivity extends BaseActivity {
     private void startNextActivity() {
         boolean mGuideFirst = SPUtils.getInstance().getBoolean(Config.GUIDEFIRST, true);
         if (mGuideFirst) {
+            SPUtils.getInstance().put(Config.GUIDEFIRST, false);
             startActivity(GuideActivity.class);
         } else {
             boolean isSuccess = SPUtils.getInstance().getBoolean(Config.ISSUCCESS, false);
             if (isSuccess) {
                 startActivity(MainActivity.class);
             } else {
-
+                startActivity(LoginActivity.class);
             }
         }
     }
