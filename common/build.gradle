@@ -29,6 +29,7 @@ android {
                 //正式服务器
                 buildConfigField('String', 'HOST_SERVER', "\"" + HOST_SERVER_SHOPPING_MALL_online.toString() + "\"")
             }
+            buildConfigField "String", "baseUrl", baseUrl
         }
         debug {
             if (isShoppingMallTest.toBoolean()){

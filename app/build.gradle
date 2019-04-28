@@ -49,7 +49,7 @@ android {
             buildConfigField 'String', 'IM_SERVER_HOST', RELEASE_IM_SERVER_HOST
             buildConfigField 'int', 'IM_SERVER_PORT', RELEASE_IM_SERVER_PORT
             buildConfigField "boolean", "LEO_DEBUG", RELEASE_LEO_DEBUG
-
+            buildConfigField "String", "baseUrl", baseUrl
 
             signingConfig signingConfigs.release
             minifyEnabled false
@@ -92,6 +92,7 @@ android {
             buildConfigField 'String', 'IM_SERVER_HOST', RELEASE_IM_SERVER_HOST
             buildConfigField 'int', 'IM_SERVER_PORT', RELEASE_IM_SERVER_PORT
             buildConfigField "boolean", "LEO_DEBUG", RELEASE_LEO_DEBUG
+            buildConfigField "String", "baseUrl", baseUrl
 
         }
     }
