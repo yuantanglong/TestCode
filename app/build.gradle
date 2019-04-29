@@ -7,6 +7,15 @@ def getDate() {
 def verCode = 1
 
 android {
+    //渠道Flavors
+    productFlavors {
+        xiaomi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+        }
+        wandoujia {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE:    "wandoujia"]
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.hhj.hhj_android_merchant"
@@ -20,20 +29,12 @@ android {
         buildConfigField('int', 'CONNECT_TIME_OUT', project.CONNECT_TIME_OUT);
 
         resValue("string", 'app_version', APP_VERSION)
-        buildConfigField "boolean", "LEO_DEBUG", "true"
-        buildConfigField 'String', 'API_SERVER_URL', RELEASE_API_SERVER_URL
-        buildConfigField 'String', 'API_SERVER_URL_MALL', RELEASE_API_SERVER_URL_MALL
-        buildConfigField "String", "baseUrl", baseUrl
+        multiDexEnabled true
+        flavorDimensions "versionCode"
+
     }
     signingConfigs {
         release {
-            storeFile file('../app/testcode.jks')
-            keyAlias KEY_ALIAS
-            keyPassword KEY_PASSWORD
-            storeFile file(KEYSTORE_FILE)
-            storePassword KEY_STOREPASSWORD
-        }
-        debug {
             storeFile file('../app/testcode.jks')
             keyAlias KEY_ALIAS
             keyPassword KEY_PASSWORD
@@ -44,55 +45,40 @@ android {
 
     buildTypes {
         release {
-            buildConfigField 'String', 'API_SERVER_URL', RELEASE_API_SERVER_URL
-            buildConfigField 'String', 'API_SERVER_URL_MALL', RELEASE_API_SERVER_URL_MALL
-            buildConfigField 'String', 'IM_SERVER_HOST', RELEASE_IM_SERVER_HOST
-            buildConfigField 'int', 'IM_SERVER_PORT', RELEASE_IM_SERVER_PORT
-            buildConfigField "boolean", "LEO_DEBUG", RELEASE_LEO_DEBUG
             buildConfigField "String", "baseUrl", baseUrl
-
             signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            //修改生成的apk名字
-            applicationVariants.all { variant ->
-                variant.outputs.all { output ->
-                    def newName
-                    def timeNow
-                    def oldFile = output.outputFile
-                    def outDirectory = oldFile.parent
-
-                    if ("true".equals(IS_JENKINS)) {
-                        timeNow = JENKINS_TIME
-                        outDirectory = 'G:/Tomcat/webapps/jenkins/apk'
-                        newName = 'yj-android-v' +
-                                APP_VERSION + '-' +  timeNow + '-' + variant.buildType.name + '.apk'
-                        outputFileName = newName
-                    } else {
-                        timeNow = getDate()
-                        if (variant.buildType.name.equals('debug')) {
-                            newName = "yj-android-v${APP_VERSION}-debug.apk"
-                            outputFileName = newName
-                        } else {
-                            newName = 'yj-android-v' +
-                                    APP_VERSION + '-' +  timeNow + '-' + variant.buildType.name + '.apk'
-                            outputFileName = newName
-                        }
-                    }
-
-                   // output.outputFile = new File(outDirectory, newName)
-
-                }
-            }
         }
         debug {
             signingConfig signingConfigs.release
-            buildConfigField 'String', 'API_SERVER_URL', RELEASE_API_SERVER_URL
-            buildConfigField 'String', 'API_SERVER_URL_MALL', RELEASE_API_SERVER_URL_MALL
-            buildConfigField 'String', 'IM_SERVER_HOST', RELEASE_IM_SERVER_HOST
-            buildConfigField 'int', 'IM_SERVER_PORT', RELEASE_IM_SERVER_PORT
-            buildConfigField "boolean", "LEO_DEBUG", RELEASE_LEO_DEBUG
-            buildConfigField "String", "baseUrl", baseUrl
+        }
+    }
+    //修改生成的apk名字及输出文件夹
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            //新名字
+            def newName
+            //时间戳
+            def timeNow
+            //输出文件夹
+            def outDirectory
+            //是否为Jenkins打包，输出路径不同
+            if ("true".equals(IS_JENKINS)) {
+                //BUILD_PATH为服务器输出路径
+                timeNow = BUILD_TIME
+                outDirectory = BUILD_PATH_JENKINS
+                //JKApp-v1.0.1-xiaomi-release.apk
+                newName = APPNAME+"-v"+APP_VERSION + '-' + variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
+            } else {
+                //本机打包输出在本机路径
+                timeNow = getDate()
+                outDirectory = BUILD_PATH_LOCAL
+                newName = APPNAME+"-v"+APP_VERSION + '-' + variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
+            }
+            outputFileName=newName
+//            outputFileName = new File(outDirectory+"/"+timeNow, newName)
+//            outputFileName=outDirectory+"/"+timeNow+newName
 
         }
     }
