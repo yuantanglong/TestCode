@@ -7,7 +7,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 /**
- * @company: Coolbit
+ * @company: 哈哈镜商户
  * created by {Android-Dev01} on 2018/5/2 0002 下午 8:48
  *
  * @desc: 加密key生成器工具类
@@ -31,7 +31,7 @@ public class KeyGeneratorUtils {
 
     public static byte[] getKeyByPass(){
         //生成秘钥
-        String password="CoolBitWallet";
+        String password="哈哈镜商户Wallet";
         try {
             KeyGenerator kg = KeyGenerator.getInstance("AES");
             // kg.init(128);//要生成多少位，只需要修改这里即可128, 192或256

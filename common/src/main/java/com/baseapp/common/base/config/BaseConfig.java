@@ -20,7 +20,7 @@ public class BaseConfig {
 
     public static final String STATUS_BAR_HEIGHT = "StatusBarHeight";
 
-    public static final String AES_PASSWORD = "CoolBit";
+    public static final String AES_PASSWORD = "哈哈镜商户";
 
     public static class RebackConfig {
         /**

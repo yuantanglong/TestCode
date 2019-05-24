@@ -40,5 +40,6 @@
     <color name="color_eeeeee">#eeeeee</color>
     <!--*********************以上是alert相关********************************-->
     <color name="color_e5b000">#e5b000</color>
-
+    <color name="color_09b25f">#09B25F</color>
+    <color name="color_ff5640">#ff5640</color>
 </resources>

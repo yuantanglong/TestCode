@@ -22,9 +22,7 @@ public interface IToolbar {
 
     void getTitleTextView(TextView mTitleTextView);
 
-    Drawable getToolbarRightDrawable();
-
     void onTitleClicked(String tittle);
-
-    void onRightImageClicked();
+    void onLlLeftClicked();
+    void onLlRightClicked();
 }

@@ -11,7 +11,7 @@ import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 
 /**
- * @company: Coolbit
+ * @company: 哈哈镜商户
  * created by {Android-Dev01} on 2018/4/10 0010 上午 11:53
  * @desc:
  */

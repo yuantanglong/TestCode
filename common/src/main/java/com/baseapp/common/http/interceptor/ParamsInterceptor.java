@@ -3,19 +3,7 @@ package com.baseapp.common.http.interceptor;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 
-import com.baseapp.common.BuildConfig;
-import com.baseapp.common.base.BaseApplication;
-import com.baseapp.common.base.config.BaseConfig;
-import com.baseapp.common.utils.EncryptSPUtils;
-import com.baseapp.common.utils.GetExtranetIpUtils;
-import com.baseapp.common.utils.IpUtils;
-import com.baseapp.common.utils.PackageUtils;
-import com.baseapp.common.utils.SPUtils;
-import com.baseapp.common.utils.SystemUtil;
-import com.baseapp.common.utils.UnClearCacheUtils;
-import com.baseapp.common.utils.UuidUtils;
 import com.baseapp.common.view.Global;
 import com.blankj.utilcode.util.AppUtils;
 
@@ -43,10 +31,10 @@ public class ParamsInterceptor implements Interceptor {
 
     private static final String TAG = "request params";
     private Context context;
-    private String appcode;
-    private String ipAddress;
-    private String phoneModel;
-    private String deviceId;
+    private String token= com.blankj.utilcode.util.SPUtils.getInstance().getString(Global.TOKEN);
+    private String client_version=AppUtils.getAppVersionName();
+    private String os="android";
+    private String lang="CN";
 
     @Inject
     public ParamsInterceptor(Context context) {
@@ -62,9 +50,7 @@ public class ParamsInterceptor implements Interceptor {
         StringBuilder paramsBuilder = new StringBuilder();
 
         if (body != null) {
-
             RequestBody newBody;
-
             if (body instanceof FormBody) {
                 newBody = addParamsToFormBody((FormBody) body, paramsBuilder);
             } else if (body instanceof MultipartBody) {
@@ -72,15 +58,12 @@ public class ParamsInterceptor implements Interceptor {
             } else {
                 Request original = chain.request();
                 HttpUrl originalHttpUrl = original.url();
-                getParmsValue();
                 newBody = new FormBody.Builder()
-                        .add("clientVersionCode", appcode)
-                        .add("loginIp", ipAddress)
-                        .add("deviceType", phoneModel)
-                        .add("deviceId", deviceId)
-                        .add("userNo", SPUtils.getSharedStringData(BaseApplication.getAppContext(), Global.APP_USER_CODE_KEY))
-                        .add("sysfrom", "android")
-                        .add("token", SPUtils.getSharedStringData(BaseApplication.getAppContext(), Global.APP_TOKEN_KEY))
+                        .add("Content-Type", "application/json")
+                        .add("token", token)
+                        .add("client-version", client_version)
+                        .add("os", os)
+                        .add("lang", lang)
                         .build();
                 Request.Builder requestBuilder = original.newBuilder()
                         .method(original.method(), newBody)
@@ -115,27 +98,14 @@ public class ParamsInterceptor implements Interceptor {
     private MultipartBody addParamsToMultipartBody(MultipartBody body, StringBuilder paramsBuilder) {
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.setType(MultipartBody.FORM);
-        getParmsValue();
-        builder.addFormDataPart("clientVersionCode", appcode);
-        builder.addFormDataPart("loginIp", ipAddress);
-        builder.addFormDataPart("deviceType", phoneModel);
-        builder.addFormDataPart("deviceId", deviceId);
-        builder.addFormDataPart("userNo", SPUtils.getSharedStringData(BaseApplication.getAppContext(), Global.APP_USER_CODE_KEY));
-        builder.addFormDataPart("token", SPUtils.getSharedStringData(BaseApplication.getAppContext(), Global.APP_TOKEN_KEY));
-        builder.addFormDataPart("token", EncryptSPUtils.getSharedStringData(BaseApplication.getAppContext(), BaseConfig.BaseSPKey.TOKEN));
-        builder.addFormDataPart("appVersion", AppUtils.getAppVersionName());
-        paramsBuilder.append("clientVersionCode1=").append(appcode);
-        paramsBuilder.append("loginIp=").append(ipAddress);
-        paramsBuilder.append("deviceType=").append(phoneModel);
-        paramsBuilder.append("deviceId=").append(deviceId);
-        paramsBuilder.append("userNo=").append(SPUtils.getSharedStringData(BaseApplication.getAppContext(), Global.APP_USER_CODE_KEY));
-        paramsBuilder.append("sysfrom=android");
-        paramsBuilder.append("token=").append(SPUtils.getSharedStringData(BaseApplication.getAppContext(), Global.APP_TOKEN_KEY));
-
-
-//        builder.addFormDataPart("token", EncryptSPUtils.getInstance().getString(BaseConfig.BaseSPKey.TOKEN));
-
-
+        builder.addFormDataPart("token", token);
+        builder.addFormDataPart("client-version", client_version);
+        builder.addFormDataPart("os", os);
+        builder.addFormDataPart("lang", lang);
+        paramsBuilder.append("token=").append(token);
+        paramsBuilder.append("client-version=").append(client_version);
+        paramsBuilder.append("os=").append(os);
+        paramsBuilder.append("lang=").append(lang);
         //添加原请求体
         for (int i = 0; i < body.size(); i++) {
             builder.addPart(body.part(i));
@@ -155,25 +125,15 @@ public class ParamsInterceptor implements Interceptor {
      */
 
     private FormBody addParamsToFormBody(FormBody body, StringBuilder paramsBuilder) {
-        boolean isExistDeviceType = false;
-
         FormBody.Builder builder = new FormBody.Builder();
-        getParmsValue();
-        builder.add("clientVersionCode", appcode);
-        builder.add("loginIp", ipAddress);
-        builder.add("deviceId", deviceId);
-        builder.add("userNo", com.baseapp.common.utils.SPUtils.getSharedStringData(BaseApplication.getAppContext(), Global.APP_USER_CODE_KEY));
-        builder.add("token", com.baseapp.common.utils.SPUtils.getSharedStringData(BaseApplication.getAppContext(), Global.APP_TOKEN_KEY));
-        builder.addEncoded("appVersion", AppUtils.getAppVersionName());
-
-        paramsBuilder.append("clientVersionCode=").append(appcode);
-        paramsBuilder.append("loginIp=").append(ipAddress);
-        paramsBuilder.append("deviceId=").append(deviceId);
-        paramsBuilder.append("userNo=").append(SPUtils.getSharedStringData(BaseApplication.getAppContext(), Global.APP_USER_CODE_KEY));
-        paramsBuilder.append("sysfrom=android");
-        paramsBuilder.append("token=").append(com.baseapp.common.utils.SPUtils.getSharedStringData(BaseApplication.getAppContext(), Global.APP_TOKEN_KEY));
-        paramsBuilder.append("appVersion=").append(AppUtils.getAppVersionName());
-
+        builder.add("token", token);
+        builder.add("client-version", client_version);
+        builder.add("os", os);
+        builder.add("lang", lang);
+        paramsBuilder.append("token=").append(token);
+        paramsBuilder.append("client-version=").append(client_version);
+        paramsBuilder.append("os=").append(os);
+        paramsBuilder.append("lang=").append(lang);
         //添加原请求体
         for (int i = 0; i < body.size(); i++) {
             if (!"userNo".equals(body.encodedName(i))) {
@@ -183,38 +143,8 @@ public class ParamsInterceptor implements Interceptor {
                 paramsBuilder.append("=");
                 paramsBuilder.append(body.value(i));
             }
-            if ("deviceType".equals(body.encodedName(i))) {
-                isExistDeviceType = true;
-            } else {
-                if (!isExistDeviceType) {
-                    isExistDeviceType = false;
-                }
-            }
-        }
-
-        if (!isExistDeviceType) {
-            builder.add("deviceType", phoneModel);
-            paramsBuilder.append("deviceType=").append(phoneModel);
         }
         return builder.build();
-    }
-
-
-    private void getParmsValue() {
-        appcode = String.valueOf(PackageUtils.getVersionCode(context));
-        String extranetIp = com.baseapp.common.utils.SPUtils.getSharedStringData(BaseApplication.getAppContext(), Global.EXTRANET_IP);
-        if (TextUtils.isEmpty(extranetIp)) {
-            GetExtranetIpUtils.getMobileIP();
-            extranetIp = com.baseapp.common.utils.SPUtils.getSharedStringData(BaseApplication.getAppContext(), Global.EXTRANET_IP);
-        }
-        ipAddress = extranetIp + "," + IpUtils.GetHostIp();
-        phoneModel = SystemUtil.getPhoneModel();
-        deviceId = UnClearCacheUtils.getString(BaseApplication.getAppContext(), Global.DEVICE_ID);
-        if (TextUtils.isEmpty(deviceId)) {
-            deviceId = UuidUtils.id(BaseApplication.getAppContext());
-            UnClearCacheUtils.putString(BaseApplication.getAppContext(), Global.DEVICE_ID, deviceId);
-        }
-
     }
 }
 

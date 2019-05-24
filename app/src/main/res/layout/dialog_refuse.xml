@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/y15">
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y13"
+            android:layout_weight="1"
+            android:button="@drawable/selector_radio_button_bg"
+            android:checked="true"
+            android:paddingLeft="@dimen/x12"
+            android:text="无法配送"
+            android:textColor="@color/color_004165" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y13"
+            android:layout_weight="1"
+            android:button="@drawable/selector_radio_button_bg"
+            android:paddingLeft="@dimen/x12"
+            android:text="客户定位不准超配送范围"
+            android:textColor="@color/color_004165" />
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y13"
+            android:layout_weight="1"
+            android:button="@drawable/selector_radio_button_bg"
+            android:checked="false"
+            android:paddingLeft="@dimen/x12"
+            android:text="其他原因"
+            android:textColor="@color/color_004165" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y13"
+            android:layout_weight="1"
+            android:button="@drawable/selector_radio_button_bg"
+            android:checked="false"
+            android:paddingLeft="@dimen/x12"
+            android:text="因长时间未接单，自动转单"
+            android:textColor="@color/color_004165" />
+    </RadioGroup>
+</LinearLayout>

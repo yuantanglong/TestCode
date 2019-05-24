@@ -5,6 +5,8 @@ ext {
             arouter_api = "1.2.2",
             arouter_compiler = "1.1.3",
             bga_banner="2.1.8@aar",
+            jpush = "3.0.9",
+            jcore = "1.1.7",
     ]
 
 
@@ -14,5 +16,7 @@ ext {
             arouter_api               : "com.alibaba:arouter-api:$rootProject.arouter_api",
             arouter_compiler          : "com.alibaba:arouter-compiler:$rootProject.arouter_compiler",
             bga_banner                    : "cn.bingoogolapple:bga-banner:$rootProject.bga_banner",
+            jpush                    : "cn.jiguang.sdk:jpush:$rootProject.jpush",
+            jcore                    : "cn.jiguang.sdk:jcore:$rootProject.jcore",
     ]
 }

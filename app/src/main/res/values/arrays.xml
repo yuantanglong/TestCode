@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="payStatus">
+        <item>送货上门</item>
+        <item>到店自提</item>
+        <item>线下单</item>
+    </array>
+    <array name="time">
+        <item>送货时间</item>
+        <item>提货时间</item>
+        <item>售卖时间</item>
+    </array>
+    <array name="refuseOrderReason">
+        <item></item>
+        <item>无法配送</item>
+        <item>客户定位不准或超出配送范围</item>
+        <item>其他原因</item>
+        <item>因长时间未接单，自动转单</item>
+    </array>
+    <array name="order_status">
+        <item>待处理</item>
+        <item>待取货</item>
+        <item>待发货</item>
+        <item>配送中</item>
+        <item>已完成</item>
+        <item>全部</item>
+    </array>
+    <array name="refund_status">
+        <item>待退款</item>
+        <item>已同意</item>
+        <item>已拒绝</item>
+    </array>
+
+    <integer-array name="order_status_id">
+        <item>2</item>
+        <item>3</item>
+        <item>1</item>
+        <item>4</item>
+    </integer-array>
+    <integer-array name="order_refund_status_id">
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </integer-array>
+    <integer-array name="order_search_status_id">
+        <item>2</item>
+        <item>1</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>0</item>
+    </integer-array>
+    <integer-array name="refuseOrderReason_array">
+        <item>3</item>
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+    </integer-array>
+    <integer-array name="refusalRefundReasons_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </integer-array>
+</resources>

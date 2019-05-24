@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--可定义Drawable宽和高的TextView，同样适用于TextView的子类-->
+    <declare-styleable name="DrawableResizableTextView">
+        <attr name="drawableWidth" format="dimension" />
+        <attr name="drawableHeight" format="dimension" />
+    </declare-styleable>
+</resources>

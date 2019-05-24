@@ -8,7 +8,6 @@ import com.baseapp.common.base.BaseBean;
 import com.baseapp.common.http.config.ApiConfig;
 import com.baseapp.common.http.config.RequestConfig;
 import com.baseapp.common.http.interceptor.HeaderInterceptor;
-import com.baseapp.common.http.interceptor.ParamsInterceptor;
 import com.baseapp.common.http.interceptor.RewriteCacheControlInterceptor;
 import com.baseapp.common.utils.NetWorkUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -29,23 +28,15 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Api {
-
-    /**
-     * 钱包网络请求添加认证头
-     */
     public static final int TYPE_HEADER = 1;
-    /**
-     * 商城的retrofit
-     */
-    public static final int TYPE_SHOP_HEADER = 2;
-    /**
-     * 商城的retrofit--H5
-     */
-    public static final int TYPE_SHOP_H5_HEADER = 3;
-    /**
-     * 资产钱包2.0的retrofit
-     */
-    public static final int TYPE_ASSETS_WALLET2_HEADER = 4;
+
+    public static ApiConfig getmApiConfig() {
+        return mApiConfig;
+    }
+
+    public static void setmApiConfig(ApiConfig mApiConfig) {
+        Api.mApiConfig = mApiConfig;
+    }
 
     private static ApiConfig mApiConfig;
 
@@ -117,7 +108,7 @@ public class Api {
                 .addInterceptor(cacheInterceptor)
                 .addNetworkInterceptor(cacheInterceptor)
                 .addInterceptor(new HeaderInterceptor(headerType))
-                .addInterceptor(new ParamsInterceptor(BaseApplication.getAppContext()))
+                //.addInterceptor(new ParamsInterceptor(BaseApplication.getAppContext()))
                 .addInterceptor(logInterceptor)
                 .cache(cache)
                 .build();
@@ -126,22 +117,6 @@ public class Api {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").serializeNulls().create();
         String url;
         switch (headerType) {
-            case TYPE_HEADER: {
-                url = mApiConfig.getHostServer();
-            }
-            break;
-            case TYPE_SHOP_HEADER: {
-                url = mApiConfig.getShopHostServer();
-            }
-            break;
-            case TYPE_SHOP_H5_HEADER: {
-                url = mApiConfig.getShopH5HostServer();
-            }
-            break;
-            case TYPE_ASSETS_WALLET2_HEADER: {
-                url = mApiConfig.getmAssetsWallet2HostServer();
-            }
-            break;
             default:
                 url = mApiConfig.getHostServer();
         }
@@ -168,61 +143,12 @@ public class Api {
     public static <T> T getService(Class<T> clazz) {
         if (mRetrofitList.size() < 1 || mRetrofitList.get(0) == null) {
             mRetrofitList.add(0, getRetrofit(TYPE_HEADER));
-            mRetrofitList.add(1, getRetrofit(TYPE_SHOP_HEADER));
-            mRetrofitList.add(2, getRetrofit(TYPE_SHOP_H5_HEADER));
-            mRetrofitList.add(3, getRetrofit(TYPE_ASSETS_WALLET2_HEADER));
         }
-
         Log.e("getService: ", clazz.toString());
-
-        int index;
-        if ("com.coolbit.wallet.login.api.LoginService".equals(clazz.getName())) {
-            index = 1;
-        } else if ("com.coolbit.wallet.servicecenter.api.ServiceCenterService".equals(clazz.getName())) {
-            index = 1;
-        } else if ("com.coolbit.wallet.assets.api.AssetsService".equals(clazz.getName())) {
-            index = 1;
-        } else if ("com.coolbit.wallet.userinfo.api.UserInfoService".equals(clazz.getName())) {
-            index = 1;
-        } else if ("com.coolbit.wallet.assets.api.AssetsWallet2Service".equals(clazz.getName())) {
-            index = 3;
-        } else if ("com.baseapp.common.app.PublicService".equals(clazz.getName())) {
-            index = 1;
-        } else if ("com.coolbit.wallet.login.api.LoginWalletService".equals(clazz.getName())) {
-            index = 0;
-        } else {
-            index = 0;
-        }
-
-        return mRetrofitList.get(index).create(clazz);
+        return mRetrofitList.get(0).create(clazz);
     }
 
 
-    public static <T> T getImageService(Class<T> clazz) {
-        OkHttpClient mOkHttpClient = new OkHttpClient.Builder()
-                .readTimeout(mApiConfig.getReadTimeOut(), TimeUnit.MILLISECONDS)
-                .connectTimeout(mApiConfig.getConnectTimeOut(), TimeUnit.MILLISECONDS)
-                .build();
-        Retrofit mRetrofit = new Retrofit.Builder()
-                .client(mOkHttpClient)
-                .baseUrl("http://47.100.114.104:8667/")
-                .build();
-        return mRetrofit.create(clazz);
-    }
-
-
-    public static <T> T getH5Service(Class<T> clazz) {
-        if (mRetrofitList.size() < 1 || mRetrofitList.get(0) == null) {
-            mRetrofitList.add(0, getRetrofit(TYPE_HEADER));
-            mRetrofitList.add(1, getRetrofit(TYPE_SHOP_HEADER));
-            mRetrofitList.add(2, getRetrofit(TYPE_SHOP_H5_HEADER));
-        }
-
-        Log.e("getH5Service: ", clazz.toString());
-
-
-        return mRetrofitList.get(2).create(clazz);
-    }
 
     public static <T> T getHeaderService(Class<T> clazz) {
 

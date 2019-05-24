@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baseapp.common.R;
@@ -17,6 +18,7 @@ import io.reactivex.functions.Consumer;
 
 /**
  * Created by Administrator on 2018/3/27 0027.
+ *
  * @Desc: Toolbar封装基类
  */
 
@@ -28,7 +30,12 @@ public abstract class BaseToolbar implements IToolbar {
     private Toolbar mToolbarView;
     private int background;
     private TextView mTitleText;
-    private ImageView mRightImage;
+    private LinearLayout ll_left;
+    private LinearLayout ll_right;
+    private ImageView iv_left;
+    private TextView tv_left_str;
+    private ImageView iv_right;
+    private TextView tv_right_str;
 
     public BaseToolbar(BaseActivity activity) {
         this.mActivity = activity;
@@ -47,22 +54,25 @@ public abstract class BaseToolbar implements IToolbar {
         default_toolbar = mToolbarView.findViewById(R.id.default_toolbar);
         mLeftImage = mToolbarView.findViewById(R.id.default_toolbar_left_image);
         mTitleText = mToolbarView.findViewById(R.id.default_toolbar_title);
-        mRightImage = mToolbarView.findViewById(R.id.default_toolbar_right_image);
+        ll_left = mToolbarView.findViewById(R.id.ll_left);
+        ll_right = mToolbarView.findViewById(R.id.ll_right);
+        iv_left = mToolbarView.findViewById(R.id.iv_left);
+        tv_left_str = mToolbarView.findViewById(R.id.tv_left_str);
+        iv_right = mToolbarView.findViewById(R.id.iv_right);
+        tv_right_str = mToolbarView.findViewById(R.id.tv_right_str);
         mActivity.setSupportActionBar(mToolbarView);
         mActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-        Toolbar.LayoutParams params=new Toolbar.LayoutParams(Toolbar.LayoutParams.MATCH_PARENT,UIUtils.getDimen(R.dimen.toolBarHeight));
+        Toolbar.LayoutParams params = new Toolbar.LayoutParams(Toolbar.LayoutParams.MATCH_PARENT, UIUtils.getDimen(R.dimen.toolBarHeight));
         mToolbarView.setLayoutParams(params);
-        switch (getToolbarConfig()){
+        switch (getToolbarConfig()) {
             case JUST_BACK:
                 mLeftImage.setVisibility(View.VISIBLE);
                 mTitleText.setVisibility(View.GONE);
-                mRightImage.setVisibility(View.GONE);
                 initBackImageListener();
                 break;
             case JUST_TITLE:
                 mLeftImage.setVisibility(View.GONE);
                 mTitleText.setVisibility(View.VISIBLE);
-                mRightImage.setVisibility(View.GONE);
                 mTitleText.setText(getTitle());
                 getTitleTextView(mTitleText);
                 initTitleClickListener();
@@ -70,7 +80,6 @@ public abstract class BaseToolbar implements IToolbar {
             case BACK_WITH_TITLE:
                 mLeftImage.setVisibility(View.VISIBLE);
                 mTitleText.setVisibility(View.VISIBLE);
-                mRightImage.setVisibility(View.GONE);
                 mTitleText.setText(getTitle());
                 getTitleTextView(mTitleText);
 
@@ -80,17 +89,10 @@ public abstract class BaseToolbar implements IToolbar {
             case NORMAL:
                 mLeftImage.setVisibility(View.VISIBLE);
                 mTitleText.setVisibility(View.VISIBLE);
-                mRightImage.setVisibility(View.VISIBLE);
-
-                if (getToolbarRightDrawable() != null){
-                    mRightImage.setImageDrawable(getToolbarRightDrawable());
-                }
-
                 mTitleText.setText(getTitle());
                 getTitleTextView(mTitleText);
                 initBackImageListener();
                 initTitleClickListener();
-                initRightImageClickListener();
                 break;
         }
         if (background != 0) {
@@ -104,17 +106,10 @@ public abstract class BaseToolbar implements IToolbar {
         LogUtils.e("getTitleTextView");
     }
 
-    /**
-     * 不使用drawable请传递null
-     * @return
-     */
-    @Override
-    public Drawable getToolbarRightDrawable() {
-        return null;
-    }
 
     /**
      * 标题点击空实现，有需要点击事件的界面重写该方法
+     *
      * @param title
      */
     @Override
@@ -122,18 +117,11 @@ public abstract class BaseToolbar implements IToolbar {
 
     }
 
-    /**
-     * 右侧图标点击空实现，有需要点击事件的界面重写该方法
-     */
-    @Override
-    public void onRightImageClicked() {
-
-    }
 
     /**
      * 初始化返回按键点击事件
      */
-    private void initBackImageListener(){
+    private void initBackImageListener() {
         RxView.
                 clicks(mLeftImage).
                 compose(RxClickTransformer.getClickTransformer()).
@@ -149,7 +137,7 @@ public abstract class BaseToolbar implements IToolbar {
     /**
      * 初始化标题点击事件
      */
-    private void initTitleClickListener(){
+    private void initTitleClickListener() {
         RxView.
                 clicks(mTitleText).
                 compose(RxClickTransformer.getClickTransformer()).
@@ -160,18 +148,31 @@ public abstract class BaseToolbar implements IToolbar {
                     }
                 });
     }
-
     /**
      * 初始化右侧图标点击事件
      */
-    private void initRightImageClickListener(){
+    private void initLeftClickListener() {
         RxView.
-                clicks(mRightImage).
+                clicks(ll_left).
                 compose(RxClickTransformer.getClickTransformer()).
                 subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(Object o) throws Exception {
-                        onRightImageClicked();
+                        onLlLeftClicked();
+                    }
+                });
+    }
+    /**
+     * 初始化右侧图标点击事件
+     */
+    private void initRightClickListener() {
+        RxView.
+                clicks(ll_right).
+                compose(RxClickTransformer.getClickTransformer()).
+                subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        onLlRightClicked();
                     }
                 });
     }
@@ -179,5 +180,32 @@ public abstract class BaseToolbar implements IToolbar {
     public BaseToolbar setBackground(int color) {
         background = color;
         return this;
+    }
+    public void setTitleText(String text) {
+        mTitleText.setText(text);
+    }
+    public void setLeftVisibility(int visibility) {
+        mLeftImage.setVisibility(View.GONE);
+        ll_left.setVisibility(visibility);
+        initLeftClickListener();
+    }
+    public void setRightVisibility(int visibility) {
+        ll_right.setVisibility(visibility);
+        initRightClickListener();
+    }
+    public void setLeftImage(int id) {
+        iv_left.setImageResource(id);
+    }
+
+    public void setLeftTextView(String text) {
+        tv_left_str.setText(text);
+    }
+
+    public void setRightImage(int id) {
+        iv_right.setImageResource(id);
+    }
+
+    public void setRightTextView(String text) {
+        tv_right_str.setText(text);
     }
 }

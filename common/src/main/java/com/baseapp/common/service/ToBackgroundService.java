@@ -88,12 +88,12 @@ public class ToBackgroundService extends Service {
 //                                //使用ProxyActivity类时，可避免被外部App调用
 ////                                Intent intent = new Intent(getBaseContext(), ProxyActivity.class);
 ////                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-////                                intent.putExtra(ProxyActivity.PROXY_FRAGMENT_NAME, "com.coolbit.wallet.ui.mine.fragment.AuthorizeLoginFragment");
+////                                intent.putExtra(ProxyActivity.PROXY_FRAGMENT_NAME, "com.哈哈镜商户.wallet.ui.mine.fragment.AuthorizeLoginFragment");
 ////                                startActivity(intent);
 //
 //                                //配置文件已加入exported属性，允许外部App调用此AuthorizeLoginActivity
 //                                Intent intent = new Intent();
-//                                intent.setComponent(new ComponentName("com.coolbit.wallet", "com.coolbit.wallet.ui.mine.activity.AuthorizeLoginActivity"));
+//                                intent.setComponent(new ComponentName("com.哈哈镜商户.wallet", "com.哈哈镜商户.wallet.ui.mine.activity.AuthorizeLoginActivity"));
 //                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                                startActivity(intent);
 //
@@ -103,7 +103,7 @@ public class ToBackgroundService extends Service {
 //
 //                                ActivityManager.getInstance().finishAllActivity();
 //                                Intent intent = new Intent();
-//                                intent.setComponent(new ComponentName("com.coolbit.wallet", "com.coolbit.wallet.ui.login.activity.LoginActivity"));
+//                                intent.setComponent(new ComponentName("com.哈哈镜商户.wallet", "com.哈哈镜商户.wallet.ui.login.activity.LoginActivity"));
 //                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                                startActivity(intent);
 //                                isLaunchVerifyActivity = -1;
@@ -113,7 +113,7 @@ public class ToBackgroundService extends Service {
                             if (!hasShowBackgroundTip) {
                                 mToBackGroundTime = System.currentTimeMillis();
                                 hasShowBackgroundTip = true;
-                                LogUtils.e("CoolBit进入后台运行");
+                                LogUtils.e("哈哈镜商户进入后台运行");
                                 ToastUtils.showLong(BaseApplication.getAppContext().getResources().getString(R.string.app_run_into_background));
                             } else {
                                 backgroundJudgeFunc();

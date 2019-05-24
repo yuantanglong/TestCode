@@ -11,6 +11,16 @@ public class ApiConfig {
      * 服务器域名
      */
     private String mHostServer;
+
+    public String getmHostImgBase() {
+        return mHostImgBase;
+    }
+
+    public void setmHostImgBase(String mHostImgBase) {
+        this.mHostImgBase = mHostImgBase;
+    }
+
+    private String mHostImgBase;
     /**
      * 商城服务器域名
      */

@@ -33,6 +33,7 @@ import com.baseapp.common.utils.EncryptSPUtils;
 import com.baseapp.common.utils.Reflector;
 import com.baseapp.common.utils.TUtil;
 import com.baseapp.common.utils.UIUtils;
+import com.baseapp.common.view.MyClassicsHeader;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -43,6 +44,8 @@ import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.umeng.analytics.MobclickAgent;
 
@@ -68,7 +71,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
     private boolean isConfigChange = false;  //是否横竖屏切换
     protected Unbinder mBinder;
     public T mPresenter;
-    public int mCurrentPage = 1;  //分页加载当前页
+    public int pageIndex = 1;  //分页加载当前页
+    public String pageSize = "20";  //分页加载当前页
     protected boolean isRefreshMode = true;  //默认下拉刷新模式
     private View mEmptyView;
     private View mLoadingView;
@@ -96,6 +100,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
     public static final int CODE_LIST_NO_NETWORK = 1; //列表请求无网络码制，显示错误空界面视图时使用
     public static final int CODE_EMPTY_LIST_DATA = 2;
     public static final int CODE_REFRESH_FAILED = 3; //刷新接口请求失败
+    public boolean isloadmore;
+    public boolean isRefresh;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,7 +133,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
         initPresenter();
 
         getSwipeLayout().setLeftSwipeEnabled(enableSwipeBack());
-
+        initNetWork(pageIndex);
         initRefresh();
 
         //状态栏字体深色
@@ -394,26 +400,38 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
     /**
      * 初始化刷新，子类可以复写以实现自己的逻辑
      */
-    protected void initRefresh() {
-
-        if (mSmartRefreshLayout != null) {
-
-            mSmartRefreshLayout.setRefreshHeader(mRefreshHeader == null ? new MaterialHeader(mActivity) : mRefreshHeader);
-            mSmartRefreshLayout.setEnableHeaderTranslationContent(false);
-            //禁用上拉加载
-            mSmartRefreshLayout.setEnableLoadmore(false);
-            mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-                @Override
+    public void initRefresh() {
+        SmartRefreshLayout refreshLayout = (SmartRefreshLayout)this.findViewById(R.id.refreshLayout);
+        if (refreshLayout != null) {
+            MyClassicsHeader myClassicsHeader = new MyClassicsHeader(this.mActivity);
+//            myClassicsHeader.setBackgroundColor(UIUtils.getColor(R.color.color_f4f4f4));
+//            refreshLayout.getLayout().setBackgroundResource(R.colorcolor.color_f4f4f4);
+            refreshLayout.setRefreshHeader(myClassicsHeader);
+            refreshLayout.setOnRefreshListener(new OnRefreshListener() {
                 public void onRefresh(RefreshLayout refreshlayout) {
-                    isRefreshMode = true;
-                    mCurrentPage = 1;
-                    initNetWork();
+                    pageIndex = 1;
+                    isRefresh = true;
+                    refreshlayout.finishRefresh(2000);
+                    initNetWork(pageIndex);
                 }
             });
-
+            if (isloadmore) {
+                ClassicsFooter classicsFooter = new ClassicsFooter(this.mActivity);
+                refreshLayout.setRefreshFooter(classicsFooter);
+                refreshLayout.setEnableLoadmore(true);
+                refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+                    public void onLoadmore(RefreshLayout refreshlayout) {
+                        pageIndex++;
+                        BaseActivity.this.initNetWork(pageIndex);
+                        refreshlayout.finishLoadmore();
+                    }
+                });
+            } else {
+                refreshLayout.setEnableLoadmore(false);
+            }
         }
-    }
 
+    }
 
     //</editor-fold >
     //<editor-fold desc="Activity跳转动画相关">
@@ -531,9 +549,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
     /**
      * 网络请求,下拉刷新时调用
      */
-    protected void initNetWork() {
-
-    }
+    protected void initNetWork(int pageIndex ) { }
 
 
     /*******************************************网络加载loading图**********************************************/
@@ -619,12 +635,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
 
         switch (errorCode) {
             //404错误界面
-            case ErrorCode.CODE_NOT_FOUND:
+//            case ErrorCode.CODE_NOT_FOUND:
 //                //根据需求，不再对404错误进行特殊处理，此处逻辑并未更改，只是使用了统一的图片资源
 //                mEmptyErrorImage.setImageResource(R.mipmap.view_empty_error_image_error);
 //                mEmptyErrorDescText.setText(message);
 //                mEmptyErrorRefreshButton.setVisibility(View.VISIBLE);
-                break;
+//                break;
 
             //非404的错误界面
             default:
@@ -663,7 +679,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
                 subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(Object o) throws Exception {
-                        initNetWork();
+                        initNetWork(pageIndex);
                     }
                 });
         switch (errorCode) {
@@ -683,8 +699,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
                 break;
 
             //接口请求错误，错误码404
-            case ErrorCode.CODE_NOT_FOUND:
-                break;
+//            case ErrorCode.CODE_NOT_FOUND:
+//                break;
 
             default:
                 break;

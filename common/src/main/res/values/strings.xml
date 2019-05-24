@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_exit">再按一次退出CoolBit</string>
-    <string name="app_run_into_background">CoolBit进入后台运行</string>
+    <string name="app_exit">再按一次退出哈哈镜商户</string>
+    <string name="app_run_into_background">哈哈镜商户进入后台运行</string>
 
     <!--*********************以下是alert相关********************************-->
     <string name="msg.alert_cleared">Alert Cleared</string>
@@ -37,6 +37,11 @@
     <string name="integral_transfer_into_verify">积分转入验证</string>
     <string name="let_me_think">我再想想</string>
     <string name="request_failed_press_to_retry">数据获取失败，请点击重试</string>
-
+    <string name="state_failed">失败</string>
+    <string name="state_success">成功</string>
+    <string name="unable_to_open_camera">不能打开相机</string>
+    <string name="error">发生了一些错误</string>
+    <string name="no_network_tip">当前无网络，请检查网络</string>
+    <string name="no_network_tip_login">网络请求失败，请检查网络</string>
     <string name="nonerecord">暂无记录，请点击刷新</string>
 </resources>

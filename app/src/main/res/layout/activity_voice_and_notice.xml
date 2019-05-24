@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_NotificationTip"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y64"
+        android:background="@color/color_FFFCC8"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/notification" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/x24"
+            android:layout_weight="1"
+            android:text="您的设备未开启通知栏权限"
+            android:textColor="@color/color_FFA619"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/close_yellow" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y88"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/x30"
+        android:text="订单提醒"
+        android:textColor="@color/color_004165"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="新订单时震动"
+            android:textColor="@color/color_004165"
+            android:textSize="15sp" />
+
+        <ToggleButton
+            android:id="@+id/tb_is_shock"
+            android:layout_width="@dimen/x104"
+            android:layout_height="@dimen/y66"
+            android:layout_gravity="center_vertical"
+            android:background="@color/color_00000000"
+            android:button="@drawable/toggle_btn"
+            android:textOff=""
+            android:textOn="" />
+    </LinearLayout>
+
+    <View style="@style/line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="开启App时声音最大"
+            android:textColor="@color/color_004165"
+            android:textSize="15sp" />
+
+        <ToggleButton
+            android:id="@+id/tb_sound_max"
+            android:layout_width="@dimen/x104"
+            android:layout_height="@dimen/y66"
+            android:layout_gravity="center_vertical"
+            android:background="@color/color_00000000"
+            android:button="@drawable/toggle_btn"
+            android:textOff=""
+            android:textOn="" />
+    </LinearLayout>
+
+    <View style="@style/line" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y88"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/x30"
+        android:text="音量"
+        android:textColor="@color/color_004165"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/sound_no" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_weight="1"
+            android:maxHeight="1dp"
+            android:progressDrawable="@drawable/po_seekbar"
+            android:thumb="@mipmap/oval" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/sound_max" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_set_notification"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="通知栏提醒"
+            android:textColor="@color/color_004165"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="去设置"
+            android:textColor="@color/color_7D9AAA"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/y20"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/x20"
+            android:src="@mipmap/youjiantou" />
+    </LinearLayout>
+</LinearLayout>

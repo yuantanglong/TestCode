@@ -5,21 +5,45 @@
     style="@style/MyToolbarTheme"
     android:layout_width="match_parent"
     android:layout_height="@dimen/toolBarHeight"
-    android:background="@color/color_ffc400"
+    android:background="@drawable/shape_gradient"
     android:fitsSystemWindows="false"
     android:minHeight="@dimen/toolBarHeight"
-    app:contentInsetLeft="0dp"
-    app:contentInsetStart="0dp">
+    app:contentInsetLeft="0.0dip"
+    app:contentInsetStart="0.0dip">
 
-    <!--基类封装的默认Toolbar，不要设置整体背景色，SwipeBackActivity中给toolbar容器设置了背景色，就是toolbar的背景色-->
     <ImageView
+        android:visibility="visible"
         android:id="@+id/default_toolbar_left_image"
         android:layout_width="@dimen/toolBarHeight"
         android:layout_height="@dimen/toolBarHeight"
         android:layout_gravity="left"
-        android:padding="14dp"
+        android:padding="20.0dip"
         android:scaleType="fitCenter"
         android:src="@drawable/icon_back" />
+
+    <LinearLayout
+        android:id="@+id/ll_left"
+        android:layout_width="@dimen/x100"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/y40"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/tv_left_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="12.0sp" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/default_toolbar_title"
@@ -28,22 +52,32 @@
         android:layout_gravity="center"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="#2b2d2e"
-        android:textSize="16sp"/>
+        android:textColor="#ffffffff"
+        android:textSize="18.0sp" />
 
-    <!--注：该ImageView未使用，如果使用请重新根据设计图设计尺寸-->
-    <ImageView
-        android:id="@+id/default_toolbar_right_image"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_gravity="right|center_vertical"
-        android:layout_marginRight="18dp"
-        android:scaleType="fitXY" />
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/tv_right"
-        android:layout_marginRight="18dp"
-        android:layout_gravity="right|center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_gravity="right"
+        android:id="@+id/ll_right"
+        android:layout_width="@dimen/x100"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/y40"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/tv_right_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="12.0sp" />
+    </LinearLayout>
 </android.support.v7.widget.Toolbar>

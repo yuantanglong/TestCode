@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 /**
- * @company: Coolbit
+ * @company: 哈哈镜商户
  * created by {Android-Dev02} on 2018/4/11 22:03
  *
  * @desc:

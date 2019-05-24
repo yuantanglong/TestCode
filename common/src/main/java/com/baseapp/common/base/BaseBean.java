@@ -10,17 +10,36 @@ import java.io.Serializable;
 public class BaseBean<T> implements Serializable{
 
     //接口返回的业务码
-    private int code;
+    private String code;
     //接口返回信息
     private String message;
-    //接口返回数据
-    private T data;
 
-    public int getCode() {
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    private boolean success;
+
+    public T getResult() {
+        return result;
+    }
+
+    public void setResult(T result) {
+        this.result = result;
+    }
+
+    //接口返回数据
+    private T result;
+
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -32,11 +51,4 @@ public class BaseBean<T> implements Serializable{
         this.message = message;
     }
 
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
 }

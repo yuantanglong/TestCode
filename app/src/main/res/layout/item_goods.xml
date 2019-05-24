@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y166"
+        android:padding="@dimen/x30">
+
+        <ImageView
+            android:id="@+id/iv_goods"
+            android:layout_width="@dimen/x120"
+            android:layout_height="@dimen/y104"
+            android:layout_gravity="center"
+            android:src="@mipmap/hhj" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/x20"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_productName"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="2"
+                android:text="--"
+                android:textColor="@color/color_004165"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="当前库存: "
+                    android:textColor="@color/color_004165"
+                    android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/tv_productStock"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/color_004165"
+                    android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/tv_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/color_004165"
+                    android:textSize="15sp" />
+                <ImageView
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_width="@dimen/x40"
+                    android:layout_height="@dimen/y40"
+                    android:src="@mipmap/add" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View style="@style/line" />
+</LinearLayout>

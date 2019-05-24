@@ -102,6 +102,10 @@ public class UIUtils {
     public static String[] getStringArray(int id) {
         return getContext().getResources().getStringArray(id);
     }
+    // 获取字符串数组
+    public static int[] getIntArray(int id) {
+        return getContext().getResources().getIntArray(id);
+    }
 
     // 获取图片
     public static Drawable getDrawable(int id) {

@@ -10,6 +10,7 @@ public enum ToolbarConfig {
     JUST_BACK,  //仅有返回按键
 
     BACK_WITH_TITLE,  //返回按键和标题
+    LEFT_TITLE_RIGHT,  //返回按键和标题
 
     JUST_TITLE,  //仅有标题
     JUST_RIGHT,  //仅有右侧文字

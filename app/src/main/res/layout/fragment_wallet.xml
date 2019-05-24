@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/color_E7EAEF"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y50"
+            android:gravity="center"
+            android:text="金币总数"
+            android:textColor="@color/color_004165"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_totalGolds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y30"
+            android:gravity="center"
+            android:text="￥0.0"
+            android:textColor="@color/color_ff5252"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y50"
+            android:layout_marginBottom="@dimen/y66"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今日收入:￥"
+                android:textColor="@color/color_004165"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_todayGolds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.0"
+                android:textColor="@color/color_004165"
+                android:textSize="14sp" />
+
+            <View
+                style="@style/line_color_979797"
+                android:layout_marginLeft="@dimen/x34"
+                android:layout_marginTop="@dimen/x5"
+                android:layout_marginRight="@dimen/x34"
+                android:layout_marginBottom="@dimen/x5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昨日总收入:￥"
+                android:textColor="@color/color_004165"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_yesterdayGolds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.0"
+                android:textColor="@color/color_004165"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+    <com.hhj.merchant.view.MySegmentTabLayout
+        android:id="@+id/mMySegmentTabLayout"
+        tl:tl_textSelectColor="@color/white"
+        tl:tl_textUnselectColor="@color/color_7D9AAA"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y88"
+        android:layout_gravity="center_horizontal"
+        tl:tl_bar_color="@color/color_E7EAEF"
+        tl:tl_indicator_color="@color/color_E7EAEF"
+        tl:tl_tab_space_equal="true"
+        tl:tl_indicator_corner_radius="0dp"
+        tl:tl_indicator_style="BLOCK"
+        />
+    <LinearLayout
+        android:id="@+id/ll_order"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y108"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <TextView
+            android:textColor="@color/color_006298"
+            android:gravity="center"
+            android:text="订单数:"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_count"
+            android:textColor="@color/color_006298"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textColor="@color/color_006298"
+            android:gravity="center"
+            android:text="单"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_date"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y110"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/rl_begin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_kaishi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="false"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="false"
+                android:layout_marginTop="@dimen/y24"
+                android:text="开始日期"
+                android:textColor="#7D9AAA" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="false"
+                android:layout_centerVertical="false"
+                android:layout_marginLeft="@dimen/x4"
+                android:layout_marginTop="@dimen/y36"
+                android:layout_toRightOf="@+id/tv_kaishi"
+                android:src="@mipmap/down3" />
+
+            <TextView
+                android:id="@+id/tv_begin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_kaishi"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="false"
+                android:layout_marginTop="@dimen/y4"
+                android:text="--"
+                android:textColor="@color/color_00b2a9"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="@dimen/x1"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/y36"
+            android:layout_marginBottom="@dimen/y36"
+            android:background="@color/color_cccccc" />
+
+        <RelativeLayout
+            android:id="@+id/rl_end"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="false"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="false"
+                android:layout_marginTop="@dimen/y24"
+                android:text="结束日期"
+                android:textColor="#7D9AAA" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="false"
+                android:layout_marginLeft="@dimen/x4"
+                android:layout_marginTop="@dimen/x36"
+                android:layout_toRightOf="@+id/textView31"
+                android:src="@mipmap/down3"
+               />
+
+            <TextView
+                android:id="@+id/tv_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView31"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="false"
+                android:layout_marginTop="@dimen/x4"
+                android:text="--"
+                android:textColor="@color/color_00b2a9"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </LinearLayout>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginLeft="@dimen/x16"
+        android:layout_marginRight="@dimen/x16"
+        android:id="@+id/mRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

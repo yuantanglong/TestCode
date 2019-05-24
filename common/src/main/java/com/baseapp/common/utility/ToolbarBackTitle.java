@@ -14,12 +14,21 @@ import com.baseapp.common.base.ui.BaseToolbar;
 public class ToolbarBackTitle extends BaseToolbar{
 
     private String mTitle;
+    ViewClick viewClick;
+    public interface ViewClick {
+        void onLlLeftClicked();
 
+        void onLlRightClicked();
+    }
     public ToolbarBackTitle(BaseActivity activity, String tittle) {
         super(activity);
         this.mTitle = tittle;
     }
-
+    public ToolbarBackTitle(BaseActivity activity, String tittle,ViewClick viewClick) {
+        super(activity);
+        this.mTitle = tittle;
+        this.viewClick=viewClick;
+    }
     @Override
     public ToolbarConfig getToolbarConfig() {
         return ToolbarConfig.BACK_WITH_TITLE;
@@ -29,6 +38,16 @@ public class ToolbarBackTitle extends BaseToolbar{
     public void getTitleTextView(TextView mTitleTextView) {
         super.getTitleTextView(mTitleTextView);
 
+    }
+
+    @Override
+    public void onLlLeftClicked() {
+        viewClick.onLlLeftClicked();
+    }
+
+    @Override
+    public void onLlRightClicked() {
+        viewClick.onLlRightClicked();
     }
 
     @Override

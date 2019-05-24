@@ -72,7 +72,7 @@ public class FileUpUtils {
                     }
 
                     @Override
-                    protected void _onError(ErrorType errorType, int errorCode, String message, UpLoadBean.DataBean data) {
+                    protected void _onError(ErrorType errorType, String errorCode, String message, UpLoadBean.DataBean data) {
                         Log.e("TAG", "");
                     }
                 });

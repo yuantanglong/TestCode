@@ -431,6 +431,7 @@ public class DialogWrapper {
         private View mContentView; //自定义的ContentView
         private String mAlertMessage;   //提示性弹窗的提示信息
         private boolean isCloseImageVisible = true; //右上角关闭图片按键是否可见,默认可见
+        private boolean isTitleVisible = true;
         private boolean mCancelable = false; //参照Dialog
         private boolean mCanceledOnTouchOutSide = false; //参照Dialog
         private int mButtonType = BUTTON_SINGLE; //Dialog按键类型，决定Dialog的按键为单按键还是双按键,默认单按键
@@ -491,7 +492,10 @@ public class DialogWrapper {
             this.isCloseImageVisible = isVisible;
             return this;
         }
-
+        public TipDialogBuilder tittleVisible(boolean isVisible) {
+            this.isTitleVisible = isVisible;
+            return this;
+        }
         /**
          * 设置Dialog撤销
          *
@@ -582,6 +586,7 @@ public class DialogWrapper {
             mMessageTV.setText(mAlertMessage);
 
             mCloseImage.setVisibility(isCloseImageVisible ? View.VISIBLE : View.INVISIBLE);
+            mTittleTV.setVisibility(isTitleVisible ? View.VISIBLE : View.GONE);
 
             //mContentView不为空，则启用设置的contentView
             if (mContentView != null) {

@@ -13,7 +13,7 @@ import com.yanzhenjie.permission.RequestExecutor;
 import java.util.List;
 
 /**
- * @company: Coolbit
+ * @company: 哈哈镜商户
  * created by {Android-Dev01} on 2018/4/8 0008 下午 6:26
  * @desc: AndPermission申请权限的rational dailog
  */

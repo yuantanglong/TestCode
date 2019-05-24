@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:paddingBottom="@dimen/y140"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mGoodsTypeRecyclerView"
+            android:layout_width="@dimen/y200"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mGoodsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/color_00b2a9"
+                android:text="0.00"
+                android:paddingLeft="@dimen/x220"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="@dimen/x266"
+                android:layout_height="match_parent"
+                android:background="@color/color_FEDF00"
+                android:text="确认订货"
+                android:gravity="center"
+                android:textColor="@color/color_004165"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="@dimen/x140"
+            android:layout_height="@dimen/y140"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/x46"
+            android:background="@drawable/shape_color_00b2a9_oval"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/x70"
+                android:layout_height="@dimen/y70"
+                android:layout_gravity="center"
+                android:src="@mipmap/iv_order_gray" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

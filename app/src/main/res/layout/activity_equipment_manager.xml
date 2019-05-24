@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_print"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="连接打印机"
+            android:textColor="@color/color_004165"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_print"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="未连接"
+            android:textColor="@color/color_7D9AAA"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/y20"
+            android:layout_gravity="center"
+            android:src="@mipmap/youjiantou" />
+    </LinearLayout>
+    <View style="@style/line"/>
+    <LinearLayout
+        android:id="@+id/ll_saoma"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="连接扫码枪"
+            android:textColor="@color/color_004165"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_saoma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="未连接"
+            android:textColor="@color/color_7D9AAA"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/y20"
+            android:layout_gravity="center"
+            android:src="@mipmap/youjiantou" />
+    </LinearLayout>
+    <View style="@style/line"/>
+    <LinearLayout
+        android:id="@+id/ll_print_songhuo"
+        android:layout_marginTop="@dimen/y20"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="送货上门"
+            android:textColor="@color/color_004165"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="打印"
+            android:textColor="@color/color_004165"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/tv_print_songhuo_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="1"
+            android:textColor="@color/color_004165"
+            android:textSize="15sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="联"
+            android:textColor="@color/color_004165"
+            android:textSize="15sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_print_daodian"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="到店自提"
+            android:textColor="@color/color_004165"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="打印"
+            android:textColor="@color/color_004165"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/tv_print_daodian_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="1"
+            android:textColor="@color/color_004165"
+            android:textSize="15sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="联"
+            android:textColor="@color/color_004165"
+            android:textSize="15sp" />
+    </LinearLayout>
+</LinearLayout>

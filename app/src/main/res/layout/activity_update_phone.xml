@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_E7EAEF"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="联系方式"
+            android:textColor="@color/color_004165"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_telephone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:textColor="@color/color_004165"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="@dimen/y26"
+        android:paddingLeft="@dimen/x30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户下单后可见"
+        android:textColor="@color/color_7D9AAA"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        >
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_marginBottom="@dimen/y30"
+            android:layout_marginLeft="@dimen/x46"
+            android:layout_marginRight="@dimen/x46"
+            android:background="@drawable/shape_corner_login_button"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:text="保存"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100" />
+    </LinearLayout>
+</LinearLayout>

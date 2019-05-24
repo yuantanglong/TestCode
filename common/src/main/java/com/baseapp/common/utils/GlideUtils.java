@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 /**
- * @company: Coolbit
+ * @company: 哈哈镜商户
  * created by {Android-Dev02} on 2018/4/9 20:04
  *
  * @desc: 
@@ -27,6 +27,14 @@ public class GlideUtils {
                 load(url)
                 .
                 into(imageView);
+    }
+    public static void loadImage(Context context,String url,@DrawableRes int placeHolder, @DrawableRes int error,ImageView imageView){
+        Glide.
+                with(context).
+                applyDefaultRequestOptions(GlideOptionUtils.getSimpleRequestOptions()).
+                load(url)
+                .
+                        into(imageView);
     }
 
     public static void loadImage(Context context,Uri uri,ImageView imageView){

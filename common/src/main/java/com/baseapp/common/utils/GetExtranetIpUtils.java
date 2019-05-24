@@ -52,11 +52,11 @@ public class GetExtranetIpUtils {
                 } catch (Exception e) {
                     ip = "";
                 }
-                if (TextUtils.isEmpty(ip)) {
-                    SPUtils.setSharedStringData(BaseApplication.getAppContext(), Global.EXTRANET_IP, "0.0.0.0");
-                } else {
-                    SPUtils.setSharedStringData(BaseApplication.getAppContext(), Global.EXTRANET_IP, ip);
-                }
+//                if (TextUtils.isEmpty(ip)) {
+//                    SPUtils.setSharedStringData(BaseApplication.getAppContext(), Global.EXTRANET_IP, "0.0.0.0");
+//                } else {
+//                    SPUtils.setSharedStringData(BaseApplication.getAppContext(), Global.EXTRANET_IP, ip);
+//                }
             }
         }.start();
     }

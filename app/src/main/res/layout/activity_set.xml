@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_E7EAEF"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_stroke_bottom_f4f4f4"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/x34"
+        android:paddingRight="@dimen/x34">
+
+        <com.hhj.merchant.view.DrawableResizableTextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y88"
+            android:layout_weight="1"
+            android:background="@color/color_white"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:text="营业时间"
+            android:textColor="@color/color_004165" />
+
+        <TextView
+            android:id="@+id/tv_businessTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="--" />
+
+    </LinearLayout>
+
+    <View style="@style/line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_stroke_bottom_f4f4f4"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/x34"
+        android:paddingRight="@dimen/x34">
+
+        <com.hhj.merchant.view.DrawableResizableTextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y88"
+            android:layout_weight="1"
+            android:background="@color/color_white"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:text="配送时间"
+            android:textColor="@color/color_004165" />
+
+        <TextView
+            android:id="@+id/tv_deliveryTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="--" />
+    </LinearLayout>
+
+    <View style="@style/line" />
+
+    <LinearLayout
+        android:id="@+id/ll_UpdatePhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y20"
+        android:background="@drawable/shape_stroke_bottom_f4f4f4"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/x34"
+        android:paddingRight="@dimen/x34">
+
+        <com.hhj.merchant.view.DrawableResizableTextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y88"
+            android:layout_weight="1"
+            android:background="@color/color_white"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:text="联系方式"
+            android:textColor="@color/color_004165" />
+
+        <ImageView
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:layout_width="@dimen/x14"
+            android:layout_height="@dimen/y24"
+            android:src="@mipmap/youjiantou" />
+
+    </LinearLayout>
+
+    <View style="@style/line" />
+
+    <LinearLayout
+        android:id="@+id/ll_UpdatePassWord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_stroke_bottom_f4f4f4"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/x34"
+        android:paddingRight="@dimen/x34">
+
+        <com.hhj.merchant.view.DrawableResizableTextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y88"
+            android:layout_weight="1"
+            android:background="@color/color_white"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:text="修改密码"
+            android:textColor="@color/color_004165" />
+
+        <ImageView
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:layout_width="@dimen/x14"
+            android:layout_height="@dimen/y24"
+            android:src="@mipmap/youjiantou" />
+
+    </LinearLayout>
+
+    <View style="@style/line" />
+
+    <LinearLayout
+        android:id="@+id/ll_checkAppVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_stroke_bottom_f4f4f4"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/x34"
+        android:paddingRight="@dimen/x34">
+
+        <com.hhj.merchant.view.DrawableResizableTextView
+            android:id="@+id/tv_versionName"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y88"
+            android:layout_weight="1"
+            android:background="@color/color_white"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:text="版本号"
+            android:textColor="@color/color_004165" />
+
+        <TextView
+            android:id="@+id/tv_versionInfo"
+            android:textColor="@color/color_004165"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View style="@style/line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        >
+
+        <TextView
+            android:id="@+id/tv_exit_login"
+            android:layout_marginBottom="@dimen/y30"
+            android:layout_marginLeft="@dimen/x46"
+            android:layout_marginRight="@dimen/x46"
+            android:background="@drawable/shape_corner_login_button"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:text="退出登录"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100" />
+    </LinearLayout>
+</LinearLayout>

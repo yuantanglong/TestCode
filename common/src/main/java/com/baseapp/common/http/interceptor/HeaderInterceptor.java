@@ -4,6 +4,8 @@ import com.baseapp.common.BuildConfig;
 import com.baseapp.common.base.BaseApplication;
 import com.baseapp.common.base.config.BaseConfig;
 import com.baseapp.common.utils.EncryptSPUtils;
+import com.baseapp.common.view.Global;
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.EncodeUtils;
 import com.blankj.utilcode.util.SPUtils;
 
@@ -24,7 +26,10 @@ import okhttp3.Response;
 public class HeaderInterceptor implements Interceptor {
 
     private int mHeaderType;
-
+    private String token= "";
+    private String client_version= "";
+    private String os="android";
+    private String lang="CN";
     public HeaderInterceptor(int headerType) {
         this.mHeaderType = mHeaderType;
     }
@@ -37,14 +42,10 @@ public class HeaderInterceptor implements Interceptor {
     private Request.Builder initBuilder(Request.Builder builder) {
 
         builder.addHeader("Content-Type", "application/json");
-//        builder.addHeader("platform", "1");
-//        builder.addHeader("appVersion", );
-//        builder.addHeader("token", com.baseapp.common.utils.SPUtils.getSharedStringData(BaseApplication.getAppContext(), Global.APP_TOKEN_KEY));
-//        builder.addHeader("sysfrom", BuildConfig.SYSFROM);
-//        builder.addHeader("userNo", com.baseapp.common.utils.SPUtils.getSharedStringData(BaseApplication.getAppContext(), Global.APP_USER_CODE_KEY));
-//        builder.addHeader("platform", BuildConfig.PLATFORM);
-//        builder.addHeader("appVersion", "1.0");
-//        }
+        builder.addHeader("token", SPUtils.getInstance().getString(Global.TOKEN));
+        builder.addHeader("client_version", AppUtils.getAppVersionName());
+        builder.addHeader("os", os);
+        builder.addHeader("lang", lang);
         return builder;
     }
 

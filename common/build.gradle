@@ -2,13 +2,12 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion project.VERSION_COMPILE_SDK as int
-    buildToolsVersion '27.0.3'
+    buildToolsVersion project.VERSION_BUILD_TOOLS
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
         }
     }
-    buildToolsVersion project.VERSION_BUILD_TOOLS
     defaultConfig {
         minSdkVersion project.VERSION_MIN_SDK as int
         targetSdkVersion project.VERSION_TARGET_SDK as int
@@ -22,26 +21,34 @@ android {
     }
     buildTypes {
         release {
-            if (isShoppingMallTest.toBoolean()){
-                //测试服务器
-                buildConfigField('String', 'HOST_SERVER', "\"" + HOST_SERVER_SHOPPING_MALL_test.toString() + "\"")
-            }else{
-                //正式服务器
-                buildConfigField('String', 'HOST_SERVER', "\"" + HOST_SERVER_SHOPPING_MALL_online.toString() + "\"")
+            if ("develop" == HOST_URL_TYPE){
+                buildConfigField('String', 'HOST_URL_BASE', develop)
+            }else if ("test" == HOST_URL_TYPE){
+                buildConfigField('String', 'HOST_URL_BASE', test)
+            }else if ("prep" == HOST_URL_TYPE){
+                buildConfigField('String', 'HOST_URL_BASE', prep)
+            }else if ("product" == HOST_URL_TYPE){
+                buildConfigField('String', 'HOST_URL_BASE', product)
             }
-            buildConfigField "String", "baseUrl", baseUrl
+            buildConfigField('String', 'HOST_IMG_BASE', HOST_IMG_BASE)
+
+            buildConfigField('int', 'READ_TIME_OUT', project.READ_TIME_OUT);
+            buildConfigField('int', 'CONNECT_TIME_OUT', project.CONNECT_TIME_OUT);
         }
         debug {
-            if (isShoppingMallTest.toBoolean()){
-                //测试服务器
-                buildConfigField('String', 'HOST_SERVER', "\"" + HOST_SERVER_SHOPPING_MALL_test.toString() + "\"")
-                buildConfigField "String", "baseUrl", baseUrl
-            }else{
-                //正式服务器
-                buildConfigField('String', 'HOST_SERVER', "\"" + HOST_SERVER_SHOPPING_MALL_online.toString() + "\"")
-                buildConfigField "String", "baseUrl", baseUrl
+            if ("develop" == HOST_URL_TYPE){
+                buildConfigField('String', 'HOST_URL_BASE', develop)
+            }else if ("test" == HOST_URL_TYPE){
+                buildConfigField('String', 'HOST_URL_BASE', test)
+            }else if ("prep" == HOST_URL_TYPE){
+                buildConfigField('String', 'HOST_URL_BASE', prep)
+            }else if ("product" == HOST_URL_TYPE){
+                buildConfigField('String', 'HOST_URL_BASE', product)
             }
+            buildConfigField('String', 'HOST_IMG_BASE', HOST_IMG_BASE)
 
+            buildConfigField('int', 'READ_TIME_OUT', project.READ_TIME_OUT);
+            buildConfigField('int', 'CONNECT_TIME_OUT', project.CONNECT_TIME_OUT);
         }
         debug {
             minifyEnabled false
@@ -50,15 +57,7 @@ android {
             shrinkResources false
 
 
-            if (isShoppingMallTest.toBoolean()) {
-                //测试服务器
-                buildConfigField('String', 'HOST_SERVER', "\"" + HOST_SERVER_SHOPPING_MALL_test.toString() + "\"");
-                buildConfigField "String", "baseUrl", baseUrl
-            } else {
-                //正式服务器
-                buildConfigField('String', 'HOST_SERVER', "\"" + HOST_SERVER_SHOPPING_MALL_online.toString() + "\"");
-                buildConfigField "String", "baseUrl", baseUrl
-            }
+         
 
         }
     }
@@ -115,11 +114,11 @@ dependencies {
     api 'com.amap.api:search:latest.integration'
     //router
     api rootProject.ext.dependencies.arouter_api
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     //时间选择器
     implementation 'com.contrarywind:Android-PickerView:4.1.2'
 
-    compile 'zlc.season:rxdownload2:2.0.4'
+    api 'zlc.season:rxdownload2:2.0.4'
 
     //友盟基础组件库
     api 'com.umeng.sdk:common:1.5.0'
@@ -130,6 +129,8 @@ dependencies {
     api 'com.wang.avi:library:2.1.3'
 
     api 'me.grantland:autofittextview:0.2.+'
+
+    api 'com.tencent.bugly:crashreport:latest.release'
 }
 
 

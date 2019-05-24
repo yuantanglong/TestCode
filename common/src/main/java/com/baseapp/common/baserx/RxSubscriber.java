@@ -1,5 +1,8 @@
 package com.baseapp.common.baserx;
 
+import android.content.Intent;
+
+import com.baseapp.common.base.BaseApplication;
 import com.baseapp.common.base.BaseBean;
 import com.baseapp.common.base.ui.BaseActivity;
 import com.baseapp.common.base.ui.BaseFragment;
@@ -8,9 +11,11 @@ import com.baseapp.common.http.error.ApiException;
 import com.baseapp.common.http.error.ErrorCode;
 import com.baseapp.common.http.error.ErrorType;
 import com.baseapp.common.http.error.ExceptionConverter;
+import com.baseapp.common.utility.ActivityManager;
 import com.baseapp.common.view.CustomDialog;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -27,8 +32,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer<R> {
 
-    //Http 返回码401监听，返回401需要退出登录
-    private static GlobalErrorListener mGlobalErrorListener;
 
     public BaseActivity mActivity;
     public BaseFragment mFragment;
@@ -48,7 +51,6 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
     }
 
     /*************************************************************************************************************************/
-
     /**
      * 进行订阅请求网络
      *
@@ -61,32 +63,61 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
                     public ObservableSource<R> apply(T t) throws Exception {
 
                         mSuccessMessage = t.getMessage();
-                        mErrorData = t.getData();
-                        if (t.getCode() == ErrorCode.CODE_SERVER_SUCCESS) {  //接口返回1000成功码
+                        mErrorData = t.getResult();
+                        boolean isTrue = true;
+                        boolean isFalse = false;
+                        Object result = t.getResult();
+                        if (t.isSuccess()) {  //接口返回1成功码
+//                            if (mRequestConfig != null && !StringUtils.isTrimEmpty(mRequestConfig.getTag())) {
+//                                LogUtils.d(mRequestConfig.getTag());
+//                            }
+                            if (null == t.getResult()) {
+                                return (ObservableSource<R>) Observable.just(t);
+                            } else {
 
-                            if (mRequestConfig != null && !StringUtils.isTrimEmpty(mRequestConfig.getTag())) {
-                                LogUtils.d(mRequestConfig.getTag(), "-----JavaBean的Code为" + ErrorCode.CODE_SERVER_SUCCESS);
+                                if (result instanceof java.lang.String) {
+                                    return (ObservableSource<R>) Observable.just(t);
+                                } else if (result instanceof java.lang.Double) {
+                                    return (ObservableSource<R>) Observable.just(t);
+                                } else if (result instanceof java.lang.Integer) {
+                                    return (ObservableSource<R>) Observable.just(t);
+                                }
+                                else if (result.getClass().isInstance(isTrue) || result.getClass().isInstance(false)) {
+                                    return (ObservableSource<R>) Observable.just(t);
+                                } else {
+                                    return Observable.just(t.getResult());
+                                }
                             }
-
-                            return Observable.just(t.getData());
                             //成功直接返回数据
 
-                        } else if (mRequestConfig != null && !StringUtils.isTrimEmpty(mRequestConfig.getAsSuccessCondition()) && mRequestConfig.getAsSuccessCondition().contains(t.getCode() + "")) {  //返回非1000的错误码
-
-                            if (mRequestConfig != null && !StringUtils.isTrimEmpty(mRequestConfig.getTag())) {
-                                LogUtils.d(mRequestConfig.getTag(), "-----JavaBean的Code为" + t.getCode());
-                            }
-
-                            return Observable.just(t.getData());  //成功直接返回数据
-
                         } else {
-                            if (mRequestConfig != null && !StringUtils.isTrimEmpty(mRequestConfig.getTag())) {
-                                LogUtils.d(mRequestConfig.getTag(), "-----JavaBean的Code为" + t.getCode());
+                            if (null == t.getResult()) {
+                                if ("401".equals(t.getCode())) {
+                                    try {
+                                        Intent intent = new Intent();
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.setClassName("com.hhj.merchant", "com.hhj.merchant.ui.login.activity.LoginActivity");
+//                                        Intent intent = new Intent();
+//                                        intent.setComponent(new ComponentName(BaseApplication.getAppContext(), "com.hhj.merchant.ui.login.activity.LoginActivity"));
+                                        BaseApplication.getAppContext().startActivity(intent);
+                                        ActivityManager.getInstance().finishAllActivity();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    ToastUtils.showShort(mSuccessMessage);
+                                    return null;
+                                }
+                                return null;
+                            } else {
+                                if (mRequestConfig != null && !StringUtils.isTrimEmpty(mRequestConfig.getTag())) {
+                                    LogUtils.d(mRequestConfig.getTag(), "-----JavaBean的Code为" + t.getCode());
+                                }
+                                Throwable mThrowable = new Throwable("接口返回了错误业务码-----" + t.getCode());
+
+                                throw new ApiException(t.getCode(), ErrorType.ERROR_API, t.getMessage(), mThrowable);
                             }
 
-                            Throwable mThrowable = new Throwable("接口返回了错误业务码-----" + t.getCode());
-
-                            throw new ApiException(t.getCode(), ErrorType.ERROR_API, t.getMessage(), mThrowable);
                         }
 
                     }
@@ -129,7 +160,7 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
 
         LogUtils.e("LogOut---onError");
         if (mRequestConfig != null && !StringUtils.isTrimEmpty(mRequestConfig.getTag())) {
-            LogUtils.d(mRequestConfig.getTag(), "-----onError()");
+            LogUtils.d(mRequestConfig.getTag(), "-----onError()" + e.getMessage());
         }
 
         e.printStackTrace();
@@ -137,66 +168,6 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
         dismissLoadingViewIfNecessary(true);
 
         doDispose();
-
-        if (e instanceof ApiException) {
-            ApiException exception = (ApiException) e;
-
-            if (exception.getCode() == ErrorCode.CODE_UNAUTHORIZED) {  //401重新登录
-                LogUtils.e("LogOut---CODE_UNAUTHORIZED");
-
-                if (mGlobalErrorListener != null) {
-                    mGlobalErrorListener.onReturn401Code(this, exception.getMessage());
-                    LogUtils.d("401错误----" + exception.getMessage());
-                }
-
-                _onError(exception.getErrorType(), exception.getCode(), exception.getMessage(), mErrorData);
-            } else if (exception.getCode() == ErrorCode.CODE_SERVER_9105) {
-                LogUtils.e("LogOut---CODE_SERVER_9105");
-
-                if (mGlobalErrorListener != null) {
-                    mGlobalErrorListener.onReturn9105Code(this, exception.getMessage());
-
-                    LogUtils.d("9105错误----" + exception.getMessage());
-                }
-                _onError(exception.getErrorType(), exception.getCode(), exception.getMessage(), mErrorData);
-            } else if (exception.getCode() == ErrorCode.CODE_SERVER_9107) {
-                LogUtils.e("LogOut---CODE_SERVER_9107");
-
-                if (mGlobalErrorListener != null) {
-                    mGlobalErrorListener.onReturn9107Code(this, exception.getMessage());
-
-                    LogUtils.d("9107错误----" + exception.getMessage());
-                }
-                _onError(exception.getErrorType(), exception.getCode(), "9107", mErrorData);
-            } else if (exception.getCode() == ErrorCode.CODE_SERVER_9108){
-                LogUtils.e("LogOut---CODE_SERVER_9108");
-
-                if (mGlobalErrorListener != null) {
-                    mGlobalErrorListener.onReturn9108Code(this, exception.getMessage());
-
-                    LogUtils.d("9108错误----" + exception.getMessage());
-                }
-                _onError(exception.getErrorType(), exception.getCode(), exception.getMessage(), mErrorData);
-            }else if (exception.getCode() == ErrorCode.CODE_SERVER_9109){
-                LogUtils.e("LogOut---CODE_SERVER_9109");
-
-                if (mGlobalErrorListener != null) {
-                    mGlobalErrorListener.onReturn9109Code(this, exception.getMessage());
-
-                    LogUtils.d("9108错误----" + exception.getMessage());
-                }
-                _onError(exception.getErrorType(), exception.getCode(), exception.getMessage(), mErrorData);
-            }else {  //正常错误回调
-
-                //向错误回调传递data字段数据
-                _onError(exception.getErrorType(), exception.getCode(), exception.getMessage(), mErrorData);
-
-            }
-
-
-        } else {
-            _onError(ErrorType.ERROR_UNKNOWN, ErrorCode.CODE_UNKNOWN, "未知错误", null);
-        }
     }
 
     @Override
@@ -307,7 +278,7 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
 
             if (mActivity != null) {
                 mActivity.showLoadingView();
-            } else {
+            } else if (mFragment != null) {
                 mFragment.showLoadingView();
             }
         } else {
@@ -319,7 +290,7 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
 
             if (mActivity != null) {
                 mActivity.dismissLoadingView();
-            } else {
+            } else if (mFragment != null) {
                 mFragment.dismissLoadingView();
             }
         }
@@ -339,10 +310,6 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
         void onReturn9108Code(RxSubscriber rxSubscriber, String message);
 
         void onReturn9109Code(RxSubscriber rxSubscriber, String message);
-    }
-
-    public static void registerGlobalErrorListener(GlobalErrorListener listener) {
-        mGlobalErrorListener = listener;
     }
 
     public BaseActivity getActivity() {
@@ -367,6 +334,6 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
     protected abstract void _onSuccess(R r, String successMessage);
 
 
-    protected abstract void _onError(ErrorType errorType, int errorCode, String message, R data);
+    protected abstract void _onError(ErrorType errorType, String errorCode, String message, R data);
 
 }

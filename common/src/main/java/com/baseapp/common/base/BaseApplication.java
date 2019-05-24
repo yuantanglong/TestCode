@@ -12,11 +12,17 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import android.content.res.Resources;
 
 import com.baseapp.common.base.config.BaseConfig;
+import com.baseapp.common.utils.PackageUtils;
+import com.baseapp.common.utils.UIUtils;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
+import com.tencent.bugly.crashreport.CrashReport;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 /**
  * APPLICATION
  */
@@ -38,10 +44,47 @@ public class BaseApplication extends Application {
             ARouter.openLog();
         }
         ARouter.init(this);
-
-
+        setBugly();
     }
-
+    /**
+     * Bugly相关配置
+     */
+    private void setBugly() {
+        String packageName = getAppContext().getPackageName();
+        String processName = getProcessName(android.os.Process.myPid());
+        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(getAppContext());
+        strategy.setUploadProcess(processName == null || processName.equals(packageName));
+        strategy.setAppVersion(PackageUtils.getVersionName(getAppContext()) + "." + PackageUtils.getVersionCode(getAppContext()));
+        CrashReport.initCrashReport(getAppContext(), "b40c32789d", false, strategy);
+    }
+    /**
+     * 获取进程号对应的进程名
+     *
+     * @param pid 进程号
+     * @return 进程名
+     */
+    private static String getProcessName(int pid) {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader("/proc/" + pid + "/cmdline"));
+            String processName = reader.readLine();
+            if (!TextUtils.isEmpty(processName)) {
+                processName = processName.trim();
+            }
+            return processName;
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }
+        return null;
+    }
     public static Context getAppContext() {
         return baseApplication;
     }

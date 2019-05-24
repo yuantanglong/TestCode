@@ -62,7 +62,41 @@
         <!-- 加载网络数据时覆盖在BGABanner最上层的占位图 -->
         <item name="banner_placeholderDrawable">@mipmap/ic_launcher</item>
     </style>
+    <style name="AnimBottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
+    <style name="date_picker_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/date_picker_bg</item>
+    </style>
     <style name="BannerDefaultStyle1" parent="BannerDefaultStyle">
         <item name="banner_pointLeftRightMargin">10dp</item>
+        <item name="banner_pointDrawable">@null</item>
+    </style>
+    <style name="line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/background</item>
+    </style>
+
+    <style name="line_color_979797">
+        <item name="android:layout_width">@dimen/x2</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/color_979797</item>
+    </style>
+    <style name="line_color_e7eaef">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/color_E7EAEF</item>
+    </style>
+
+    <style name="line_color_FDC82F">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/color_FDC82F</item>
     </style>
 </resources>

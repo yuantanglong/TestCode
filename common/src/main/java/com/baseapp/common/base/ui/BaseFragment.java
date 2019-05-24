@@ -1,6 +1,7 @@
 package com.baseapp.common.base.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
@@ -22,6 +23,8 @@ import com.baseapp.common.baserx.RxClickTransformer;
 import com.baseapp.common.http.error.ErrorCode;
 import com.baseapp.common.utility.MultiItemPlaceHolder;
 import com.baseapp.common.utils.TUtil;
+import com.baseapp.common.utils.UIUtils;
+import com.baseapp.common.view.MyClassicsHeader;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -31,6 +34,8 @@ import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
@@ -64,7 +69,8 @@ public abstract class BaseFragment<T extends BasePresenter, R extends MultiItemE
     /**
      * 分页加载当前请求页
      */
-    protected int mCurrentPage = 1;
+    protected int pageIndex = 1;
+    protected String pageSize = "10";
     /**
      * RecyclerView的adapter
      */
@@ -119,7 +125,10 @@ public abstract class BaseFragment<T extends BasePresenter, R extends MultiItemE
      * <h3>注意：只有子类Fragment是父类里ViewPager第一个Item时才进行设置的<h3/>
      */
     private boolean mCanBeLoadedWhenInitialized = false;
-
+    public RefreshLayout refreshLayout;
+    public boolean isreFreshLayoutLoadmore;
+    public boolean isLoadmore;
+    public boolean isreFresh;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -149,7 +158,7 @@ public abstract class BaseFragment<T extends BasePresenter, R extends MultiItemE
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(getLayoutId(), container, false);
         mBinder = ButterKnife.bind(this, mRootView);
-
+        refreshLayout = (RefreshLayout) mRootView.findViewById(com.baseapp.common.R.id.refreshLayout);
         this.mActivity = (BaseActivity) getActivity();
 
         mPresenter = TUtil.getT(this, 0);
@@ -169,19 +178,14 @@ public abstract class BaseFragment<T extends BasePresenter, R extends MultiItemE
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         initPresenter();
-
-        initSmartRefreshLayout();
-
         initLoadMoreAdapter();
-
         initView();
-
         if (mCanBeLoadedWhenInitialized) {
             autoRefresh();
         }
-
+        this.initNetWork(pageIndex);
+        initRefresh();
     }
 
     /**
@@ -207,53 +211,6 @@ public abstract class BaseFragment<T extends BasePresenter, R extends MultiItemE
     }
 
     /**
-     * 初始化刷新数据方法，下拉刷新使用SmartRefreshLayout,上拉加载使用BaseRecycelrViewAdapterHelper
-     */
-    public void initSmartRefreshLayout() {
-        if (getSmartRefreshLayout() != null) {
-
-            //下拉刷新
-            getSmartRefreshLayout().setRefreshHeader(new MaterialHeader(mActivity));
-            getSmartRefreshLayout().setEnableHeaderTranslationContent(false);
-            getSmartRefreshLayout().setEnableRefresh(true);
-            //使用Adapter的上拉加载
-            getSmartRefreshLayout().setEnableAutoLoadmore(false);
-            getSmartRefreshLayout().setOnRefreshListener(new OnRefreshListener() {
-                @Override
-                public void onRefresh(RefreshLayout refreshlayout) {
-                    isRefreshMode = true;
-                    mCurrentPage = 1;
-                    mDataList = null;
-
-                    try { //此处没有申请运行时权限readphonestate
-                        if (!NetworkUtils.isConnected()){
-                            if (mRecyclerViewAdapter.getData().size() > 0){
-                                Alerter.create(mActivity)
-                                        .setTitle("当前无网络，请检查网络")
-                                        .setBackgroundColorInt(Color.parseColor("ff5640"))
-                                        .setIcon(com.baseapp.common.R.drawable.icon_alert)
-                                        .enableSwipeToDismiss()
-                                        .setDuration(1000)
-                                        .show();
-                            }else {
-                                showEmptyErrorView(CODE_LIST_NO_NETWORK,mEmptyErrorViewTipMessage);
-                            }
-                            getSmartRefreshLayout().finishRefresh();
-                            return;
-                        }
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-
-                    initListRequest(mCurrentPage);
-                }
-            });
-
-        }
-
-    }
-
-    /**
      * 初始化上拉加载adapter
      */
     public void initLoadMoreAdapter() {
@@ -275,8 +232,8 @@ public abstract class BaseFragment<T extends BasePresenter, R extends MultiItemE
                     @Override
                     public void onLoadMoreRequested() {
                         isRefreshMode = false;
-                        mCurrentPage++;
-                        initListRequest(mCurrentPage);
+                        pageIndex++;
+                        initListRequest(pageIndex);
                     }
                 }, getRecyclerView());
             } else {
@@ -352,7 +309,7 @@ public abstract class BaseFragment<T extends BasePresenter, R extends MultiItemE
     protected void initListRequest(int page) {
 
     }
-
+    protected abstract void initNetWork(int page);
 
     /*********************************************关于刷新的三个重要方法**********************************************/
 
@@ -429,7 +386,7 @@ public abstract class BaseFragment<T extends BasePresenter, R extends MultiItemE
 
         if (mRecyclerViewAdapter != null && enableAdapterLoadMore()) {
             if (!isRefreshMode) {
-                mCurrentPage--;
+                pageIndex--;
                 mRecyclerViewAdapter.loadMoreFail();
             }
         }
@@ -438,12 +395,48 @@ public abstract class BaseFragment<T extends BasePresenter, R extends MultiItemE
 
 
     /**
-     * 获取分页加载当前页,也可以直接使用mCurrentPage
+     * 获取分页加载当前页,也可以直接使用pageIndex
      *
      * @return
      */
     protected int getCurrentPage() {
-        return this.mCurrentPage;
+        return this.pageIndex;
+    }
+    public void initRefresh() {
+        if (refreshLayout != null) {
+            MyClassicsHeader myClassicsHeader = new MyClassicsHeader(mActivity);
+//            myClassicsHeader.setBackgroundColor(UIUtils.getColor(com.baseapp.common.R.color.color_f4f4f4));
+            refreshLayout.setRefreshHeader(myClassicsHeader);
+//            refreshLayout.getLayout().setBackgroundResource(com.baseapp.common.R.color.color_f4f4f4);
+            refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+                @Override
+                public void onRefresh(RefreshLayout refreshlayout) {
+                    isreFresh = true;
+                    pageIndex = 1;
+                    initNetWork(pageIndex);
+                    refreshlayout.finishRefresh(2000);
+                }
+            });
+            if (isreFreshLayoutLoadmore) {
+//
+                ClassicsFooter classicsFooter = new ClassicsFooter(mActivity);
+                refreshLayout.setRefreshFooter(classicsFooter);
+                refreshLayout.setEnableLoadmore(true);
+                refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+                    @Override
+                    public void onLoadmore(RefreshLayout refreshlayout) {
+                        isLoadmore = true;
+                        pageIndex++;
+                        refreshLayout.finishLoadmore(1000);
+                        initNetWork(pageIndex);
+                        isLoadmore = false;
+                        refreshlayout.setLoadmoreFinished(false);
+                    }
+                });
+            } else {
+                refreshLayout.setEnableLoadmore(false);
+            }
+        }
     }
 
     /**********************************************************************************************************************************************/
@@ -535,19 +528,19 @@ public abstract class BaseFragment<T extends BasePresenter, R extends MultiItemE
                 break;
 
             //接口请求错误，错误码404
-            case ErrorCode.CODE_NOT_FOUND:
-
-                if (mEmptyViewContainer == null) {
-                    throw new IllegalStateException("使用空视图你必须在初始化时调用方法setEmptyViewContainer（）设置空视图容器");
-                }
-
-                if (mEmptyView.getParent() != null) {
-                    ViewGroup parent = (ViewGroup) mEmptyView.getParent();
-                    parent.removeView(mEmptyView);
-                }
-
-                mEmptyViewContainer.addView(mEmptyView);
-                break;
+//            case ErrorCode.CODE_NOT_FOUND:
+//
+//                if (mEmptyViewContainer == null) {
+//                    throw new IllegalStateException("使用空视图你必须在初始化时调用方法setEmptyViewContainer（）设置空视图容器");
+//                }
+//
+//                if (mEmptyView.getParent() != null) {
+//                    ViewGroup parent = (ViewGroup) mEmptyView.getParent();
+//                    parent.removeView(mEmptyView);
+//                }
+//
+//                mEmptyViewContainer.addView(mEmptyView);
+//                break;
 
             //非列表空数据，非404返回码的错误界面视图
             default:
@@ -694,5 +687,56 @@ public abstract class BaseFragment<T extends BasePresenter, R extends MultiItemE
      */
     protected void setLoadingViewContainer(FrameLayout container) {
         this.mLoadingViewContainer = container;
+    }
+    /**
+     * 通过Class跳转界面
+     **/
+    public void startActivity(Class<?> cls) {
+        startActivity(cls, null);
+        startAnim();
+    }
+
+    /**
+     * 通过Class跳转界面
+     **/
+    public void startActivityForResult(Class<?> cls, int requestCode) {
+        startActivityForResult(cls, null, requestCode);
+        startAnim();
+    }
+
+    /**
+     * 含有Bundle通过Class跳转界面
+     **/
+    public void startActivityForResult(Class<?> cls, Bundle bundle,
+                                       int requestCode) {
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), cls);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivityForResult(intent, requestCode);
+        startAnim();
+    }
+
+    /**
+     * 含有Bundle通过Class跳转界面
+     **/
+    public void startActivity(Class<?> cls, Bundle bundle) {
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), cls);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+        startAnim();
+    }
+    //启动Activity动画
+    protected void startAnim() {
+        mActivity.overridePendingTransition(com.baseapp.common.R.anim.back_enter, com.baseapp.common.R.anim.back_exit);
+    }
+
+    //关闭Activity动画
+    protected void exitAnim() {
+        mActivity.overridePendingTransition(com.baseapp.common.R.anim.enter_back, com.baseapp.common.R.anim.exit_back);
     }
 }

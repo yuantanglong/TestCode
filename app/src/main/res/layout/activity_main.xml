@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.activity.MainActivity">
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <FrameLayout
+        android:id="@+id/mFrameLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0" />
 
-</android.support.constraint.ConstraintLayout>
+    <com.hhj.merchant.view.MyCommonTabLayout
+        android:id="@+id/myCommonTabLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/y100"
+        android:background="#ffffffff"
+        tl:tl_iconGravity="LEFT"
+        tl:tl_indicator_bounce_enable="false"
+        tl:tl_indicator_corner_radius="0.0dip"
+        tl:tl_indicator_margin_bottom="-50.0dip"
+        tl:tl_indicator_margin_top="-50.0dip"
+        tl:tl_indicator_style="BLOCK"
+        tl:tl_textSelectColor="@color/white"
+        tl:tl_textUnselectColor="#66000000"
+        tl:tl_textsize="15.0sp" />
+</LinearLayout>

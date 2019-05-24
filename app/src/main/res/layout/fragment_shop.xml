@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_E7EAEF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y200"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="@dimen/x22">
+
+            <ImageView
+                android:id="@+id/iv_head"
+                android:layout_width="@dimen/x120"
+                android:layout_height="@dimen/y120"
+                android:layout_gravity="center" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y120"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/x26"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_sellerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y20"
+                    android:text="--"
+                    android:textColor="@color/color_004165"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_telephone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="@color/color_7D9AAA"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/shop_gp_dyj1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:text="打印机未连接"
+                        android:textColor="@color/color_FA5236" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/saoma1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:text="扫码枪未连接"
+                        android:textColor="@color/color_FA5236" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y166"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_marginBottom="@dimen/y20"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_OrderGoodsManager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/x46"
+                    android:layout_height="@dimen/y52"
+                    android:src="@mipmap/shop_order_manager" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y20"
+                    android:text="我要订货"
+                    android:textColor="@color/color_004165" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/x46"
+                    android:layout_height="@dimen/y52"
+                    android:src="@mipmap/shop_good_manager" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y20"
+                    android:text="商品管理"
+                    android:textColor="@color/color_004165" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/x46"
+                    android:layout_height="@dimen/y52"
+                    android:src="@mipmap/icon_zyspgl" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y20"
+                    android:text="自有商品管理"
+                    android:textColor="@color/color_004165" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_SellerMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_stroke_bottom_f4f4f4"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x34"
+            android:paddingRight="@dimen/x34">
+
+            <com.hhj.merchant.view.DrawableResizableTextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/y88"
+                android:layout_weight="1"
+                android:background="@color/color_white"
+                android:drawableLeft="@drawable/icon_message"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:text="消息"
+                android:textColor="@color/color_004165" />
+
+            <ImageView
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:layout_width="@dimen/x14"
+                android:layout_height="@dimen/y24"
+                android:src="@mipmap/youjiantou" />
+
+        </LinearLayout>
+
+        <View style="@style/line" />
+
+        <LinearLayout
+            android:id="@+id/ll_EquipmentManager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_stroke_bottom_f4f4f4"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x34"
+            android:paddingRight="@dimen/x34">
+
+            <com.hhj.merchant.view.DrawableResizableTextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/y88"
+                android:layout_weight="1"
+                android:background="@color/color_white"
+                android:drawableLeft="@drawable/icon_print"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:text="设备管理"
+                android:textColor="@color/color_004165" />
+
+            <ImageView
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:layout_width="@dimen/x14"
+                android:layout_height="@dimen/y24"
+                android:src="@mipmap/youjiantou" />
+
+        </LinearLayout>
+
+        <View style="@style/line" />
+
+        <LinearLayout
+            android:id="@+id/ll_OrderFinish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_stroke_bottom_f4f4f4"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x34"
+            android:paddingRight="@dimen/x34">
+
+            <com.hhj.merchant.view.DrawableResizableTextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/y88"
+                android:layout_weight="1"
+                android:background="@color/color_white"
+                android:drawableLeft="@drawable/icon_finish"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:text="已完成"
+                android:textColor="@color/color_004165" />
+
+            <ImageView
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:layout_width="@dimen/x14"
+                android:layout_height="@dimen/y24"
+                android:src="@mipmap/youjiantou" />
+
+        </LinearLayout>
+
+        <View style="@style/line" />
+
+        <LinearLayout
+            android:id="@+id/ll_refund"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_stroke_bottom_f4f4f4"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x34"
+            android:paddingRight="@dimen/x34">
+
+            <com.hhj.merchant.view.DrawableResizableTextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/y88"
+                android:layout_weight="1"
+                android:background="@color/color_white"
+                android:drawableLeft="@drawable/icon_refund"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:text="退款"
+                android:textColor="@color/color_004165" />
+
+            <ImageView
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:layout_width="@dimen/x14"
+                android:layout_height="@dimen/y24"
+                android:src="@mipmap/youjiantou" />
+
+        </LinearLayout>
+
+        <View style="@style/line" />
+
+        <LinearLayout
+            android:id="@+id/ll_VoiceAndNotice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y20"
+            android:background="@drawable/shape_stroke_bottom_f4f4f4"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x34"
+            android:paddingRight="@dimen/x34">
+
+            <com.hhj.merchant.view.DrawableResizableTextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/y88"
+                android:layout_weight="1"
+                android:background="@color/color_white"
+                android:drawableLeft="@drawable/icon_volume"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:text="声音与通知"
+                android:textColor="@color/color_004165" />
+
+            <ImageView
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:layout_width="@dimen/x14"
+                android:layout_height="@dimen/y24"
+                android:src="@mipmap/youjiantou" />
+
+        </LinearLayout>
+
+        <View style="@style/line" />
+
+        <LinearLayout
+            android:id="@+id/ll_set"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_stroke_bottom_f4f4f4"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x34"
+            android:paddingRight="@dimen/x34">
+
+            <com.hhj.merchant.view.DrawableResizableTextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/y88"
+                android:layout_weight="1"
+                android:background="@color/color_white"
+                android:drawableLeft="@drawable/icon_setting"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:text="设置"
+                android:textColor="@color/color_004165" />
+
+            <ImageView
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:layout_width="@dimen/x14"
+                android:layout_height="@dimen/y24"
+                android:src="@mipmap/youjiantou" />
+
+        </LinearLayout>
+
+        <View style="@style/line" />
+
+        <LinearLayout
+            android:id="@+id/ll_DeliveryClerkManager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y20"
+            android:background="@drawable/shape_stroke_bottom_f4f4f4"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x34"
+            android:paddingRight="@dimen/x34">
+
+            <com.hhj.merchant.view.DrawableResizableTextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/y88"
+                android:layout_weight="1"
+                android:background="@color/color_white"
+                android:drawableLeft="@drawable/icon_deliver"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:text="配送员管理"
+                android:textColor="@color/color_004165" />
+
+            <ImageView
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:layout_width="@dimen/x14"
+                android:layout_height="@dimen/y24"
+                android:src="@mipmap/youjiantou" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -5,9 +5,9 @@ package com.baseapp.common.http.error;
  */
 public class ApiException extends Exception {
 
-    private int code;  //错误码
+    private String code;  //错误码
     private ErrorType errorType;  //错误类型
-    public ApiException(int code,ErrorType errorType,String message,Throwable cause){
+    public ApiException(String code,ErrorType errorType,String message,Throwable cause){
         this(message,cause);
         this.code=code;
         this.errorType=errorType;
@@ -22,7 +22,7 @@ public class ApiException extends Exception {
      * 获取错误码
      * @return
      */
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 

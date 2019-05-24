@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_E7EAEF"
+    android:orientation="vertical">
+
+    <EditText
+        android:inputType="textPassword"
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:layout_marginTop="@dimen/y30"
+        android:layout_marginBottom="@dimen/y30"
+        android:background="@color/white"
+        android:hint="请输入旧密码"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30"
+        android:textColor="@color/color_7D9AAA"
+        android:textSize="15sp" />
+
+    <EditText
+        android:inputType="textPassword"
+        android:id="@+id/et_newPassword"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:background="@color/white"
+        android:hint="请输入新密码"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30"
+        android:textColor="@color/color_7D9AAA"
+        android:textSize="15sp" />
+
+    <View style="@style/line" />
+
+    <EditText
+        android:inputType="textPassword"
+        android:id="@+id/et_again_newPassword"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:background="@color/white"
+        android:hint="请再次输入新密码"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30"
+        android:textColor="@color/color_7D9AAA"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        >
+
+        <TextView
+            android:id="@+id/tv_confirmUpdate"
+            android:layout_marginBottom="@dimen/y30"
+            android:layout_marginLeft="@dimen/x46"
+            android:layout_marginRight="@dimen/x46"
+            android:background="@drawable/shape_corner_login_button"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:text="确认修改"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100" />
+    </LinearLayout>
+</LinearLayout>

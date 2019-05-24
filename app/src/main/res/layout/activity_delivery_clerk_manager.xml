@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_E7EAEF">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/y130"
+        />
+
+    <TextView
+        android:id="@+id/tv_add"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/x46"
+        android:layout_marginRight="@dimen/x46"
+        android:layout_marginBottom="@dimen/y30"
+        android:background="@drawable/shape_corner_login_button"
+        android:gravity="center"
+        android:text="添加配送员"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+</RelativeLayout>
