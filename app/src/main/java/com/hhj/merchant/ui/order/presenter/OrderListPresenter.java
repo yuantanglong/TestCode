@@ -10,8 +10,10 @@ import com.blankj.utilcode.util.LogUtils;
 import com.hhj.merchant.api.AppService;
 import com.hhj.merchant.bean.GetListBean;
 import com.hhj.merchant.bean.OrdersBean;
+import com.hhj.merchant.bean.QueryCountBean;
 import com.hhj.merchant.ui.order.contract.OrderListContract;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -89,6 +91,7 @@ public class OrderListPresenter extends BasePresenter<OrderListContract> {
                     }
                 });
     }
+
     public void deliverGoods(Map<String, String> map) {
         Api.
                 observable(Api.getService(AppService.class).deliverGoods(map)).
@@ -109,6 +112,7 @@ public class OrderListPresenter extends BasePresenter<OrderListContract> {
                     }
                 });
     }
+
     public void cancelDeliverGoods(Map<String, String> map) {
         Api.
                 observable(Api.getService(AppService.class).cancelDeliverGoods(map)).
@@ -129,6 +133,7 @@ public class OrderListPresenter extends BasePresenter<OrderListContract> {
                     }
                 });
     }
+
     public void getOrders(Map<String, String> map) {
         Api.
                 observable(Api.getService(AppService.class).getOrders(map)).
@@ -145,6 +150,44 @@ public class OrderListPresenter extends BasePresenter<OrderListContract> {
 
                     @Override
                     protected void _onError(ErrorType errorType, String errorCode, String message, OrdersBean bean) {
+                        LogUtils.e("errorType==" + errorType + "==errorCode==" + errorCode + "==tokenBean==" + bean);
+                    }
+                });
+    }
+
+    public void ordercount() {
+        Api.
+                observable(Api.getService(AppService.class).ordercount()).
+                presenter(this).
+                requestMode(RequestMode.SINGLE).
+                showLoading(true).
+                doRequest(new RxSubscriber<QueryCountBean, BaseBean<QueryCountBean>>() {
+                    @Override
+                    protected void _onSuccess(QueryCountBean bean, String successMessage) {
+                        mView.ordercount(bean);
+                    }
+
+                    @Override
+                    protected void _onError(ErrorType errorType, String errorCode, String message, QueryCountBean bean) {
+                        LogUtils.e("errorType==" + errorType + "==errorCode==" + errorCode + "==tokenBean==" + bean);
+                    }
+                });
+    }
+
+    public void changestatus(Map<String, String> map) {
+        Api.
+                observable(Api.getService(AppService.class).changestatus(map)).
+                presenter(this).
+                requestMode(RequestMode.SINGLE).
+                showLoading(true).
+                doRequest(new RxSubscriber<BaseBean, BaseBean<BaseBean>>() {
+                    @Override
+                    protected void _onSuccess(BaseBean bean, String successMessage) {
+                        mView.changestatus(bean);
+                    }
+
+                    @Override
+                    protected void _onError(ErrorType errorType, String errorCode, String message, BaseBean bean) {
                         LogUtils.e("errorType==" + errorType + "==errorCode==" + errorCode + "==tokenBean==" + bean);
                     }
                 });

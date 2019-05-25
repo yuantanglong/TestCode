@@ -1,6 +1,7 @@
 package com.hhj.merchant.ui.order.fragment;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -28,6 +29,7 @@ import com.hhj.merchant.R;
 import com.hhj.merchant.bean.GetListBean;
 import com.hhj.merchant.bean.OrdersBean;
 import com.hhj.merchant.bean.QueryCountBean;
+import com.hhj.merchant.ui.order.activity.DistributionListActivity;
 import com.hhj.merchant.ui.order.adapter.DialogListAdapter;
 import com.hhj.merchant.ui.order.adapter.NativePeopleAdapter;
 import com.hhj.merchant.ui.order.adapter.OrderListAdapter;
@@ -120,6 +122,8 @@ public class OrderListFragment extends BaseFragment<OrderListPresenter, MultiIte
         } else if ("OrderDetailActivity".equals(tag)) {
             mSegmentTabLayout.setVisibility(View.GONE);
             ordersListBean = (OrdersBean.OrdersListBean) getArguments().getSerializable("ordersListBean");
+        } else if ("MainActivity".equals(tag)) {
+            stateId = "3";
         }
 
         mSegmentTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
@@ -131,6 +135,9 @@ public class OrderListFragment extends BaseFragment<OrderListPresenter, MultiIte
                 } else if ("RefundActivity".equals(tag)) {
                     int[] order_refund_status_id = UIUtils.getIntArray(R.array.order_refund_status_id);
                     stateId = order_refund_status_id[position] + "";
+                } else if ("MainActivity".equals(tag)) {
+                    int[] doujiang_order_status_id = UIUtils.getIntArray(R.array.doujiang_order_status_id);
+                    stateId = doujiang_order_status_id[position] + "";
                 }
                 pageIndex = 1;
                 query();
@@ -151,6 +158,14 @@ public class OrderListFragment extends BaseFragment<OrderListPresenter, MultiIte
             mAdapter.disableLoadMoreIfNotFullPage(mRecyclerView);
             mAdapter.setEnableLoadMore(false);
             mAdapter.loadMoreEnd();
+        } else if ("MainActivity".equals(tag)) {
+            mPresenter.ordercount();
+            map = new HashMap<>();
+            map.put("pageIndex", pageIndex + "");
+            map.put("pageSize", pageSize);
+            map.put("stateId", stateId);
+            map.put("orderType", "4");
+            mPresenter.query(map);
         } else {
             if ("OrderFragment".equals(tag)) {
                 int selectedTabPosition = OrderFragment.tabLayout.getSelectedTabPosition();
@@ -259,6 +274,16 @@ public class OrderListFragment extends BaseFragment<OrderListPresenter, MultiIte
                         list.add("与客户再协商");
                         showListDialog("拒退款原因", list);
                         break;
+                    case "查看详情":
+                        Intent intent=new Intent(mContext, DistributionListActivity.class);
+                        intent.putExtra("orderSn",orderSn);
+                        intent.putExtra("orderState",bean.getOrderState());
+                        startActivity(intent);
+                        break;
+                    case "确认发货":
+                        buttonStatus = "4";
+                        showDialog(null, "确认是否发货", DialogWrapper.BUTTON_DOUBLE, "", false);
+                        break;
 
                 }
             }
@@ -349,9 +374,13 @@ public class OrderListFragment extends BaseFragment<OrderListPresenter, MultiIte
                                     map = new HashMap<>();
                                     map.put("buttonStatus", buttonStatus);
                                     map.put("orderId", orderSn);
-                                    map.put("deliveryNo", id);
-                                    map.put("deliveryType", type);
-                                    mPresenter.deliverGoods(map);
+                                    if (null == view) {
+                                        mPresenter.changestatus(map);
+                                    } else {
+                                        map.put("deliveryNo", id);
+                                        map.put("deliveryType", type);
+                                        mPresenter.deliverGoods(map);
+                                    }
                                 }
                                 break;
                         }
@@ -507,6 +536,21 @@ public class OrderListFragment extends BaseFragment<OrderListPresenter, MultiIte
     @Override
     public void getOrders(OrdersBean bean) {
 
+    }
+
+    @Override
+    public void ordercount(QueryCountBean queryCountBean) {
+        mTitles = new String[3];
+        mTitles[0] = "待发货(" + queryCountBean.getDeliverGoodStateCount() + ")";
+        mTitles[1] = "配送中(" + queryCountBean.getDispatchingStateCount() + ")";
+        mTitles[2] = "配送完成(" + queryCountBean.getDoneStateCount() + ")";
+        date = queryCountBean.getDate();
+        mSegmentTabLayout.setTabData(mTitles);
+    }
+
+    @Override
+    public void changestatus(BaseBean bean) {
+        ToastUtils.showShort("发货成功");
     }
 
     @Override

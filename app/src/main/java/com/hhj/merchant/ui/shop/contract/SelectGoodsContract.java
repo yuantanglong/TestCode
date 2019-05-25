@@ -1,8 +1,12 @@
 package com.hhj.merchant.ui.shop.contract;
 
+import com.baseapp.common.base.BaseBean;
 import com.baseapp.common.base.BaseView;
+import com.hhj.merchant.bean.GoldAmountBean;
+import com.hhj.merchant.bean.ProductGoodListBean;
 import com.hhj.merchant.bean.ProductTypeBean;
 import com.hhj.merchant.bean.SellerGoodsBean;
+import com.hhj.merchant.bean.SubmitOrderBean;
 
 import java.util.List;
 
@@ -19,6 +23,12 @@ import java.util.List;
  * @Version: 1.0
  */
 public interface SelectGoodsContract extends BaseView {
+    void getApporderGoodsProductType(List<ProductTypeBean> list);
     void getProductType(List<ProductTypeBean> list);
+    void productGoodList(List<ProductGoodListBean> list);
+
     void getSellerGoods(List<SellerGoodsBean> list);
+    void getGoldAmount(GoldAmountBean bean);
+
+    void submitOrder(SubmitOrderBean bean);
 }

@@ -10,12 +10,28 @@
         android:layout_height="@dimen/y166"
         android:padding="@dimen/x30">
 
-        <ImageView
-            android:id="@+id/iv_goods"
+        <FrameLayout
             android:layout_width="@dimen/x120"
-            android:layout_height="@dimen/y104"
-            android:layout_gravity="center"
-            android:src="@mipmap/hhj" />
+            android:layout_height="@dimen/y104">
+
+            <ImageView
+                android:id="@+id/iv_goods"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:src="@mipmap/hhj" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_sell_out"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_66000000"
+                android:gravity="center"
+                android:text="售罄"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,9 +41,9 @@
 
             <TextView
                 android:id="@+id/tv_productName"
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:maxLength="2"
                 android:text="--"
                 android:textColor="@color/color_004165"
@@ -39,30 +55,42 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_productStock_str"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="当前库存: "
                     android:textColor="@color/color_004165"
                     android:textSize="15sp" />
+
                 <TextView
                     android:id="@+id/tv_productStock"
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="@color/color_004165"
                     android:textSize="15sp" />
+                <ImageView
+                    android:id="@+id/iv_jiantou"
+                    android:visibility="gone"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/img_modify"
+                    android:layout_width="@dimen/x40"
+                    android:layout_height="@dimen/y40" />
                 <TextView
+                    android:layout_weight="1"
                     android:id="@+id/tv_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:gravity="right"
                     android:textColor="@color/color_004165"
                     android:textSize="15sp" />
+
                 <ImageView
-                    android:layout_marginLeft="@dimen/x10"
+                    android:id="@+id/iv_add"
                     android:layout_width="@dimen/x40"
                     android:layout_height="@dimen/y40"
+                    android:layout_marginLeft="@dimen/x10"
                     android:src="@mipmap/add" />
             </LinearLayout>
         </LinearLayout>

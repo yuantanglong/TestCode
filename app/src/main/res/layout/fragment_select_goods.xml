@@ -6,7 +6,6 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:paddingBottom="@dimen/y140"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
@@ -23,6 +22,8 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:paddingTop="@dimen/y140"
+        android:id="@+id/rl_boot_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
@@ -33,6 +34,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_money"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -44,6 +46,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/tv_submitOrder"
                 android:layout_width="@dimen/x266"
                 android:layout_height="match_parent"
                 android:background="@color/color_FEDF00"
@@ -53,7 +56,7 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="@dimen/x140"
             android:layout_height="@dimen/y140"
             android:layout_alignParentBottom="true"
@@ -66,7 +69,19 @@
                 android:layout_height="@dimen/y70"
                 android:layout_gravity="center"
                 android:src="@mipmap/iv_order_gray" />
-        </LinearLayout>
+            <TextView
+                android:layout_marginLeft="@dimen/x50"
+                android:id="@+id/tv_number"
+                android:layout_width="@dimen/x30"
+                android:layout_height="@dimen/y30"
+                android:background="@drawable/white_shape_oval"
+                android:gravity="center"
+                android:text="0"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:visibility="visible" />
+        </RelativeLayout>
 
     </RelativeLayout>
 </RelativeLayout>

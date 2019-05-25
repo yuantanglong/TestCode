@@ -98,30 +98,30 @@ public class LoginBean {
          * accountType : 0
          */
 
-        private int id;
-        private int sellerApplyId;
-        private int sellerId;
-        private int isDealer;
-        private int isSelfLifting;
-        private int sellerTypeId;
+        private String id;
+        private String sellerApplyId;
+        private String sellerId;
+        private String isDealer;
+        private String isSelfLifting;
+        private String sellerTypeId;
         private String sellerTypeName;
-        private int sellerLevelId;
+        private String sellerLevelId;
         private String sellerLevelName;
-        private int isInvented;
-        private int distributorId;
+        private String isInvented;
+        private String distributorId;
         private String distributorName;
         private String distributorCode;
         private String sellerCode;
         private String company;
         private String name;
-        private Object password;
+        private String password;
         private String companyAbbreviation;
         private String sellerLogo;
-        private int companyProvinceId;
+        private String companyProvinceId;
         private String companyProvinceName;
-        private int companyCityId;
+        private String companyCityId;
         private String companyCityName;
-        private int companyAreaId;
+        private String companyAreaId;
         private String companyAreaName;
         private String companyAdd;
         private String telephone;
@@ -137,90 +137,90 @@ public class LoginBean {
         private String bankUser;
         private String bankName;
         private String bankCode;
-        private int stockWarning;
-        private int isDelete;
-        private int isUse;
-        private int isBlacklist;
+        private String stockWarning;
+        private String isDelete;
+        private String isUse;
+        private String isBlacklist;
         private String sellerNotice;
         private String remark;
-        private double longitude;
-        private double latitude;
-        private int dispatchingCycle;
-        private int dispatchingNum;
-        private int isBussiness;
+        private String longitude;
+        private String latitude;
+        private String dispatchingCycle;
+        private String dispatchingNum;
+        private String isBussiness;
         private String companyStartTime;
         private String companyEndTime;
         private String deliveryStartTime;
         private String deliveryEndTime;
         private String bussinessRemark;
-        private int dispatchingSet;
-        private int dispatchingPrice;
-        private int dispatchingMode;
-        private int state;
-        private int type;
-        private int optId;
+        private String dispatchingSet;
+        private String dispatchingPrice;
+        private String dispatchingMode;
+        private String state;
+        private String type;
+        private String optId;
         private String createTime;
         private String updateTime;
-        private Object isDelivery;
-        private Object newPassword;
+        private String isDelivery;
+        private String newPassword;
         private String sellerName;
-        private Object businessTime;
-        private Object deliveryTime;
+        private String businessTime;
+        private String deliveryTime;
         private String token;
-        private Object principalGolds;
-        private Object freightGolds;
-        private Object dividendGolds;
-        private int s_is_bussiness;
-        private int s_is_use;
-        private int s_is_delete;
-        private int s_audit_status;
-        private int accountType;
+        private String principalGolds;
+        private String freightGolds;
+        private String dividendGolds;
+        private String s_is_bussiness;
+        private String s_is_use;
+        private String s_is_delete;
+        private String s_audit_status;
+        private String accountType;
 
-        public int getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 
-        public int getSellerApplyId() {
+        public String getSellerApplyId() {
             return sellerApplyId;
         }
 
-        public void setSellerApplyId(int sellerApplyId) {
+        public void setSellerApplyId(String sellerApplyId) {
             this.sellerApplyId = sellerApplyId;
         }
 
-        public int getSellerId() {
+        public String getSellerId() {
             return sellerId;
         }
 
-        public void setSellerId(int sellerId) {
+        public void setSellerId(String sellerId) {
             this.sellerId = sellerId;
         }
 
-        public int getIsDealer() {
+        public String getIsDealer() {
             return isDealer;
         }
 
-        public void setIsDealer(int isDealer) {
+        public void setIsDealer(String isDealer) {
             this.isDealer = isDealer;
         }
 
-        public int getIsSelfLifting() {
+        public String getIsSelfLifting() {
             return isSelfLifting;
         }
 
-        public void setIsSelfLifting(int isSelfLifting) {
+        public void setIsSelfLifting(String isSelfLifting) {
             this.isSelfLifting = isSelfLifting;
         }
 
-        public int getSellerTypeId() {
+        public String getSellerTypeId() {
             return sellerTypeId;
         }
 
-        public void setSellerTypeId(int sellerTypeId) {
+        public void setSellerTypeId(String sellerTypeId) {
             this.sellerTypeId = sellerTypeId;
         }
 
@@ -232,11 +232,11 @@ public class LoginBean {
             this.sellerTypeName = sellerTypeName;
         }
 
-        public int getSellerLevelId() {
+        public String getSellerLevelId() {
             return sellerLevelId;
         }
 
-        public void setSellerLevelId(int sellerLevelId) {
+        public void setSellerLevelId(String sellerLevelId) {
             this.sellerLevelId = sellerLevelId;
         }
 
@@ -248,19 +248,19 @@ public class LoginBean {
             this.sellerLevelName = sellerLevelName;
         }
 
-        public int getIsInvented() {
+        public String getIsInvented() {
             return isInvented;
         }
 
-        public void setIsInvented(int isInvented) {
+        public void setIsInvented(String isInvented) {
             this.isInvented = isInvented;
         }
 
-        public int getDistributorId() {
+        public String getDistributorId() {
             return distributorId;
         }
 
-        public void setDistributorId(int distributorId) {
+        public void setDistributorId(String distributorId) {
             this.distributorId = distributorId;
         }
 
@@ -304,11 +304,11 @@ public class LoginBean {
             this.name = name;
         }
 
-        public Object getPassword() {
+        public String getPassword() {
             return password;
         }
 
-        public void setPassword(Object password) {
+        public void setPassword(String password) {
             this.password = password;
         }
 
@@ -328,11 +328,11 @@ public class LoginBean {
             this.sellerLogo = sellerLogo;
         }
 
-        public int getCompanyProvinceId() {
+        public String getCompanyProvinceId() {
             return companyProvinceId;
         }
 
-        public void setCompanyProvinceId(int companyProvinceId) {
+        public void setCompanyProvinceId(String companyProvinceId) {
             this.companyProvinceId = companyProvinceId;
         }
 
@@ -344,11 +344,11 @@ public class LoginBean {
             this.companyProvinceName = companyProvinceName;
         }
 
-        public int getCompanyCityId() {
+        public String getCompanyCityId() {
             return companyCityId;
         }
 
-        public void setCompanyCityId(int companyCityId) {
+        public void setCompanyCityId(String companyCityId) {
             this.companyCityId = companyCityId;
         }
 
@@ -360,11 +360,11 @@ public class LoginBean {
             this.companyCityName = companyCityName;
         }
 
-        public int getCompanyAreaId() {
+        public String getCompanyAreaId() {
             return companyAreaId;
         }
 
-        public void setCompanyAreaId(int companyAreaId) {
+        public void setCompanyAreaId(String companyAreaId) {
             this.companyAreaId = companyAreaId;
         }
 
@@ -488,35 +488,35 @@ public class LoginBean {
             this.bankCode = bankCode;
         }
 
-        public int getStockWarning() {
+        public String getStockWarning() {
             return stockWarning;
         }
 
-        public void setStockWarning(int stockWarning) {
+        public void setStockWarning(String stockWarning) {
             this.stockWarning = stockWarning;
         }
 
-        public int getIsDelete() {
+        public String getIsDelete() {
             return isDelete;
         }
 
-        public void setIsDelete(int isDelete) {
+        public void setIsDelete(String isDelete) {
             this.isDelete = isDelete;
         }
 
-        public int getIsUse() {
+        public String getIsUse() {
             return isUse;
         }
 
-        public void setIsUse(int isUse) {
+        public void setIsUse(String isUse) {
             this.isUse = isUse;
         }
 
-        public int getIsBlacklist() {
+        public String getIsBlacklist() {
             return isBlacklist;
         }
 
-        public void setIsBlacklist(int isBlacklist) {
+        public void setIsBlacklist(String isBlacklist) {
             this.isBlacklist = isBlacklist;
         }
 
@@ -536,43 +536,43 @@ public class LoginBean {
             this.remark = remark;
         }
 
-        public double getLongitude() {
+        public String getLongitude() {
             return longitude;
         }
 
-        public void setLongitude(double longitude) {
+        public void setLongitude(String longitude) {
             this.longitude = longitude;
         }
 
-        public double getLatitude() {
+        public String getLatitude() {
             return latitude;
         }
 
-        public void setLatitude(double latitude) {
+        public void setLatitude(String latitude) {
             this.latitude = latitude;
         }
 
-        public int getDispatchingCycle() {
+        public String getDispatchingCycle() {
             return dispatchingCycle;
         }
 
-        public void setDispatchingCycle(int dispatchingCycle) {
+        public void setDispatchingCycle(String dispatchingCycle) {
             this.dispatchingCycle = dispatchingCycle;
         }
 
-        public int getDispatchingNum() {
+        public String getDispatchingNum() {
             return dispatchingNum;
         }
 
-        public void setDispatchingNum(int dispatchingNum) {
+        public void setDispatchingNum(String dispatchingNum) {
             this.dispatchingNum = dispatchingNum;
         }
 
-        public int getIsBussiness() {
+        public String getIsBussiness() {
             return isBussiness;
         }
 
-        public void setIsBussiness(int isBussiness) {
+        public void setIsBussiness(String isBussiness) {
             this.isBussiness = isBussiness;
         }
 
@@ -616,51 +616,51 @@ public class LoginBean {
             this.bussinessRemark = bussinessRemark;
         }
 
-        public int getDispatchingSet() {
+        public String getDispatchingSet() {
             return dispatchingSet;
         }
 
-        public void setDispatchingSet(int dispatchingSet) {
+        public void setDispatchingSet(String dispatchingSet) {
             this.dispatchingSet = dispatchingSet;
         }
 
-        public int getDispatchingPrice() {
+        public String getDispatchingPrice() {
             return dispatchingPrice;
         }
 
-        public void setDispatchingPrice(int dispatchingPrice) {
+        public void setDispatchingPrice(String dispatchingPrice) {
             this.dispatchingPrice = dispatchingPrice;
         }
 
-        public int getDispatchingMode() {
+        public String getDispatchingMode() {
             return dispatchingMode;
         }
 
-        public void setDispatchingMode(int dispatchingMode) {
+        public void setDispatchingMode(String dispatchingMode) {
             this.dispatchingMode = dispatchingMode;
         }
 
-        public int getState() {
+        public String getState() {
             return state;
         }
 
-        public void setState(int state) {
+        public void setState(String state) {
             this.state = state;
         }
 
-        public int getType() {
+        public String getType() {
             return type;
         }
 
-        public void setType(int type) {
+        public void setType(String type) {
             this.type = type;
         }
 
-        public int getOptId() {
+        public String getOptId() {
             return optId;
         }
 
-        public void setOptId(int optId) {
+        public void setOptId(String optId) {
             this.optId = optId;
         }
 
@@ -680,19 +680,19 @@ public class LoginBean {
             this.updateTime = updateTime;
         }
 
-        public Object getIsDelivery() {
+        public String getIsDelivery() {
             return isDelivery;
         }
 
-        public void setIsDelivery(Object isDelivery) {
+        public void setIsDelivery(String isDelivery) {
             this.isDelivery = isDelivery;
         }
 
-        public Object getNewPassword() {
+        public String getNewPassword() {
             return newPassword;
         }
 
-        public void setNewPassword(Object newPassword) {
+        public void setNewPassword(String newPassword) {
             this.newPassword = newPassword;
         }
 
@@ -704,19 +704,19 @@ public class LoginBean {
             this.sellerName = sellerName;
         }
 
-        public Object getBusinessTime() {
+        public String getBusinessTime() {
             return businessTime;
         }
 
-        public void setBusinessTime(Object businessTime) {
+        public void setBusinessTime(String businessTime) {
             this.businessTime = businessTime;
         }
 
-        public Object getDeliveryTime() {
+        public String getDeliveryTime() {
             return deliveryTime;
         }
 
-        public void setDeliveryTime(Object deliveryTime) {
+        public void setDeliveryTime(String deliveryTime) {
             this.deliveryTime = deliveryTime;
         }
 
@@ -728,67 +728,67 @@ public class LoginBean {
             this.token = token;
         }
 
-        public Object getPrincipalGolds() {
+        public String getPrincipalGolds() {
             return principalGolds;
         }
 
-        public void setPrincipalGolds(Object principalGolds) {
+        public void setPrincipalGolds(String principalGolds) {
             this.principalGolds = principalGolds;
         }
 
-        public Object getFreightGolds() {
+        public String getFreightGolds() {
             return freightGolds;
         }
 
-        public void setFreightGolds(Object freightGolds) {
+        public void setFreightGolds(String freightGolds) {
             this.freightGolds = freightGolds;
         }
 
-        public Object getDividendGolds() {
+        public String getDividendGolds() {
             return dividendGolds;
         }
 
-        public void setDividendGolds(Object dividendGolds) {
+        public void setDividendGolds(String dividendGolds) {
             this.dividendGolds = dividendGolds;
         }
 
-        public int getS_is_bussiness() {
+        public String getS_is_bussiness() {
             return s_is_bussiness;
         }
 
-        public void setS_is_bussiness(int s_is_bussiness) {
+        public void setS_is_bussiness(String s_is_bussiness) {
             this.s_is_bussiness = s_is_bussiness;
         }
 
-        public int getS_is_use() {
+        public String getS_is_use() {
             return s_is_use;
         }
 
-        public void setS_is_use(int s_is_use) {
+        public void setS_is_use(String s_is_use) {
             this.s_is_use = s_is_use;
         }
 
-        public int getS_is_delete() {
+        public String getS_is_delete() {
             return s_is_delete;
         }
 
-        public void setS_is_delete(int s_is_delete) {
+        public void setS_is_delete(String s_is_delete) {
             this.s_is_delete = s_is_delete;
         }
 
-        public int getS_audit_status() {
+        public String getS_audit_status() {
             return s_audit_status;
         }
 
-        public void setS_audit_status(int s_audit_status) {
+        public void setS_audit_status(String s_audit_status) {
             this.s_audit_status = s_audit_status;
         }
 
-        public int getAccountType() {
+        public String getAccountType() {
             return accountType;
         }
 
-        public void setAccountType(int accountType) {
+        public void setAccountType(String accountType) {
             this.accountType = accountType;
         }
 }

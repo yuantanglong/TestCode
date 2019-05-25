@@ -112,37 +112,25 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
         mRxManager = new RxManager();
         //不绘制window默认主题背景色，考虑性能问题
 //        getWindow().setBackgroundDrawable(null);
-
         initBeforeSetContentView();
-
         setContentView(getLayoutId());
-
 //        startToBackgroundService();
-
         ActivityManager.getInstance().addActivityToStack(this);
-
         mBinder = ButterKnife.bind(this);
-
         mPresenter = TUtil.getT(this, 0);
 
         if (mPresenter != null) {
             mPresenter.setActivity(this);
             mPresenter.setFragment(null);
         }
-
         initPresenter();
-
         getSwipeLayout().setLeftSwipeEnabled(enableSwipeBack());
+        initView(savedInstanceState);
         initNetWork(pageIndex);
         initRefresh();
-
         //状态栏字体深色
         BarUtils.setStatusBarLightMode(this, true);
-
 //        registerNetworkChangeReceiver();
-
-        initView(savedInstanceState);
-
     }
 
     /**

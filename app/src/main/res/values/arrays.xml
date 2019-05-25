@@ -30,7 +30,20 @@
         <item>已同意</item>
         <item>已拒绝</item>
     </array>
-
+    <array name="order_goods_status">
+        <item>待经销商确认</item>
+        <item>待经销商确认</item>
+        <item>待经销商确认</item>
+        <item>经销商已接单</item>
+        <item>经销商已拒单</item>
+    </array>
+    <array name="tv_str">
+        <item>取消订单</item>
+        <item>取消订单</item>
+        <item>取消订单</item>
+        <item>确认补货</item>
+        <item>确认拒单</item>
+    </array>
     <integer-array name="order_status_id">
         <item>2</item>
         <item>3</item>
@@ -41,6 +54,11 @@
         <item>7</item>
         <item>8</item>
         <item>9</item>
+    </integer-array>
+    <integer-array name="doujiang_order_status_id">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </integer-array>
     <integer-array name="order_search_status_id">
         <item>2</item>
@@ -60,5 +78,10 @@
         <item>1</item>
         <item>2</item>
         <item>3</item>
+    </integer-array>
+    <integer-array name="productGoodList_state">
+        <item>5</item>
+        <item>3</item>
+        <item>4</item>
     </integer-array>
 </resources>

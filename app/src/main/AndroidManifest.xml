@@ -1,33 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hhj.merchant">
+    <permission
+        android:name="com.hhj.merchant.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" /> <!-- Required -->
+    <permission
+        android:name="com.hhj.merchant.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
     <application
-        android:name="com.hhj.merchant.app.MyApplication"
+        android:name=".app.MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/hhj"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/hhj"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.hhj.merchant.ui.order.activity.OrderGoodsManagerActivity"></activity>
-        <activity android:name="com.hhj.merchant.ui.order.activity.OrderDetailActivity" />
-        <activity android:name="com.hhj.merchant.ui.order.activity.OrderFinishActivity" />
-        <activity android:name="com.hhj.merchant.ui.order.activity.OrderRefundActivity" />
-        <activity android:name="com.hhj.merchant.ui.shop.activity.ConnectBluetoothActivity" />
-        <activity android:name="com.hhj.merchant.ui.shop.activity.EquipmentManagerActivity" />
-        <activity android:name="com.hhj.merchant.ui.shop.activity.VoiceAndNoticeActivity" />
-        <activity android:name="com.hhj.merchant.ui.shop.activity.AddDeliveryClerkAndDetailsActivity" />
-        <activity android:name="com.hhj.merchant.ui.shop.activity.DeliveryClerkManagerActivity" />
-        <activity android:name="com.hhj.merchant.ui.shop.activity.UpdatePassWordActivity" />
-        <activity android:name="com.hhj.merchant.ui.shop.activity.UpdatePhoneActivity" />
-        <activity android:name="com.hhj.merchant.ui.shop.activity.SetActivity" />
-        <activity android:name="com.hhj.merchant.ui.shop.activity.SellerMessageActivity" />
-        <activity android:name="com.hhj.merchant.ui.order.activity.OrderSearchActivity" />
+        <activity android:name=".ui.order.activity.ConfirmGoodsActivity"></activity>
+        <activity android:name=".ui.order.activity.OrderGoodsManagerActivity" />
+        <activity android:name=".ui.order.activity.OrderDetailActivity" />
+        <activity android:name=".ui.order.activity.OrderFinishActivity" />
+        <activity android:name=".ui.order.activity.OrderRefundActivity" />
+        <activity android:name=".ui.shop.activity.ConnectBluetoothActivity" />
+        <activity android:name=".ui.shop.activity.EquipmentManagerActivity" />
+        <activity android:name=".ui.shop.activity.VoiceAndNoticeActivity" />
+        <activity android:name=".ui.shop.activity.AddDeliveryClerkAndDetailsActivity" />
+        <activity android:name=".ui.shop.activity.DeliveryClerkManagerActivity" />
+        <activity android:name=".ui.shop.activity.UpdatePassWordActivity" />
+        <activity android:name=".ui.shop.activity.UpdatePhoneActivity" />
+        <activity android:name=".ui.shop.activity.SetActivity" />
+        <activity android:name=".ui.shop.activity.SellerMessageActivity" />
+        <activity android:name=".ui.order.activity.OrderSearchActivity" />
+        <activity android:name=".ui.order.activity.DistributionListActivity"/>
         <activity
-            android:name="com.hhj.merchant.ui.login.activity.LoginActivity"
+            android:name=".ui.login.activity.LoginActivity"
             android:exported="true" />
         <activity
-            android:name="com.hhj.merchant.ui.main.activity.SplashActivity"
+            android:name=".ui.main.activity.SplashActivity"
             android:theme="@style/Theme.AppStartLoadTranslucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,8 +43,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.hhj.merchant.ui.main.activity.GuideActivity" />
-        <activity android:name="com.hhj.merchant.ui.main.activity.MainActivity" />
+        <activity android:name=".ui.main.activity.GuideActivity" />
+        <activity android:name=".ui.main.activity.MainActivity" android:launchMode="singleTask" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -47,8 +55,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths_public" />
         </provider>
+
         <receiver
-            android:name="com.hhj.merchant.jpush.JPushReceiver"
+            android:name=".jpush.JPushReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTRATION" />
@@ -64,7 +73,7 @@
                 <!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
                 <action android:name="cn.jpush.android.intent.CONNECTION" />
                 <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <category android:name="com.hhj.merchant" />
+                <category android:name="com.new_hhj" />
             </intent-filter>
         </receiver> <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data
@@ -72,7 +81,7 @@
             android:value="developer-default" />
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="a6af0cbe3623c50153542f20" /> <!-- </>值来自开发者平台取得的AppKey测试 ac2a232d170e84576509520c -->
+            android:value="a6af0cbe3623c50153542f20" />
     </application>
 
 </manifest>

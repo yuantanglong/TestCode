@@ -12,6 +12,7 @@ import com.baseapp.common.base.callback.IToolbar;
 import com.baseapp.common.base.ui.BaseActivity;
 import com.baseapp.common.http.error.ErrorType;
 import com.baseapp.common.utility.ToolbarBackTitle;
+import com.baseapp.common.utils.UIUtils;
 import com.hhj.merchant.R;
 import com.hhj.merchant.ui.order.contract.OrderGoodsManagerContract;
 import com.hhj.merchant.ui.order.fragment.OrderGoodsManagerFragment;
@@ -25,7 +26,7 @@ import butterknife.BindView;
 
 public class OrderGoodsManagerActivity extends BaseActivity<OrderGoodsManagerPresenter> implements OrderGoodsManagerContract {
     public static TabLayout tabLayout;
-    public static OrderGoodsManagerActivity orderFragment;
+    public static OrderGoodsManagerActivity orderGoodsManagerActivity;
     @BindView(R.id.mViewPager)
     ViewPager mViewPager;
     private List<Fragment> fragments;
@@ -33,6 +34,7 @@ public class OrderGoodsManagerActivity extends BaseActivity<OrderGoodsManagerPre
     public BaseFragmentAdapter adapter;
     private int position = 0;
     private Fragment fragment;
+    private String tag;
 
     @Override
     protected IToolbar getIToolbar() {
@@ -56,20 +58,27 @@ public class OrderGoodsManagerActivity extends BaseActivity<OrderGoodsManagerPre
 
     @Override
     protected void initView(@Nullable Bundle savedInstanceState) {
-        tabLayout = findViewById(R.id.mTabLayout);
+        orderGoodsManagerActivity = this;
     }
 
     @Override
     protected void initNetWork(int pageIndex) {
-        mPresenter.getSellerOrdersCount();
+        position = 0;
+        refreshView(position);
     }
 
     private void initTabLayout(Double num) {
         fragments = new ArrayList<>();
         mTitles = new ArrayList<>();
-        mTitles.add("选择商品");
-        mTitles.add("未完成(" + num + ")");
-        mTitles.add("历史订货");
+        if ("OrderGoodsManager".equals(tag)) {
+            mTitles.add("选择商品");
+            mTitles.add("未完成(" + new Double(num).intValue() + ")");
+            mTitles.add("历史订货");
+        } else if ("GoodsManager".equals(tag)) {
+            mTitles.add("全部商品");
+            mTitles.add("已上架");
+            mTitles.add("未上架");
+        }
         for (int i = 0; i < mTitles.size(); i++) {
             fragments.add(createListFragment(i));
         }
@@ -83,16 +92,23 @@ public class OrderGoodsManagerActivity extends BaseActivity<OrderGoodsManagerPre
         mViewPager.setOffscreenPageLimit(5);
         tabLayout.setupWithViewPager(mViewPager);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
     }
 
     private Fragment createListFragment(int position) {
-        if (position == 0) {
+        if ("OrderGoodsManager".equals(tag)) {
+            if (position == 0) {
+                fragment = new SelectGoodsFragment();
+            } else {
+                fragment = new OrderGoodsManagerFragment();
+            }
+        } else if ("GoodsManager".equals(tag)) {
             fragment = new SelectGoodsFragment();
         }
-        fragment = new OrderGoodsManagerFragment();
+        int[] intArray = UIUtils.getIntArray(R.array.productGoodList_state);
         Bundle bundle = new Bundle();
-        bundle.putString("tag", "OrderFragment");
+        bundle.putInt("position", position);
+        bundle.putString("tag", tag);
+        bundle.putInt("state", intArray[position]);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -106,5 +122,16 @@ public class OrderGoodsManagerActivity extends BaseActivity<OrderGoodsManagerPre
     @Override
     public void showErrorTip(ErrorType errorType, int errorCode, String message) {
 
+    }
+
+    public void refreshView(int position) {
+        this.position = position;
+        tabLayout = findViewById(R.id.mTabLayout);
+        tag = getIntent().getStringExtra("tag");
+        if ("OrderGoodsManager".equals(tag)) {
+            mPresenter.getSellerOrdersCount();
+        } else if ("GoodsManager".equals(tag)) {
+            initTabLayout(0.0);
+        }
     }
 }

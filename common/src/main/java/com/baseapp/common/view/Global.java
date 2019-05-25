@@ -34,4 +34,5 @@ public class Global {
     public static final String PRINT_DAODIAN_NUM = "print_daodian_num";
     public static final String ADDRESS_PRINT = "address_print";
     public static final String ADDRESS_SAOMA = "address_saoma";
+    public static final String NOTIFICATION_COUNT = "notification_count";
 }

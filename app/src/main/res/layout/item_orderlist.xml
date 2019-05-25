@@ -13,6 +13,7 @@
         android:background="@color/color_00b2a9" />
 
     <LinearLayout
+        android:id="@+id/ll_view1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y88"
         android:gravity="center_vertical"
@@ -49,9 +50,10 @@
             android:visibility="gone" />
     </LinearLayout>
 
-    <View style="@style/line_color_e7eaef" />
+    <View android:id="@+id/line1" style="@style/line_color_e7eaef" />
 
     <LinearLayout
+        android:id="@+id/ll_view2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y88"
         android:gravity="center_vertical"
@@ -81,7 +83,7 @@
             android:visibility="visible" />
     </LinearLayout>
 
-    <View style="@style/line_color_e7eaef" />
+    <View android:id="@+id/line2" style="@style/line_color_e7eaef" />
 
     <TextView
         android:id="@+id/tv_address"
@@ -97,6 +99,7 @@
         android:textSize="20sp" />
 
     <LinearLayout
+        android:id="@+id/ll_view3"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y88"
         android:gravity="center_vertical"
@@ -127,7 +130,7 @@
             android:visibility="visible" />
     </LinearLayout>
 
-    <View style="@style/line_color_FDC82F" />
+    <View  style="@style/line_color_FDC82F" />
 
     <TextView
         android:id="@+id/tv_numberCount"
@@ -212,6 +215,7 @@
         android:paddingRight="@dimen/x30">
 
         <TextView
+            android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -237,6 +241,7 @@
         android:paddingRight="@dimen/x30">
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -262,6 +267,7 @@
         android:paddingRight="@dimen/x30">
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -277,17 +283,34 @@
             android:textColor="@color/color_004165"
             android:textSize="16sp" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_moneyOrder"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginRight="@dimen/x30"
-        android:text="实收:￥--"
-        android:textColor="@color/color_004165"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x30"
+        android:paddingTop="@dimen/y30"
+        android:paddingRight="@dimen/x30">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text=""
+            android:textColor="@color/color_004165"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_moneyOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="实收:￥--"
+            android:textColor="@color/color_004165"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/tv_moneyPaidReality"

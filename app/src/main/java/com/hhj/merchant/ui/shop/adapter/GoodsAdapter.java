@@ -1,9 +1,12 @@
 package com.hhj.merchant.ui.shop.adapter;
 
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.baseapp.common.http.Api;
 import com.baseapp.common.utils.GlideUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hhj.merchant.R;
@@ -29,9 +32,15 @@ public class GoodsAdapter extends BaseQuickAdapter<SellerGoodsBean, BaseViewHold
     @Override
     protected void convert(BaseViewHolder helper, SellerGoodsBean item) {
         String images = Api.getmApiConfig().getmHostImgBase() + item.getImages();
-        GlideUtils.loadImage(mContext,R.mipmap.hhj,R.mipmap.hhj, images, (ImageView) helper.getView(R.id.iv_goods));
-        helper.setText(R.id.tv_productName,item.getProductName()+"("+item.getNormNames()+")");
-        helper.setText(R.id.tv_productStock,item.getProductStock());
-
+        GlideUtils.loadImage(mContext, R.mipmap.hhj, R.mipmap.hhj, images, (ImageView) helper.getView(R.id.iv_goods));
+        helper.setText(R.id.tv_productName, item.getProductName() + "(" + item.getNormNames() + ")");
+        String productStock = item.getProductStock();
+        helper.setText(R.id.tv_productStock, productStock);
+        TextView tv_sell_out = helper.getView(R.id.tv_sell_out);
+        if (StringUtils.isEmpty(productStock) || Integer.parseInt(productStock) <= 0) {
+            tv_sell_out.setVisibility(View.VISIBLE);
+        } else {
+            tv_sell_out.setVisibility(View.GONE);
+        }
     }
 }

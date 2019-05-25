@@ -1,6 +1,6 @@
 <resources>
 
-    <dimen name="toolBarHeight">42dp</dimen>
+    <dimen name="toolBarHeight">@dimen/y84</dimen>
 
 
     <!--*********************以下是alert相关********************************-->

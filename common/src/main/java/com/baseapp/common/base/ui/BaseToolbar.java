@@ -103,7 +103,6 @@ public abstract class BaseToolbar implements IToolbar {
 
     @Override
     public void getTitleTextView(TextView mTitleTextView) {
-        LogUtils.e("getTitleTextView");
     }
 
 

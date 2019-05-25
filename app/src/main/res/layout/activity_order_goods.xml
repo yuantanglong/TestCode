@@ -7,9 +7,10 @@
         android:background="@color/white"
         android:id="@+id/mTabLayout"
         android:layout_width="match_parent"
-        app:tabTextColor="@color/white"
+        app:tabTextColor="@color/color_036499"
+        app:tabSelectedTextColor="@color/color_00b2a9"
         app:tabGravity="center"
-        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorColor="@color/color_FFE001"
         android:layout_height="@dimen/y100"/>
     <android.support.v4.view.ViewPager
         android:id="@+id/mViewPager"

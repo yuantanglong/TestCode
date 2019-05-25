@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+       android:gravity="center"
+        android:id="@+id/et_count"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y66"
+        android:background="@color/color_F5F5F5"
+        android:inputType="number"
+        android:textColor="@color/color_7D9AAA"
+        android:textSize="16sp" />
+</LinearLayout>

@@ -4,6 +4,9 @@ import com.baseapp.common.base.BaseBean;
 import com.baseapp.common.base.BaseView;
 import com.hhj.merchant.bean.GetListBean;
 import com.hhj.merchant.bean.OrdersBean;
+import com.hhj.merchant.bean.QueryCountBean;
+
+import java.util.List;
 
 /**
  * @ProjectName: TestCode
@@ -24,4 +27,6 @@ public interface OrderListContract extends BaseView {
     void deliverGoods(BaseBean bean);
     void cancelDeliverGoods(BaseBean bean);
     void getOrders(OrdersBean bean);
+    void ordercount(QueryCountBean bean);
+    void changestatus(BaseBean bean);
 }

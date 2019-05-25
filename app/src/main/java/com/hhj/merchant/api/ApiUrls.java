@@ -78,6 +78,80 @@ public class ApiUrls {
      * 根据类型查询sku（productTypeId必传）
      */
     public static final String APPORDERGOODS_GETSELLERGOODS = "apporderGoods/getSellerGoods";
+    /**
+     *apporderGoods/getGoldAmount
+     * 获取抵扣金币数量
+     */
+    public static final String  APPORDERGOODS_GETGOLDAMOUNT = " apporderGoods/getGoldAmount";
+    /**
+     * apporderGoods/submitOrder
+     * 提交订单
+     */
+    public static final String APPORDERGOODS_SUBMITORDER = "apporderGoods/submitOrder";
+    /**
+     * apporderGoods/getUnfinishedSellerOrders
+     * 获得未完成的订单
+     */
+    public static final String APPORDERGOODS_GETUNFINISHEDSELLERORDERS = "apporderGoods/getUnfinishedSellerOrders";
+    /**
+     * apporderGoods/rejectOder
+     * 确认拒单
+     */
+    public static final String APPORDERGOODS_REJECTODER = "apporderGoods/rejectOder";
+    /**
+     * apporderGoods/confirmGoods
+     * 确认补货
+     */
+    public static final String APPORDERGOODS_CONFIRMGOODS = "apporderGoods/confirmGoods";
+    /**
+     * apporderGoods/cancelOrder
+     * 取消订货
+     */
+    public static final String  APPORDERGOODS_CANCELORDER= "apporderGoods/cancelOrder";
+    /**
+     *apporderGoods/getSellerHis
+     * 查询已经完成的订单
+     */
+    public static final String  APPORDERGOODS_GETSELLERHIS= "apporderGoods/getSellerHis";
+    /**
+     *seller/product/getProductType
+     * 商品管理-商品分类
+     */
+    public static final String  SELLER_PRODUCT_GETPRODUCTTYPE= "seller/product/getProductType";
+    /**
+     *seller/product/productGoodList
+     * 商品列表
+     */
+    public static final String  SELLER_PRODUCT_PRODUCTGOODLIST= "seller/product/productGoodList";
+
+
+    /**
+     * seller/order/orders/doujiang/delivery
+     * 豆浆业务订单 订单数量
+     */
+
+    public static final String SELLER_ORDER_ORDERS_DOUJIANG_ORDERCOUNT = "seller/order/orders/doujiang/ordercount";
+    /**
+     * seller/order/orders/doujiang/changestatus
+     * 豆浆业务订单 发货
+     */
+
+    public static final String SELLER_ORDER_ORDERS_DOUJIANG_CHANGESTATUS = "seller/order/orders/doujiang/changestatus";
+    /**
+     * seller/order/orders/doujiang/list
+     * 豆浆业务订单 配送列表
+     */
+
+    public static final String SELLER_ORDER_ORDERS_DOUJIANG_LIST = "seller/order/orders/doujiang/list";
+    /**
+     * seller/order/orders/doujiang/delivery
+     * 豆浆业务订单 配送
+     */
+
+    public static final String SELLER_ORDER_ORDERS_DOUJIANG_DELIVERY = "seller/order/orders/doujiang/delivery";
+
+
+
 //====================================================钱包=========================================================================
 
     /**

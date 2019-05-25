@@ -12,6 +12,7 @@ import com.baseapp.common.http.Api;
 import com.baseapp.common.utils.GlideUtils;
 import com.baseapp.common.view.Global;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.hhj.merchant.R;
 import com.hhj.merchant.ui.order.activity.OrderFinishActivity;
 import com.hhj.merchant.ui.order.activity.OrderGoodsManagerActivity;
@@ -45,6 +46,7 @@ public class ShopFragment extends BaseFragment {
     TextView tv_sellerName;
     @BindView(R.id.tv_telephone)
     TextView tv_telephone;
+    private Intent intent;
 
     @Override
     protected int getLayoutId() {
@@ -80,6 +82,7 @@ public class ShopFragment extends BaseFragment {
     protected void initView() {
         String head = Api.getmApiConfig().getmHostImgBase() + SPUtils.getInstance().getString(Global.SELLERLOGO);
         GlideUtils.loadImage(mContext, R.mipmap.head,R.mipmap.head,head, iv_head);
+        String string = SPUtils.getInstance().getString(Global.SELLERNAME);
         tv_sellerName.setText(SPUtils.getInstance().getString(Global.SELLERNAME));
         tv_telephone.setText(SPUtils.getInstance().getString(Global.TELEPHONE));
     }
@@ -94,19 +97,31 @@ public class ShopFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.ll_SellerMessage, R.id.ll_VoiceAndNotice, R.id.ll_EquipmentManager,
+    @OnClick({
+            R.id.ll_OrderGoodsManager,R.id.ll_GoodsManager,R.id.ll_self_goods,
+            R.id.ll_SellerMessage, R.id.ll_VoiceAndNotice, R.id.ll_EquipmentManager,
             R.id.ll_OrderFinish, R.id.ll_refund, R.id.ll_set, R.id.ll_DeliveryClerkManager,
-            R.id.ll_OrderGoodsManager})
+            })
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_OrderGoodsManager:
-                startActivity(OrderGoodsManagerActivity.class);
+                intent = new Intent(mActivity,OrderGoodsManagerActivity.class);
+                intent.putExtra("tag","OrderGoodsManager");
+                startActivity(intent);
+                break;
+            case R.id.   ll_GoodsManager:
+                intent = new Intent(mActivity,OrderGoodsManagerActivity.class);
+                intent.putExtra("tag","GoodsManager");
+                startActivity(intent);
+                break;
+            case R.id.ll_self_goods:
+                ToastUtils.showShort("功能内测中,暂不开放");
                 break;
             case R.id.ll_SellerMessage:
                 startActivity(SellerMessageActivity.class);
                 break;
             case R.id.ll_EquipmentManager:
-                Intent intent = new Intent(mContext, EquipmentManagerActivity.class);
+                 intent = new Intent(mContext, EquipmentManagerActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_OrderFinish:

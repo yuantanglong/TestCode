@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
+// 注：需要配置符号表时，使用bugly插件
+apply plugin: 'bugly'
+bugly {
+    appId = 'b40c32789d'
+    appKey = 'fd79c0c7-e5d4-4887-bb18-004ba9954185'
+}
 def getDate() {
     def date = new Date()
     def formattedDate = date.format('yyyyMMddHHmm')
     return formattedDate
 }
+
 def verCode = 1
 
 android {
@@ -13,12 +20,12 @@ android {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
         }
         wandoujia {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE:    "wandoujia"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wandoujia"]
         }
     }
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.hhj.merchant"
+        applicationId "com.new_hhj"
         minSdkVersion 15
         targetSdkVersion 28
         versionCode verCode
@@ -75,14 +82,14 @@ android {
                 timeNow = BUILD_TIME
                 outDirectory = BUILD_PATH_JENKINS
                 //JKApp-v1.0.1-xiaomi-release.apk
-                newName = APPNAME+"-v"+APP_VERSION + '-' + variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
+                newName = APPNAME + "-v" + APP_VERSION + '-' + variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
             } else {
                 //本机打包输出在本机路径
                 timeNow = getDate()
                 outDirectory = BUILD_PATH_LOCAL
-                newName = APPNAME+"-v"+APP_VERSION + '-' + variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
+                newName = APPNAME + "-v" + APP_VERSION + '-' + variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
             }
-            outputFileName=newName
+            outputFileName = newName
 //            outputFileName = new File(outDirectory+"/"+timeNow, newName)
 //            outputFileName=outDirectory+"/"+timeNow+newName
 

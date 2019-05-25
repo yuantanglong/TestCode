@@ -28,6 +28,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hhj.merchant.R;
 import com.hhj.merchant.bean.GetListBean;
 import com.hhj.merchant.bean.OrdersBean;
+import com.hhj.merchant.bean.QueryCountBean;
 import com.hhj.merchant.ui.order.adapter.DialogListAdapter;
 import com.hhj.merchant.ui.order.adapter.NativePeopleAdapter;
 import com.hhj.merchant.ui.order.adapter.OrderListAdapter;
@@ -406,6 +407,16 @@ public class OrderSearchActivity extends BaseActivity<OrderListPresenter> implem
                 mAdapter.loadMoreComplete();
             }
         }
+    }
+
+    @Override
+    public void ordercount(QueryCountBean bean) {
+
+    }
+
+    @Override
+    public void changestatus(BaseBean bean) {
+
     }
 
     @Override

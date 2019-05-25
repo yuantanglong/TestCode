@@ -1,13 +1,19 @@
 package com.baseapp.common.utility;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.baseapp.common.R;
 import com.baseapp.common.base.BaseApplication;
 import com.blankj.utilcode.util.ToastUtils;
 
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import static android.content.Context.ACTIVITY_SERVICE;
 
 /*
  * @Author Liang Xuyang
@@ -60,6 +66,24 @@ public class ActivityManager {
         }
     }
 
+    //判断某一个类是否存在任务栈里面
+    public  boolean isExistMainActivity(Context context, Class<?> activity){
+        Intent intent = new Intent(context, activity);
+        ComponentName cmpName = intent.resolveActivity(context.getPackageManager());
+        boolean flag = false;
+        if (cmpName != null) { // 说明系统中存在这个activity
+            android.app.ActivityManager am = (android.app.ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
+            //获取从栈顶开始往下查找的10个activity
+            List<android.app.ActivityManager.RunningTaskInfo> taskInfoList = am.getRunningTasks(10);
+            for (android.app.ActivityManager.RunningTaskInfo taskInfo : taskInfoList) {
+                if (taskInfo.baseActivity.equals(cmpName)) { // 说明它已经启动了
+                    flag = true;
+                    break;  //跳出循环，优化效率
+                }
+            }
+        }
+        return flag;
+    }
     /**
      * 获取当前Activity，即堆栈最顶端的activity
      */
