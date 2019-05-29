@@ -22,8 +22,12 @@ import com.baseapp.common.R;
 import com.baseapp.common.base.adapter.BaseRecyclerViewAdapter;
 import com.baseapp.common.base.config.BaseConfig;
 import com.baseapp.common.baserx.RxClickTransformer;
+import com.baseapp.common.utils.GlideUtils;
 import com.baseapp.common.utils.UIUtils;
 import com.baseapp.common.view.callback.OnItemClickListener;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
@@ -44,6 +48,7 @@ public class DialogWrapper {
     //仅提示性Dialog的builder使用进行按键配置
     public static final int BUTTON_SINGLE = 0; //单按键
     public static final int BUTTON_DOUBLE = 1; //双按键
+    public static final int BUTTON_GONE = 2; //双按键
     private static ImageView mDialogTipLayoutEmptyImageView;
 
     //提示性dialog使用进行按键点击监听
@@ -77,6 +82,7 @@ public class DialogWrapper {
         private String mAlertMessage;   //提示性弹窗的提示信息
         private boolean isCloseImageVisible = true; //右上角关闭图片按键是否可见,默认可见
         private boolean isTitleVisible = true;
+        private boolean isProcessVisible = false;
         private boolean mCancelable = false; //参照Dialog
         private boolean mCanceledOnTouchOutSide = false; //参照Dialog
         private int mButtonType = BUTTON_SINGLE; //Dialog按键类型，决定Dialog的按键为单按键还是双按键,默认单按键
@@ -137,10 +143,12 @@ public class DialogWrapper {
             this.isCloseImageVisible = isVisible;
             return this;
         }
+
         public TipDialogBuilder tittleVisible(boolean isVisible) {
             this.isTitleVisible = isVisible;
             return this;
         }
+
         /**
          * 设置Dialog撤销
          *
@@ -197,7 +205,10 @@ public class DialogWrapper {
             this.mSingleButtonText = text;
             return this;
         }
-
+        public TipDialogBuilder setProcessVisible(boolean visible) {
+            this.isProcessVisible = visible;
+            return this;
+        }
         /**
          * 配置按键点击监听
          *
@@ -222,6 +233,7 @@ public class DialogWrapper {
             FrameLayout mContentContainer = mAlertDialogView.findViewById(R.id.dialog_tip_layout_content_container);
             TextView mTittleTV = mAlertDialogView.findViewById(R.id.dialog_tip_layout_title);
             TextView mMessageTV = mAlertDialogView.findViewById(R.id.dialog_tip_layout_message);
+            ImageView iv_process = mAlertDialogView.findViewById(R.id.iv_process);
             ImageView mCloseImage = mAlertDialogView.findViewById(R.id.dialog_tip_layout_close);
             final TextView mLeftButton = mAlertDialogView.findViewById(R.id.dialog_tip_layout_left_button);
             final TextView mRightButton = mAlertDialogView.findViewById(R.id.dialog_tip_layout_right_button);
@@ -229,7 +241,12 @@ public class DialogWrapper {
 
             mTittleTV.setText(mAlertTitle);
             mMessageTV.setText(mAlertMessage);
-
+            if (isProcessVisible){
+                iv_process.setVisibility(View.VISIBLE);
+                GlideUtils.loadGifImage(mContext,R.mipmap.print_process,iv_process);
+            }else {
+                iv_process.setVisibility(View.GONE);
+            }
             mCloseImage.setVisibility(isCloseImageVisible ? View.VISIBLE : View.INVISIBLE);
             mTittleTV.setVisibility(isTitleVisible ? View.VISIBLE : View.GONE);
 
@@ -257,6 +274,10 @@ public class DialogWrapper {
                                 }
                             });
                 }
+            } else if (mButtonType == BUTTON_GONE) {
+                mLeftButton.setVisibility(View.GONE);
+                mRightButton.setVisibility(View.GONE);
+                mSingleButton.setVisibility(View.GONE);
             } else {
                 mLeftButton.setVisibility(View.VISIBLE);
                 mRightButton.setVisibility(View.VISIBLE);

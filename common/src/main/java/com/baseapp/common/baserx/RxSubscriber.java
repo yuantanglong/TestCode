@@ -114,7 +114,6 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
                                     LogUtils.d(mRequestConfig.getTag(), "-----JavaBean的Code为" + t.getCode());
                                 }
                                 Throwable mThrowable = new Throwable("接口返回了错误业务码-----" + t.getCode());
-
                                 throw new ApiException(t.getCode(), ErrorType.ERROR_API, t.getMessage(), mThrowable);
                             }
 
@@ -168,6 +167,7 @@ public abstract class RxSubscriber<R, T extends BaseBean<R>> implements Observer
         dismissLoadingViewIfNecessary(true);
 
         doDispose();
+        _onError(ErrorType.ERROR_API,"500","",null);
     }
 
     @Override

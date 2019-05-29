@@ -67,6 +67,7 @@ public class OrderListAdapter extends BaseQuickAdapter<OrdersBean.OrdersListBean
         LinearLayout ll_reason = helper.getView(R.id.ll_reason);
         TextView tv_str1 = helper.getView(R.id.tv_str1);
         TextView tv_str2 = helper.getView(R.id.tv_str2);
+        TextView tv_printOrderCount = helper.getView(R.id.tv_printOrderCount);
         TextView tv_cancel_deliver = helper.getView(R.id.tv_cancel_deliver);
         TextView tv_again_print_ticket = helper.getView(R.id.tv_again_print_ticket);
         TextView tv_orderState = helper.getView(R.id.tv_orderState);
@@ -115,6 +116,7 @@ public class OrderListAdapter extends BaseQuickAdapter<OrdersBean.OrdersListBean
         tv_moneyDiscount.setText("- ¥ " + item.getMoneyDiscount());
         tv_moneyLogistics.setText("+ ¥ " + item.getMoneyLogistics());
         tv_moneyOrder.setText("实收:￥" + item.getMoneyOrder() + "元");
+        tv_printOrderCount.setText(SPUtils.getInstance().getInt(Global.PRINTORDERCOUNT+item.getOrderSn())+"");
         String orderState = item.getOrderState();
         switch (orderState) {
             case "2":

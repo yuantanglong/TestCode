@@ -28,7 +28,6 @@ import com.baseapp.common.baserx.RxManager;
 import com.baseapp.common.http.error.ErrorCode;
 import com.baseapp.common.receiver.NetworkChangeReceiver;
 import com.baseapp.common.utility.ActivityManager;
-import com.baseapp.common.utils.ArouterUtils;
 import com.baseapp.common.utils.EncryptSPUtils;
 import com.baseapp.common.utils.Reflector;
 import com.baseapp.common.utils.TUtil;
@@ -40,14 +39,12 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.jakewharton.rxbinding2.view.RxView;
-import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -129,7 +126,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
         initNetWork(pageIndex);
         initRefresh();
         //状态栏字体深色
-        BarUtils.setStatusBarLightMode(this, true);
+        BarUtils.setStatusBarLightMode(this, false);
 //        registerNetworkChangeReceiver();
     }
 
@@ -163,8 +160,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
     @Override
     protected void onResume() {
         super.onResume();
-//        警告：暂不启用友盟统计，如果启用请注意Read—phone-state权限的申请
-        MobclickAgent.onResume(this);
         if (BaseConfig.RebackConfig.ENABLE_CHECK_REBACK_STATE){
             long mToBackgroundTime = SPUtils.getInstance().getLong(BaseConfig.RebackConfig.APP_TO_BACKGROUND_TIME, -1L);
             if (mToBackgroundTime != -1L){
@@ -184,7 +179,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
     @Override
     protected void onPause() {
         super.onPause();
-        MobclickAgent.onPause(this);
         if (isFinishing()) {  //Activity正在销毁
 
             fixInputMethodManagerLeak();
@@ -354,7 +348,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends SwipeBackAct
         String className = SPUtils.getInstance().getString(BaseConfig.RebackConfig.REBACK_AND_JUMP_TO_SPECIAL_ACTIVITY_2);
         if (!StringUtils.isTrimEmpty(className)){
             SPUtils.getInstance().put(BaseConfig.RebackConfig.APP_IS_NEED_TO_VERIFY_WHEN_RESTART_NEXT, ACTION_DO_NOTHING);
-            ArouterUtils.setAroutePath(className);
             Class clazz = Class.forName(className);
             ActivityManager.getInstance().finishAllExceptSpecificNameActivity(clazz.getSimpleName());
         }

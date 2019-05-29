@@ -20,12 +20,19 @@ public class GlideUtils {
     private GlideUtils() {
     }
 
+    public static void loadGifImage(Context context,@DrawableRes int gif,ImageView imageView){
+        Glide.
+                with(context).
+                applyDefaultRequestOptions(GlideOptionUtils.getSimpleRequestOptions()).
+                asGif().
+                load(gif).
+                into(imageView);
+    }
     public static void loadImage(Context context,String url,ImageView imageView){
         Glide.
                 with(context).
                 applyDefaultRequestOptions(GlideOptionUtils.getSimpleRequestOptions()).
-                load(url)
-                .
+                load(url).
                 into(imageView);
     }
     public static void loadImage(Context context,String url,@DrawableRes int placeHolder, @DrawableRes int error,ImageView imageView){

@@ -3,8 +3,10 @@ package com.hhj.merchant.ui.main.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,10 +18,12 @@ import com.baseapp.common.utility.ToolbarBackTitle;
 import com.baseapp.common.utils.UIUtils;
 import com.baseapp.common.view.DialogWrapper;
 import com.baseapp.common.view.Global;
+import com.baseapp.common.view.PermissionRationalDialog;
 import com.blankj.utilcode.util.SPUtils;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.hhj.merchant.R;
+import com.hhj.merchant.app.BTPrinter;
 import com.hhj.merchant.bean.SellernInfoBean;
 import com.hhj.merchant.bean.TabEntity;
 import com.hhj.merchant.ui.login.activity.LoginActivity;
@@ -28,12 +32,17 @@ import com.hhj.merchant.ui.main.presenter.MainPresenter;
 import com.hhj.merchant.ui.order.activity.OrderSearchActivity;
 import com.hhj.merchant.ui.order.fragment.OrderFragment;
 import com.hhj.merchant.ui.order.fragment.OrderListFragment;
-import com.hhj.merchant.ui.shop.activity.SetActivity;
 import com.hhj.merchant.ui.shop.fragment.ShopFragment;
 import com.hhj.merchant.ui.wallet.fragment.WalletFragment;
+import com.hhj.merchant.ui.zxing.activity.CaptureActivity;
 import com.hhj.merchant.view.MyCommonTabLayout;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.SettingService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import cn.jpush.android.api.JPushInterface;
@@ -56,13 +65,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private OrderListFragment fragment;
     private DialogWrapper.TipDialogBuilder mPermissionSettingDialogBuilder;
     private Dialog mDialog;
+    boolean isRegisterReceiver;
+    private PowerManager powerManager = null;
+    private PowerManager.WakeLock wakeLock = null;
+    public static BTPrinter btPrinter;
 
+    //    private TrackReceiver trackReceiver = null;
     @Override
     protected IToolbar getIToolbar() {
         toolbarBackTitle = new ToolbarBackTitle(this, "", new ToolbarBackTitle.ViewClick() {
             @Override
             public void onLlLeftClicked() {
-
+                requestPermission();
             }
 
             @Override
@@ -75,6 +89,60 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             }
         });
         return toolbarBackTitle;
+    }
+
+    private void requestPermission() {
+        AndPermission.
+                with(this).
+                permission(Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE, Permission.CAMERA).
+                rationale(new PermissionRationalDialog()).
+                onDenied(new Action() {
+                    @Override
+                    public void onAction(List<String> permissions) {
+                        if (AndPermission.hasAlwaysDeniedPermission(MainActivity.this, permissions)) {
+                            List<String> permissionNames = Permission.transformText(MainActivity.this, permissions);
+
+                            final SettingService mSettingService = AndPermission.permissionSetting(MainActivity.this);
+                            Dialog mPermissionSettingDialog = DialogWrapper.
+                                    tipDialog().
+                                    context(MainActivity.this).
+                                    buttonType(DialogWrapper.BUTTON_DOUBLE).
+                                    title("权限提示").
+                                    message("哈哈镜商户需要以下权限才能正常运行" + TextUtils.join("\n", permissionNames)).
+                                    leftButtonText("放弃").
+                                    rightButtonText("立即设置").
+                                    buttonClickListener(new DialogWrapper.TipTypeButtonClickListener() {
+                                        @Override
+                                        public void onLeftButtonClicked(TextView view) {
+                                            mSettingService.cancel();
+                                        }
+
+                                        @Override
+                                        public void onSingleButtonClicked(TextView view) {
+
+                                        }
+
+                                        @Override
+                                        public void onRightButtonClicked(TextView view) {
+                                            mSettingService.execute();
+                                        }
+                                    }).
+                                    build();
+
+                            mPermissionSettingDialog.show();
+                        }
+                    }
+                }).
+                onGranted(new Action() {
+                    @Override
+                    public void onAction(List<String> permissions) {
+                        Intent intent = new Intent(mActivity, CaptureActivity.class);
+                        intent.putExtra(Global.FLAG, "0");
+                        startActivity(intent);
+                    }
+                }).
+                start();
+
     }
 
     @Override
@@ -95,7 +163,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.getSellerInfo();
+         mPresenter.getSellerInfo();
     }
 
     private void exitLogin() {
@@ -206,7 +274,39 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         });
     }
 
+    //    @SuppressLint("InvalidWakeLockTag")
+//    private void registerReceiver() {
+//        if (isRegisterReceiver) {
+//            return;
+//        }
+//
+//        if (null == wakeLock) {
+//            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "track upload");
+//        }
+//        if (null == trackReceiver) {
+//            trackReceiver = new TrackReceiver(wakeLock);
+//        }
+//
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction(Intent.ACTION_SCREEN_OFF);
+//        filter.addAction(Intent.ACTION_SCREEN_ON);
+//        filter.addAction(Intent.ACTION_USER_PRESENT);
+//        filter.addAction(StatusCodes.GPS_STATUS_ACTION);
+//        context.registerReceiver(trackReceiver, filter);
+//        isRegisterReceiver = true;
+//
+//    }
+//    private void unregisterPowerReceiver() {
+//        if (!isRegisterReceiver) {
+//            return;
+//        }
+//        if (null != trackReceiver) {
+//            context.unregisterReceiver(trackReceiver);
+//        }
+//        isRegisterReceiver = false;
+//    }
     private void initTitle(int position) {
+        btPrinter = new BTPrinter(mContext);
         accountType = SPUtils.getInstance().getString(Global.ACCOUNTTYPE, "0");
         if (position == 0) {
             if (accountType.equals("1")) {
@@ -269,5 +369,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         super.onNewIntent(intent);
         myCommonTabLayout.setCurrentTab(0);
         mPresenter.getSellerInfo();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(btPrinter.conn);
     }
 }

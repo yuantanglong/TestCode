@@ -17,6 +17,7 @@
     <color name="color_E7EAEF">#E7EAEF</color>
     <color name="color_f4f4f4">#f4f4f4</color>
     <color name="color_004165">#004165</color>
+    <color name="color_13B5A1">#13B5A1</color>
     <color name="color_000000">#000000</color>
     <color name="color_66000000">#66000000</color>
     <color name="color_00000000">#00000000</color>
@@ -31,15 +32,24 @@
     <color name="color_05fdc82f">#05fdc82f</color>
     <color name="color_979797">#979797</color>
     <color name="color_FDC82F">#FDC82F</color>
+    <color name="color_10c325">#10c325</color>
     <color name="color_999999">#999999</color>
     <color name="color_F3F5F7">#F3F5F7</color>
     <color name="color_118EEA">#118EEA</color>
     <color name="color_f0f0f0">#f0f0f0</color>
     <color name="color_fd9426">#fd9426</color>
     <color name="color_FE0000">#FE0000</color>
+    <color name="color_E3E3E3">#E3E3E3</color>
     <color name="background">#E7EAEF</color>
     <color name="date_picker_bg">#FFFFFF</color>
     <color name="date_picker_divider">#11112233</color>
     <color name="date_picker_text_light">#004165</color>
     <color name="date_picker_text_dark">#004165</color>
+    <!-- QRCode scanner color begin -->
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="result_view">#B0000000</color>
+    <color name="viewfinder_frame">#90FFFFFF</color>
+    <color name="result_point_color">#C0FFFF00</color>
+    <color name="laser_color">#0F0</color>
+    <color name="corner_color">#00FF00</color>
 </resources>

@@ -75,7 +75,7 @@
     </style>
     <style name="BannerDefaultStyle1" parent="BannerDefaultStyle">
         <item name="banner_pointLeftRightMargin">10dp</item>
-        <item name="banner_pointDrawable">@null</item>
+        <item name="banner_pointDrawable">@drawable/banner_none</item>
     </style>
     <style name="line">
         <item name="android:layout_width">match_parent</item>

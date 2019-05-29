@@ -1,5 +1,6 @@
 package com.hhj.merchant.ui.login.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.baseapp.common.base.BaseBean;
 import com.baseapp.common.base.callback.IToolbar;
 import com.baseapp.common.base.ui.BaseActivity;
+import com.baseapp.common.http.Api;
 import com.baseapp.common.http.error.ErrorType;
 import com.baseapp.common.utility.ToolbarBackTitle;
 import com.baseapp.common.utils.TimeCountDownHelper;
@@ -25,6 +27,7 @@ import com.hhj.merchant.bean.LoginBean;
 import com.hhj.merchant.ui.login.contract.LoginContract;
 import com.hhj.merchant.ui.login.presenter.LoginPresenter;
 import com.hhj.merchant.ui.main.activity.MainActivity;
+import com.hhj.merchant.ui.main.activity.WebActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +35,9 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.hhj.merchant.ui.main.activity.WebActivity.WEB_TITLE;
+import static com.hhj.merchant.ui.main.activity.WebActivity.WEB_URL;
 
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract {
     @BindView(R.id.strut)
@@ -70,8 +76,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     CheckBox cbLoginCheckBoxAgreement;
     @BindView(R.id.tv_login_checkBox_agreement)
     TextView tvLoginCheckBoxAgreement;
-    @BindView(R.id.tv_1)
-    TextView tv1;
     @BindView(R.id.tv_login)
     TextView tvLogin;
     String type = "2";
@@ -80,6 +84,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     private TimeCountDownHelper mTimeCountDownHelper;
     private long mTime;
     private String sellerCode;
+    private Intent intent;
 
     @Override
     protected IToolbar getIToolbar() {
@@ -142,7 +147,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         ToastUtils.showShort("验证码已发送，请查收");
     }
 
-    @OnClick({R.id.tv_mobile_login, R.id.tv_shop_code_login, R.id.tv_getVerifyCode, R.id.tv_login})
+    @OnClick({R.id.tv_mobile_login, R.id.tv_shop_code_login, R.id.tv_getVerifyCode, R.id.tv_login,R.id.tv_vip_agreement,R.id.tv_hhj_agreement})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_mobile_login:
@@ -195,6 +200,18 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                     }
                     mPresenter.login(map);
                 }
+                break;
+            case R.id.tv_vip_agreement:
+                intent = new Intent(mContext, WebActivity.class);
+                intent.putExtra(WEB_URL, Api.getmApiConfig().getVip_Agreement_Url());
+                intent.putExtra(WEB_TITLE, "哈哈镜VIP网店协议政策");
+                startActivity(intent);
+                break;
+            case R.id.tv_hhj_agreement:
+                 intent=new Intent(mContext, WebActivity.class);
+                intent.putExtra(WEB_URL, Api.getmApiConfig().getHhj_Agreement_Url());
+                intent.putExtra(WEB_TITLE, "哈哈镜商户线上服务电子协议");
+                startActivity(intent);
                 break;
         }
     }

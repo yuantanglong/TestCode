@@ -31,6 +31,8 @@ android {
                 buildConfigField('String', 'HOST_URL_BASE', product)
             }
             buildConfigField('String', 'HOST_IMG_BASE', HOST_IMG_BASE)
+            buildConfigField('String', 'VIP_AGREEMENT_URL', VIP_AGREEMENT_URL)
+            buildConfigField('String', 'HHJ_AGREEMENT_URL', HHJ_AGREEMENT_URL)
 
             buildConfigField('int', 'READ_TIME_OUT', project.READ_TIME_OUT);
             buildConfigField('int', 'CONNECT_TIME_OUT', project.CONNECT_TIME_OUT);
@@ -46,7 +48,8 @@ android {
                 buildConfigField('String', 'HOST_URL_BASE', product)
             }
             buildConfigField('String', 'HOST_IMG_BASE', HOST_IMG_BASE)
-
+            buildConfigField('String', 'VIP_AGREEMENT_URL', VIP_AGREEMENT_URL)
+            buildConfigField('String', 'HHJ_AGREEMENT_URL', HHJ_AGREEMENT_URL)
             buildConfigField('int', 'READ_TIME_OUT', project.READ_TIME_OUT);
             buildConfigField('int', 'CONNECT_TIME_OUT', project.CONNECT_TIME_OUT);
         }
@@ -93,12 +96,9 @@ dependencies {
     //分包
     api 'com.android.support:multidex:1.0.3'
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
-    api 'top.zibin:Luban:1.1.3'
     api 'com.yanzhenjie:permission:2.0.0-rc4'
-    //    api 'com.klinkerapps:link_builder:1.6.1'
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
     api 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'//没有使用特殊Header，可以不加这行
-
     api 'com.daimajia.swipelayout:library:1.2.0'
     api 'com.blankj:utilcode:1.13.10'
 
@@ -109,27 +109,8 @@ dependencies {
     api 'com.jakewharton.rxbinding2:rxbinding-design:2.0.0'
     api 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
     api 'javax.inject:javax.inject:1'
-    api 'com.amap.api:3dmap:5.4.0'
-    api 'com.amap.api:location:latest.integration'
-    api 'com.amap.api:search:latest.integration'
-    //router
-    api rootProject.ext.dependencies.arouter_api
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    //时间选择器
-    implementation 'com.contrarywind:Android-PickerView:4.1.2'
-
     api 'zlc.season:rxdownload2:2.0.4'
-
-    //友盟基础组件库
-    api 'com.umeng.sdk:common:1.5.0'
-    //友盟统计
-    api 'com.umeng.sdk:analytics:7.5.0'
-
-
-    api 'com.wang.avi:library:2.1.3'
-
-    api 'me.grantland:autofittextview:0.2.+'
-
     api 'com.tencent.bugly:crashreport:latest.release'
 }
 

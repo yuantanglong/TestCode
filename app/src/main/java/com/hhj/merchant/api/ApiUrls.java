@@ -89,6 +89,11 @@ public class ApiUrls {
      */
     public static final String APPORDERGOODS_SUBMITORDER = "apporderGoods/submitOrder";
     /**
+     * seller/product/editSellerGoodsStock
+     * 修改库存
+     */
+    public static final String SELLER_PRODUCT_EDITSELLERGOODSSTOCK = "seller/product/editSellerGoodsStock";
+    /**
      * apporderGoods/getUnfinishedSellerOrders
      * 获得未完成的订单
      */
@@ -205,9 +210,25 @@ public class ApiUrls {
     public static final String SELLER_DELIVERY_STAFF_REMOVE = "seller/delivery/staff/remove";
 
     /**
+     * seller/sys/getSysNewVersion
      * 软件更新
      */
     public static final String SELLER_SYS_GETSYSNEWVERSION = "seller/sys/getSysNewVersion";
+    /**
+     * seller/underLine/getGoodsInfo
+     * 条码获取产品信息
+     */
+    public static final String SELLER_UNDERLINE_GETGOODSINFO = "seller/underLine/getGoodsInfo";
+    /**
+     * seller/underLine/saleRecord
+     * 线下买单
+     */
+    public static final String SELLER_UNDERLINE_SALERECORD = "seller/underLine/saleRecord";
+    /**
+     * seller/verifyOrder/verifyOrder
+     * 订单核销
+     */
+    public static final String SELLER_VERIFYORDER_VERIFYORDER = "seller/verifyOrder/verifyOrder";
 
     /**
      * 修改店铺联系方式

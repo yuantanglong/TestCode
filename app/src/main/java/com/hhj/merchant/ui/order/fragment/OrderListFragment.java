@@ -26,9 +26,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.hhj.merchant.R;
+import com.hhj.merchant.app.BTPrinter;
 import com.hhj.merchant.bean.GetListBean;
 import com.hhj.merchant.bean.OrdersBean;
 import com.hhj.merchant.bean.QueryCountBean;
+import com.hhj.merchant.ui.main.activity.MainActivity;
 import com.hhj.merchant.ui.order.activity.DistributionListActivity;
 import com.hhj.merchant.ui.order.adapter.DialogListAdapter;
 import com.hhj.merchant.ui.order.adapter.NativePeopleAdapter;
@@ -82,7 +84,8 @@ public class OrderListFragment extends BaseFragment<OrderListPresenter, MultiIte
     private RecyclerView mRecyclerView1;
     private List<String> list;
     private String desc;
-    private OrdersBean.OrdersListBean ordersListBean;
+    private OrdersBean.OrdersListBean ordersListBean = null;
+    private BTPrinter btPrinter;
 
     @Override
     protected int getLayoutId() {
@@ -172,13 +175,16 @@ public class OrderListFragment extends BaseFragment<OrderListPresenter, MultiIte
                 if (-1 == selectedTabPosition) {
                     selectedTabPosition = 0;
                 }
-                QueryCountBean queryCountBean = OrderFragment.list.get(selectedTabPosition);
-                mTitles[0] = "待接单(" + queryCountBean.getPendingCount() + ")";
-                mTitles[1] = "待发货(" + queryCountBean.getDeliverGoodStateCount() + ")";
-                mTitles[2] = "待取货(" + queryCountBean.getTakeGoodStateCount() + ")";
-                mTitles[3] = "配送中(" + queryCountBean.getDispatchingStateCount() + ")";
-                date = queryCountBean.getDate();
-                mSegmentTabLayout.setTabData(mTitles);
+                if (null!=OrderFragment.list&&OrderFragment.list.size()>0){
+                    QueryCountBean queryCountBean = OrderFragment.list.get(selectedTabPosition);
+                    mTitles[0] = "待接单(" + queryCountBean.getPendingCount() + ")";
+                    mTitles[1] = "待发货(" + queryCountBean.getDeliverGoodStateCount() + ")";
+                    mTitles[2] = "待取货(" + queryCountBean.getTakeGoodStateCount() + ")";
+                    mTitles[3] = "配送中(" + queryCountBean.getDispatchingStateCount() + ")";
+                    date = queryCountBean.getDate();
+                    mSegmentTabLayout.setTabData(mTitles);
+                }
+
             } else if ("RefundActivity".equals(tag)) {
                 String[] refund_status = UIUtils.getStringArray(R.array.refund_status);
                 mSegmentTabLayout.setTabData(refund_status);
@@ -197,6 +203,7 @@ public class OrderListFragment extends BaseFragment<OrderListPresenter, MultiIte
         mAdapter = new OrderListAdapter(new OrderListAdapter.ViewClick() {
             @Override
             public void onClick(OrdersBean.OrdersListBean bean, String message, int position) {
+                ordersListBean = bean;
                 orderSn = bean.getOrderSn();
                 isSelfLifting = bean.getIsSelfLifting();
                 buttonStatus = "";
@@ -275,14 +282,19 @@ public class OrderListFragment extends BaseFragment<OrderListPresenter, MultiIte
                         showListDialog("拒退款原因", list);
                         break;
                     case "查看详情":
-                        Intent intent=new Intent(mContext, DistributionListActivity.class);
-                        intent.putExtra("orderSn",orderSn);
-                        intent.putExtra("orderState",bean.getOrderState());
+                        Intent intent = new Intent(mContext, DistributionListActivity.class);
+                        intent.putExtra("orderSn", orderSn);
+                        intent.putExtra("orderState", bean.getOrderState());
                         startActivity(intent);
                         break;
                     case "确认发货":
                         buttonStatus = "4";
                         showDialog(null, "确认是否发货", DialogWrapper.BUTTON_DOUBLE, "", false);
+                        break;
+                    case "小票重打":
+                        //自动打印业务
+                        MainActivity.btPrinter.setDataBean(ordersListBean);
+                        btPrinter.print();
                         break;
 
                 }
@@ -461,6 +473,8 @@ public class OrderListFragment extends BaseFragment<OrderListPresenter, MultiIte
                 ToastUtils.showShort("成功接单");
                 //根据订单业务类型：1及时送订单 2次日达订单
                 //自动打印业务
+                MainActivity.btPrinter.setDataBean(ordersListBean);
+                btPrinter.print();
                 break;
             case "3":
                 ToastUtils.showShort("成功添加备注");

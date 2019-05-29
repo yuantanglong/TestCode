@@ -62,11 +62,13 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/iv_port"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@mipmap/shop_gp_dyj1" />
 
                     <TextView
+                        android:id="@+id/tv_port_connect"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x30"
@@ -82,11 +84,13 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/iv_saomaqiang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@mipmap/saoma1" />
 
                     <TextView
+                        android:id="@+id/tv_saomaqiang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x30"

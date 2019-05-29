@@ -21,19 +21,25 @@ public class ApiConfig {
     }
 
     private String mHostImgBase;
-    /**
-     * 商城服务器域名
-     */
-    private String mShopHostServer;
-    /**
-     * 商城服务器支付域名
-     */
-    private String mShopH5HostServer;
-    /**
-     * 资产钱包2.0服务器支付域名
-     */
-    private String mAssetsWallet2HostServer;
 
+    public String getVip_Agreement_Url() {
+        return vip_Agreement_Url;
+    }
+
+    public void setVip_Agreement_Url(String vip_Agreement_Url) {
+        this.vip_Agreement_Url = vip_Agreement_Url;
+    }
+
+    public String getHhj_Agreement_Url() {
+        return Hhj_Agreement_Url;
+    }
+
+    public void setHhj_Agreement_Url(String hhj_Agreement_Url) {
+        Hhj_Agreement_Url = hhj_Agreement_Url;
+    }
+
+    private String vip_Agreement_Url;
+    private String Hhj_Agreement_Url;
     /**
      * 读超时
      */
@@ -51,21 +57,7 @@ public class ApiConfig {
         this.mHostServer = hostServer;
     }
 
-    public String getShopHostServer() {
-        return mShopHostServer;
-    }
 
-    public void setShopHostServer(String shopHostServer) {
-        this.mShopHostServer = shopHostServer;
-    }
-
-    public String getShopH5HostServer() {
-        return mShopH5HostServer;
-    }
-
-    public void setShopH5HostServerr(String shopH5HostServerr) {
-        this.mShopH5HostServer = shopH5HostServerr;
-    }
 
     public int getReadTimeOut() {
         return mReadTimeOut;
@@ -83,13 +75,7 @@ public class ApiConfig {
         this.mConnectTimeOut = writeTimeOut;
     }
 
-    public String getmAssetsWallet2HostServer() {
-        return mAssetsWallet2HostServer;
-    }
 
-    public void setmAssetsWallet2HostServer(String mAssetsWallet2HostServer) {
-        this.mAssetsWallet2HostServer = mAssetsWallet2HostServer;
-    }
 
     @Override
     public String toString() {

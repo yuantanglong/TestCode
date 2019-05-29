@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <SurfaceView
+            android:id="@+id/scanner_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.hhj.merchant.ui.zxing.view.ViewfinderView
+            android:id="@+id/viewfinder_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:corner_color="@color/white"
+            app:frame_color="@color/viewfinder_frame"
+            app:label_text=""
+            app:label_text_color="@color/colorAccent"
+            app:laser_color="@color/laser_color"
+            app:mask_color="@color/viewfinder_mask"
+            app:result_color="@color/result_view"
+            app:result_point_color="@color/result_point_color" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_goods_list"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y460"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_66000000"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y348"
+                android:paddingTop="@dimen/y30" />
+
+            <View style="@style/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y110"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/x30"
+                android:paddingRight="@dimen/x30">
+
+                <TextView
+                    android:id="@+id/tv_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="数量:0"
+                    android:textColor="@color/color_E3E3E3"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="总价:0.00"
+                    android:textColor="@color/color_E3E3E3"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_buy"
+                    android:layout_width="@dimen/x154"
+                    android:layout_height="@dimen/y56"
+                    android:background="@drawable/shape_bg_979797_radius6"
+                    android:gravity="center"
+                    android:text="买单"
+                    android:textColor="@color/color_E3E3E3"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

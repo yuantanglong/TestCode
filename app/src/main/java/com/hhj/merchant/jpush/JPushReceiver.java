@@ -54,6 +54,7 @@ public class JPushReceiver extends BroadcastReceiver {
     private MediaPlayer mp;
     private Uri no;
     private Uri uri;
+    private JPushBean mMessage;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -79,8 +80,9 @@ public class JPushReceiver extends BroadcastReceiver {
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
             // 有推送信息啦
             mGson = new Gson();
-            JPushBean mMessage = mGson.fromJson(bundle.getString(JPushInterface.EXTRA_EXTRA), JPushBean.class);
-            playSound(context, mMessage.getType());
+            mMessage = mGson.fromJson(bundle.getString(JPushInterface.EXTRA_EXTRA), JPushBean.class);
+//            ReleasePlayer();
+//            playSound(context, mMessage.getType());
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             analysisBundle(context, bundle);
         }
@@ -145,6 +147,7 @@ public class JPushReceiver extends BroadcastReceiver {
             }
         }
     }
+
     private void analysisBundle(Context context, Bundle bundle) {
         Gson mGson = new Gson();
         JPushBean mMessage = mGson.fromJson(bundle.getString(JPushInterface.EXTRA_EXTRA), JPushBean.class);
@@ -167,7 +170,7 @@ public class JPushReceiver extends BroadcastReceiver {
         Intent intent1 = new Intent(context, MainActivity.class);
         intents[0] = intent1;
         intents[1] = mIntent;
-        if (null!=mIntent){
+        if (null != mIntent) {
             boolean existMainActivity = ActivityManager.getInstance().isExistMainActivity(context, MainActivity.class);
             if (!existMainActivity) {
                 PendingIntent mPendingIntent = PendingIntent.getActivities(context, 0, intents, 0);
@@ -181,6 +184,7 @@ public class JPushReceiver extends BroadcastReceiver {
             }
         }
     }
+
     public void playSound(Context context, int type) {
         try {
             mp = new MediaPlayer();
@@ -207,12 +211,34 @@ public class JPushReceiver extends BroadcastReceiver {
             }
             uri = Uri.parse(raw);
             mp = MediaPlayer.create(context, uri);
+            mp.reset();
             mp.start();
+            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+//                    if (mp.isPlaying()) {
+//                        mp.stop();//停止音频的播放
+//                    }
+//                    mp.release();//释放资源
+                    mp.pause();
+                    mp.seekTo(0);
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
         if (SPUtils.getInstance().getBoolean(Global.OPEN_VIBRATE, false)) {
             vibrate(context, 2000);
+        }
+    }
+
+    /**
+     * 释放播放器资源
+     */
+    private void ReleasePlayer() {
+        if (mp != null) {
+            mp.pause();
+            mp.seekTo(0);
         }
     }
 

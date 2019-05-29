@@ -1,8 +1,8 @@
 package com.hhj.merchant.ui.shop.adapter;
 
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.baseapp.common.http.Api;
 import com.baseapp.common.utils.GlideUtils;
@@ -24,33 +24,14 @@ import com.hhj.merchant.bean.GetListBean;
  * @Version: 1.0
  */
 public class DeliveryClerkManagerAdapter extends BaseQuickAdapter<GetListBean.NativePeopleBean, BaseViewHolder> {
-    public String rightTitle = "编辑";
-
-    public interface ViewClick {
-        void onClick(GetListBean.NativePeopleBean bean, String message, int position);
-    }
-
-    private ViewClick viewClick;
-
-    public DeliveryClerkManagerAdapter(ViewClick viewClick) {
+    public DeliveryClerkManagerAdapter() {
         super(R.layout.item_deliveryclerkmanager);
-        this.viewClick = viewClick;
     }
 
     @Override
     protected void convert(final BaseViewHolder helper, final GetListBean.NativePeopleBean item) {
-        final TextView tv_del = helper.getView(R.id.tv_del);
-        if ("编辑".equals(rightTitle)) {
-            tv_del.setVisibility(View.GONE);
-        } else if ("完成".equals(rightTitle)) {
-            tv_del.setVisibility(View.VISIBLE);
-        }
-        tv_del.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewClick.onClick(item, tv_del.getText().toString().trim(), helper.getAdapterPosition());
-            }
-        });
+        FrameLayout tv_del = helper.getView(R.id.fl_del);
+        tv_del.setVisibility(View.GONE);
         GlideUtils.loadImage(mContext, Api.getmApiConfig().getmHostImgBase() + item.getAvatar(), R.mipmap.head, R.mipmap.head, (ImageView) helper.getView(R.id.iv_avatar));
         helper.setText(R.id.tv_name, item.getName())
                 .setText(R.id.tv_workOrderCount, "本月已送" + item.getWorkOrderCount() + "单");

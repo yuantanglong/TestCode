@@ -229,7 +229,7 @@
             android:textSize="11sp" />
 
         <TextView
-            android:id="@+id/tv_1"
+            android:id="@+id/tv_vip_agreement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -240,9 +240,10 @@
             android:textSize="11sp" />
 
         <TextView
+            android:id="@+id/tv_hhj_agreement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_1"
+            android:layout_below="@+id/tv_vip_agreement"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/x10"
             android:layout_toRightOf="@+id/tv_login_checkBox_agreement"

@@ -2,6 +2,7 @@ package com.hhj.merchant.ui.shop.activity;
 
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -33,6 +34,7 @@ public class EquipmentManagerActivity extends BaseActivity {
     @BindView(R.id.tv_print_daodian_num)
     TextView tv_print_daodian_num;
     private Dialog dialog;
+    private Intent intent;
 
     @Override
     protected IToolbar getIToolbar() {
@@ -92,10 +94,14 @@ public class EquipmentManagerActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_print:
-                startActivity(ConnectBluetoothActivity.class);
+                intent = new Intent(mContext, ConnectBluetoothActivity.class);
+                intent.putExtra("tag","print");
+                startActivity(intent);
                 break;
             case R.id.ll_saoma:
-                startActivity(ConnectBluetoothActivity.class);
+                 intent=new Intent(mContext,ConnectBluetoothActivity.class);
+                intent.putExtra("tag","saoma");
+                startActivity(intent);
                 break;
             case R.id.ll_print_songhuo:
                 showDialog(Global.PRINT_SONGHUO_NUM);

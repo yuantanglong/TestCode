@@ -45,45 +45,15 @@ public class GuideActivity extends BaseActivity {
           在 BGABanner 里已经帮开发者处理了防止重复点击事件
           在 BGABanner 里已经帮开发者处理了「跳过按钮」和「进入按钮」的显示与隐藏
          */
-        mBGABanner.setEnterSkipViewIdAndDelegate(R.id.linearLayout, R.id.tv_guide_skip, new BGABanner.GuideDelegate() {
+        mBGABanner.setEnterSkipViewIdAndDelegate(R.id.view_go, R.id.tv_guide_skip, new BGABanner.GuideDelegate() {
             @Override
             public void onClickEnterOrSkip() {
-
+                startActivity(LoginActivity.class);
+                finish();
             }
         });
         mBGABanner.setData(R.mipmap.guide_page1, R.mipmap.guide_page2, R.mipmap.guide_page3);
-        mBGABanner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
-    @OnClick({R.id.tv_register, R.id.tv_login, R.id.tv_guide_skip})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_register:
-                startActivity(LoginActivity.class);
-                break;
-            case R.id.tv_login:
-
-                break;
-            case R.id.tv_guide_skip:
-
-                break;
-        }
-    }
-
     @Override
     protected IToolbar getIToolbar() {
         return null;

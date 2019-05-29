@@ -1,54 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.hhj.merchant.view.MyScrollview xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_E7EAEF"
-    android:orientation="vertical">
+    android:fillViewport="true">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y100"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/x30"
-        android:paddingRight="@dimen/x30">
+        android:layout_height="match_parent"
+        android:background="@color/color_E7EAEF"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/x30"
+            android:paddingRight="@dimen/x30">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="请打开蓝牙连接设备"
+                android:textColor="@color/color_004165"
+                android:textSize="15sp" />
+
+            <ToggleButton
+                android:id="@+id/tb_blue"
+                android:layout_width="@dimen/x104"
+                android:layout_height="@dimen/y66"
+                android:layout_gravity="center_vertical"
+                android:background="@color/color_00000000"
+                android:button="@drawable/toggle_btn"
+                android:textOff=""
+                android:textOn="" />
+        </LinearLayout>
+
+        <View style="@style/line" />
+
+        <LinearLayout
+            android:id="@+id/ll_no_connect"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="请打开蓝牙连接设备"
-            android:textColor="@color/color_004165"
-            android:textSize="15sp" />
+            android:orientation="vertical"
+            android:visibility="gone">
 
-        <ToggleButton
-            android:id="@+id/tb_sound_max"
-            android:layout_width="@dimen/x104"
-            android:layout_height="@dimen/y66"
-            android:layout_gravity="center_vertical"
-            android:background="@color/color_00000000"
-            android:button="@drawable/toggle_btn"
-            android:textOff=""
-            android:textOn="" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y88"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/x30"
+                android:paddingRight="@dimen/x30">
+
+                <TextView
+                    android:id="@+id/tv_isConnect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:text="当前未连接"
+                    android:textColor="@color/color_004165"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:text="暂无"
+                    android:textColor="@color/color_004165"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="@dimen/x10"
+                    android:layout_height="@dimen/y20"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:src="@mipmap/youjiantou" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_search"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y88"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/x30"
+                    android:text="附近可连接设备"
+                    android:textColor="@color/color_004165"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/x30"
+                    android:text="没有想要的？重新搜索"
+                    android:textColor="@color/color_13B5A1"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mUnBingRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y88"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/x30"
+                android:text="已配对设备"
+                android:textColor="@color/color_004165" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mBindRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_printTestPage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_printTestPage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y100"
+                android:layout_marginLeft="@dimen/x46"
+                android:layout_marginRight="@dimen/x46"
+                android:layout_marginBottom="@dimen/y30"
+                android:background="@drawable/shape_corner_login_button"
+                android:gravity="center"
+                android:text="打印测试页"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
     </LinearLayout>
-
-    <View style="@style/line" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y88"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/x30"
-        android:text="未连接"
-        android:textColor="@color/color_004165"
-        android:textSize="12sp" />
-    <TextView
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y88"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/x30"
-        android:text="检测到设备"
-        android:textColor="@color/color_004165"
-        android:textSize="14sp" />
-</LinearLayout>
+</com.hhj.merchant.view.MyScrollview>

@@ -4,6 +4,7 @@ import com.baseapp.common.base.BaseBean;
 import com.hhj.merchant.bean.DistributionListBean;
 import com.hhj.merchant.bean.GetListBean;
 import com.hhj.merchant.bean.GoldAmountBean;
+import com.hhj.merchant.bean.GoodsInfoBean;
 import com.hhj.merchant.bean.LoginBean;
 import com.hhj.merchant.bean.OrdersBean;
 import com.hhj.merchant.bean.ProductGoodListBean;
@@ -130,6 +131,12 @@ public interface AppService {
     @POST(ApiUrls.APPORDERGOODS_SUBMITORDER)
     Observable<BaseBean<SubmitOrderBean>> submitOrder(@Body Map<String, String> map);
 
+
+    /**
+     * 提交订单
+     */
+    @POST(ApiUrls.SELLER_PRODUCT_EDITSELLERGOODSSTOCK)
+    Observable<BaseBean> editSellerGoodsStock(@Body Map<String, String> map);
     /**
      * 提交订单
      */
@@ -250,4 +257,20 @@ public interface AppService {
      */
     @POST(ApiUrls.SELLER_DELIVERY_STAFF_REMOVE)
     Observable<BaseBean> remove(@Body Map<String, String> map);
+    /**
+     * 条码获取产品信息
+     */
+    @POST(ApiUrls.SELLER_UNDERLINE_GETGOODSINFO)
+    Observable<BaseBean<GoodsInfoBean>> getGoodsInfo(@Body Map<String, String> map);
+    /**
+     * 线下买单
+     */
+    @POST(ApiUrls.SELLER_UNDERLINE_SALERECORD)
+    Observable<BaseBean> saleRecord(@Body List<Map<String,String>> mapList);
+    /**
+     * 订单核销
+     */
+    @POST(ApiUrls.SELLER_VERIFYORDER_VERIFYORDER)
+    Observable<BaseBean> verifyOrder(@Body Map<String, String> map);
+
 }

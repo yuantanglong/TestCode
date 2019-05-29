@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.baseapp.common.base.BaseBean;
 import com.baseapp.common.base.callback.IToolbar;
@@ -26,39 +27,17 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class DeliveryClerkManagerActivity extends BaseActivity<DeliveryClerkManagerPresenter> implements DeliveryClerkManagerContract, BaseQuickAdapter.OnItemClickListener {
+public class DeliveryClerkManagerActivity extends BaseActivity<DeliveryClerkManagerPresenter> implements DeliveryClerkManagerContract, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemLongClickListener {
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
     DeliveryClerkManagerAdapter mAdapter;
     private Intent intent;
     private boolean isOnCreate = false;
-    private ToolbarBackTitle toolbarBackTitle;
     private Map<String, String> map;
-    private String rightTitleText;
 
     @Override
     protected IToolbar getIToolbar() {
-//        toolbarBackTitle = new ToolbarBackTitle(this, "配送员管理", new ToolbarBackTitle.ViewClick() {
-//            @Override
-//            public void onLlLeftClicked() {
-//
-//            }
-//
-//            @Override
-//            public void onLlRightClicked() {
-//                rightTitleText = toolbarBackTitle.getRightTitleText();
-//                if ("编辑".equals(rightTitleText)) {
-//                    toolbarBackTitle.setRightTitleText("完成");
-//                    mAdapter.rightTitle = "完成";
-//                    mAdapter.notifyDataSetChanged();
-//                } else if ("完成".equals(rightTitleText)) {
-//                    toolbarBackTitle.setRightTitleText("编辑");
-//                    mAdapter.rightTitle = "编辑";
-//                    mAdapter.notifyDataSetChanged();
-//                }
-//            }
-//        });
-        return new ToolbarBackTitle(this,"配送员管理");
+        return new ToolbarBackTitle(this, "配送员管理");
     }
 
     @Override
@@ -79,24 +58,14 @@ public class DeliveryClerkManagerActivity extends BaseActivity<DeliveryClerkMana
     @Override
     protected void initView(@Nullable Bundle savedInstanceState) {
         isOnCreate = true;
-//        toolbarBackTitle.setRightTitleText("编辑");
         initAdapter();
     }
 
     private void initAdapter() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        mAdapter = new DeliveryClerkManagerAdapter(new DeliveryClerkManagerAdapter.ViewClick() {
-            @Override
-            public void onClick(GetListBean.NativePeopleBean bean, String message, int position) {
-                if (message.equals("删除")) {
-                    map = new HashMap<>();
-                    map.put("id", bean.getId());
-                    mPresenter.remove(map);
-                }
-            }
-        });
-//        mAdapter.rightTitle = toolbarBackTitle.getRightTextView();
+        mAdapter = new DeliveryClerkManagerAdapter();
         mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnItemLongClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -144,13 +113,27 @@ public class DeliveryClerkManagerActivity extends BaseActivity<DeliveryClerkMana
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//        rightTitleText = toolbarBackTitle.getRightTitleText();
-        if ("编辑".equals(rightTitleText)) {
-            GetListBean.NativePeopleBean nativePeopleBean = mAdapter.getItem(position);
-            intent = new Intent(mContext, AddDeliveryClerkAndDetailsActivity.class);
-            intent.putExtra("type", "details");
-            intent.putExtra("nativePeopleBean", nativePeopleBean);
-            startActivity(intent);
-        }
+        GetListBean.NativePeopleBean nativePeopleBean = mAdapter.getItem(position);
+        intent = new Intent(mContext, AddDeliveryClerkAndDetailsActivity.class);
+        intent.putExtra("type", "details");
+        intent.putExtra("nativePeopleBean", nativePeopleBean);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onItemLongClick(final BaseQuickAdapter adapter, View view, final int position) {
+        final GetListBean.NativePeopleBean item = mAdapter.getItem(position);
+        final FrameLayout fl_del = (FrameLayout) view.findViewById(R.id.fl_del);
+        fl_del.setVisibility(View.VISIBLE);
+        fl_del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl_del.setVisibility(View.GONE);
+                map = new HashMap<>();
+                map.put("id", item.getId());
+                mPresenter.remove(map);
+            }
+        });
+        return true;
     }
 }

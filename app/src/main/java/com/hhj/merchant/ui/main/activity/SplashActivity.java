@@ -77,36 +77,37 @@ public class SplashActivity extends BaseActivity {
     }
 
     public void showRetryRequestDialog() {
-        if (mRetryDialog == null) {
-            mRetryDialog = (CustomDialog) DialogWrapper.
-                    tipDialog().
-                    context(this).
-                    title(UIUtils.getString(R.string.tip)).
-                    closeImageVisible(false).
-                    message(UIUtils.getString(R.string.app_download_retry)).
-                    buttonType(DialogWrapper.BUTTON_SINGLE).
-                    singleButtonText(UIUtils.getString(R.string.retry)).
-                    buttonClickListener(new DialogWrapper.TipTypeButtonClickListener() {
-                        @Override
-                        public void onLeftButtonClicked(TextView view) {
-
-                        }
-
-                        @Override
-                        public void onSingleButtonClicked(TextView view) {
-                            mRetryDialog.dismiss();
-                            initCheckAppServerVersion();
-                        }
-
-                        @Override
-                        public void onRightButtonClicked(TextView view) {
-
-                        }
-                    }).
-                    build();
-        }
-
-        mRetryDialog.show();
+        delayNavigateToNext();
+//        if (mRetryDialog == null) {
+//            mRetryDialog = (CustomDialog) DialogWrapper.
+//                    tipDialog().
+//                    context(this).
+//                    title(UIUtils.getString(R.string.tip)).
+//                    closeImageVisible(false).
+//                    message(UIUtils.getString(R.string.app_download_retry)).
+//                    buttonType(DialogWrapper.BUTTON_SINGLE).
+//                    singleButtonText(UIUtils.getString(R.string.retry)).
+//                    buttonClickListener(new DialogWrapper.TipTypeButtonClickListener() {
+//                        @Override
+//                        public void onLeftButtonClicked(TextView view) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onSingleButtonClicked(TextView view) {
+//                            mRetryDialog.dismiss();
+//                            initCheckAppServerVersion();
+//                        }
+//
+//                        @Override
+//                        public void onRightButtonClicked(TextView view) {
+//
+//                        }
+//                    }).
+//                    build();
+//        }
+//
+//        mRetryDialog.show();
     }
 
     public void delayNavigateToNext() {

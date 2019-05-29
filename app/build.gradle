@@ -5,6 +5,7 @@ bugly {
     appId = 'b40c32789d'
     appKey = 'fd79c0c7-e5d4-4887-bb18-004ba9954185'
 }
+
 def getDate() {
     def date = new Date()
     def formattedDate = date.format('yyyyMMddHHmm')
@@ -113,4 +114,8 @@ dependencies {
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     api rootProject.ext.dependencies.jpush
     api rootProject.ext.dependencies.jcore
+    api rootProject.ext.dependencies.zxing
+    implementation files('libs/gprintersdkv2.1.4.jar')
+    //JSBridge
+    implementation 'com.github.lzyzsd:jsbridge:1.0.4'
 }

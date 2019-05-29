@@ -141,4 +141,23 @@ public class SelectGoodsPresenter extends BasePresenter<SelectGoodsContract> {
                     }
                 });
     }
+
+    public void editSellerGoodsStock(Map<String, String> map) {
+        Api.
+                observable(Api.getService(AppService.class).editSellerGoodsStock(map)).
+                presenter(this).
+                requestMode(RequestMode.SINGLE).
+                showLoading(true).
+                doRequest(new RxSubscriber<BaseBean, BaseBean<BaseBean>>() {
+                    @Override
+                    protected void _onSuccess(BaseBean bean, String successMessage) {
+                        mView.editSellerGoodsStock(bean);
+                    }
+
+                    @Override
+                    protected void _onError(ErrorType errorType, String errorCode, String message, BaseBean bean) {
+                        LogUtils.e("errorType==" + errorType + "==errorCode==" + errorCode + "==tokenBean==" + bean);
+                    }
+                });
+    }
 }

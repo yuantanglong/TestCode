@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baseapp.common.base.BaseBean;
 import com.baseapp.common.base.adapter.BaseRecyclerViewAdapter;
 import com.baseapp.common.base.ui.BaseFragment;
 import com.baseapp.common.http.error.ErrorType;
@@ -212,6 +213,11 @@ public class SelectGoodsFragment extends BaseFragment<SelectGoodsPresenter, Mult
     }
 
     @Override
+    public void editSellerGoodsStock(BaseBean bean) {
+        ToastUtils.showShort("修改库存成功");
+    }
+
+    @Override
     public void showErrorTip(ErrorType errorType, int errorCode, String message) {
 
     }
@@ -224,14 +230,18 @@ public class SelectGoodsFragment extends BaseFragment<SelectGoodsPresenter, Mult
             mGoodsTypeAdapter.notifyDataSetChanged();
             ProductTypeBean productTypeBean = mGoodsTypeAdapter.getItem(position);
             initSellerGoods(productTypeBean.getId());
-        } else if (adapter instanceof GoodsAdapter) {
+        } else if (adapter instanceof GoodsAdapter || adapter instanceof ProductGoodListAdapter) {
             this.position = position;
             tv_count = view.findViewById(R.id.tv_count);
             TextView tv_sell_out = view.findViewById(R.id.tv_sell_out);
             if (tv_sell_out.getVisibility() == View.GONE) {
                 dialog_view = View.inflate(mActivity, R.layout.dialog_view_edittext, null);
                 et_count = dialog_view.findViewById(R.id.et_count);
-                showDialog(1, dialog_view, "添加数量");
+                if (adapter instanceof GoodsAdapter) {
+                    showDialog(1, dialog_view, "添加数量");
+                } else if (adapter instanceof ProductGoodListAdapter) {
+                    showDialog(3, dialog_view, "修改库存");
+                }
             }
         }
     }
@@ -263,22 +273,30 @@ public class SelectGoodsFragment extends BaseFragment<SelectGoodsPresenter, Mult
 
                     @Override
                     public void onRightButtonClicked(TextView view) {
-                        if (type == 1) {
+                        if (type == 1 || type == 3) {
                             String count = et_count.getText().toString().trim();
                             if (StringUtils.isEmpty(count)) {
                                 ToastUtils.showShort("请输入数量");
                             } else {
                                 dialog.dismiss();
                                 SellerGoodsBean item = mGoodsAdapter.getItem(position);
-                                sellerOrderConditionLists = new ArrayList<>();
-                                SellerOrderConditionList bean = new SellerOrderConditionList();
-                                bean.setCount(count);
-                                bean.setSellerProductGoodsId(item.getProductGoodId());
-                                sellerOrderConditionLists.add(bean);
-                                db_money += Double.parseDouble(FormatUtil.doubleSave2(Double.parseDouble(item.getSellerPrice()) * Double.parseDouble(count)));
-                                tv_money.setText(db_money + "");
-                                tv_count.setText(count);
-                                tv_number.setText((number += Integer.parseInt(count)) + "");
+                                if (type == 1) {
+                                    sellerOrderConditionLists = new ArrayList<>();
+                                    SellerOrderConditionList bean = new SellerOrderConditionList();
+                                    bean.setCount(count);
+                                    bean.setSellerProductGoodsId(item.getProductGoodId());
+                                    sellerOrderConditionLists.add(bean);
+                                    db_money += Double.parseDouble(FormatUtil.doubleSave2(Double.parseDouble(item.getSellerPrice()) * Double.parseDouble(count)));
+                                    tv_money.setText(db_money + "");
+                                    tv_count.setText(count);
+                                    tv_number.setText((number += Integer.parseInt(count)) + "");
+                                } else if (type == 3) {
+                                    tv_count.setText(count);
+                                    map = new HashMap<>();
+                                    map.put("sellerProductId", item.getProductGoodId());
+                                    map.put("stock", count);
+                                    mPresenter.editSellerGoodsStock(map);
+                                }
                             }
                         } else if (type == 2) {
                             dialog.dismiss();

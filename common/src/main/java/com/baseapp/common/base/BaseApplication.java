@@ -2,20 +2,14 @@ package com.baseapp.common.base;
 
 import android.app.Application;
 import android.content.Context;
-
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.text.TextUtils;
 
-import com.alibaba.android.arouter.launcher.ARouter;
-import android.content.res.Resources;
-
 import com.baseapp.common.base.config.BaseConfig;
 import com.baseapp.common.utils.PackageUtils;
-import com.baseapp.common.utils.UIUtils;
 import com.blankj.utilcode.util.BarUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -36,14 +30,6 @@ public class BaseApplication extends Application {
         baseApplication = this;
         Utils.init(this);
         SPUtils.getInstance().put(BaseConfig.STATUS_BAR_HEIGHT, BarUtils.getStatusBarHeight());
-
-
-        if (isAppDebug()) {
-            //开启InstantRun之后，一定要在ARouter.init之前调用openDebug
-            ARouter.openDebug();
-            ARouter.openLog();
-        }
-        ARouter.init(this);
         setBugly();
     }
     /**

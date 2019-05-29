@@ -31,4 +31,5 @@ public interface SelectGoodsContract extends BaseView {
     void getGoldAmount(GoldAmountBean bean);
 
     void submitOrder(SubmitOrderBean bean);
+    void editSellerGoodsStock(BaseBean bean);
 }
